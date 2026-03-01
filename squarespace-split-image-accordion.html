@@ -1,0 +1,402 @@
+<!-- ============================================================
+  SPLIT IMAGE ACCORDION — Squarespace Code Block (FAANG-grade)
+  ============================================================ -->
+
+  <style>
+    :root {
+      /* Brand (unchanged) */
+      --sw-accent:   #BB2327;
+      --sw-divider:  rgba(185, 36, 44, 0.15);
+      --sw-text:     #1C77A6;
+      --sw-font:     'Cormorant Garamond', Georgia, serif;
+      /* Design system */
+      --sw-text-body:  #0f4f70;
+      --sw-text-muted: rgba(15, 79, 112, 0.72);
+      /* Frosted glass */
+      --sw-glass:      rgba(255, 255, 255, 0.38);
+      --sw-glass-strong: rgba(255, 255, 255, 0.55);
+      --sw-glass-border: rgba(255, 255, 255, 0.5);
+      --sw-glass-blur:  16px;
+      --sw-border:     rgba(28, 119, 166, 0.12);
+      --sw-border-strong: rgba(28, 119, 166, 0.2);
+      --sw-radius-sm:  12px;
+      --sw-radius-md:  16px;
+      --sw-radius-lg:  24px;
+      --sw-radius-xl:  32px;
+      --sw-space-1:    4px;
+      --sw-space-2:    8px;
+      --sw-space-3:    12px;
+      --sw-space-4:    16px;
+      --sw-space-5:    24px;
+      --sw-space-6:    32px;
+      --sw-space-7:    48px;
+      --sw-space-8:    64px;
+      --sw-ease-out:   cubic-bezier(0.22, 1, 0.36, 1);
+      --sw-ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --sw-shadow-sm:  0 1px 2px rgba(0, 0, 0, 0.04), 0 2px 8px rgba(0, 0, 0, 0.04);
+      --sw-shadow-md:  0 4px 12px rgba(0, 0, 0, 0.06), 0 8px 24px rgba(0, 0, 0, 0.06);
+      --sw-shadow-lg:  0 12px 40px rgba(0, 0, 0, 0.08), 0 24px 64px rgba(0, 0, 0, 0.06);
+      --sw-focus-ring: 0 0 0 3px rgba(187, 35, 39, 0.25);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      :root {
+        --sw-ease-out:   linear;
+        --sw-ease-in-out: linear;
+      }
+    }
+
+    .sw-wrap {
+      display: flex;
+      gap: var(--sw-space-8);
+      max-width: 1200px;
+      margin: var(--sw-space-8) auto;
+      padding: 0 var(--sw-space-6);
+      font-family: var(--sw-font);
+      align-items: flex-start;
+      box-sizing: border-box;
+    }
+
+    /* ── LEFT: Image panel (frosted glass) ── */
+    .sw-img-card {
+      flex: 0 0 44%;
+      position: sticky;
+      top: 96px;
+      border-radius: var(--sw-radius-xl);
+      padding: var(--sw-space-4);
+      background: var(--sw-glass);
+      backdrop-filter: blur(var(--sw-glass-blur));
+      -webkit-backdrop-filter: blur(var(--sw-glass-blur));
+      border: 1px solid var(--sw-glass-border);
+      box-shadow: var(--sw-shadow-md);
+      box-sizing: border-box;
+    }
+
+    .sw-img-wrap {
+      border-radius: var(--sw-radius-md);
+      overflow: hidden;
+      position: relative;
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .sw-img-wrap::before {
+      content: '';
+      display: block;
+      padding-top: 100%;
+    }
+
+    .sw-img-wrap img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
+      opacity: 0;
+      transition: opacity 0.5s var(--sw-ease-out);
+      pointer-events: none;
+      background: transparent;
+    }
+
+    .sw-img-wrap img.sw-vis {
+      opacity: 1;
+    }
+
+    /* ── RIGHT: Accordion ── */
+    .sw-list {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: var(--sw-space-3);
+    }
+
+    .sw-card {
+      border-radius: var(--sw-radius-md);
+      background: var(--sw-glass);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--sw-glass-border);
+      box-shadow: var(--sw-shadow-sm);
+      overflow: hidden;
+      transition:
+        background 0.25s var(--sw-ease-out),
+        border-color 0.25s var(--sw-ease-out),
+        box-shadow 0.25s var(--sw-ease-out),
+        transform 0.25s var(--sw-ease-out);
+    }
+
+    .sw-card:hover {
+      background: rgba(255, 255, 255, 0.45);
+      border-color: rgba(255, 255, 255, 0.6);
+      box-shadow: var(--sw-shadow-md);
+    }
+
+    .sw-card.sw-open {
+      background: var(--sw-glass-strong);
+      border-color: rgba(255, 255, 255, 0.65);
+      box-shadow: var(--sw-shadow-md);
+      transform: translateY(-1px);
+    }
+
+    .sw-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--sw-space-5) var(--sw-space-5);
+      cursor: pointer;
+      gap: var(--sw-space-4);
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      outline: none;
+      border: none;
+      width: 100%;
+      text-align: left;
+      background: transparent;
+      font: inherit;
+    }
+
+    .sw-head:focus-visible {
+      box-shadow: inset var(--sw-focus-ring);
+    }
+
+    .sw-head-title {
+      flex: 1;
+      font-family: var(--sw-font);
+      font-size: clamp(1.25rem, 2.2vw, 1.5rem);
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      color: var(--sw-text-body);
+      margin: 0;
+      padding: 0;
+      border: none;
+      background: none;
+      line-height: 1.3;
+      transition: color 0.2s var(--sw-ease-out);
+    }
+
+    .sw-card.sw-open .sw-head-title {
+      color: var(--sw-accent);
+    }
+
+    .sw-chevron-wrap {
+      flex-shrink: 0;
+      width: 40px;
+      height: 40px;
+      border-radius: var(--sw-radius-sm);
+      background: rgba(187, 35, 39, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s var(--sw-ease-out), transform 0.3s var(--sw-ease-out);
+    }
+
+    .sw-card.sw-open .sw-chevron-wrap {
+      background: rgba(187, 35, 39, 0.14);
+      transform: rotate(90deg);
+    }
+
+    .sw-chevron {
+      display: inline-block;
+      color: var(--sw-accent);
+      font-size: 20px;
+      font-weight: 600;
+      line-height: 1;
+    }
+
+    .sw-body {
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height 0.4s var(--sw-ease-out);
+    }
+
+    .sw-body-pad {
+      padding: 0 var(--sw-space-5) var(--sw-space-5);
+      border-top: 1px solid var(--sw-divider);
+    }
+
+    .sw-body-pad p {
+      font-size: clamp(0.9375rem, 1.1vw, 1rem);
+      line-height: 1.75;
+      color: var(--sw-text-body);
+      margin: var(--sw-space-4) 0 var(--sw-space-4);
+      font-family: var(--sw-font);
+      letter-spacing: 0.01em;
+    }
+
+    .sw-link {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--sw-space-2);
+      font-family: system-ui, -apple-system, sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--sw-accent);
+      text-decoration: none;
+      border-top: 1px solid var(--sw-divider);
+      padding-top: var(--sw-space-4);
+      margin-top: var(--sw-space-2);
+      transition: color 0.2s var(--sw-ease-out), opacity 0.2s var(--sw-ease-out);
+    }
+
+    .sw-link:hover {
+      color: #8f1a1e;
+      opacity: 0.9;
+    }
+
+    .sw-link:focus-visible {
+      outline: 2px solid var(--sw-accent);
+      outline-offset: 2px;
+    }
+
+    /* ── Mobile ── */
+    @media (max-width: 768px) {
+      .sw-wrap {
+        flex-direction: column;
+        gap: var(--sw-space-6);
+        margin: var(--sw-space-6) auto;
+        padding: 0 var(--sw-space-4);
+      }
+      .sw-img-card {
+        position: relative;
+        top: auto;
+        flex: none;
+        width: 100%;
+        border-radius: var(--sw-radius-lg);
+        padding: var(--sw-space-3);
+      }
+      .sw-img-wrap {
+        border-radius: var(--sw-radius-sm);
+      }
+      .sw-card {
+        border-radius: var(--sw-radius-sm);
+      }
+      .sw-head {
+        padding: var(--sw-space-4) var(--sw-space-4);
+      }
+      .sw-body-pad {
+        padding: 0 var(--sw-space-4) var(--sw-space-4);
+      }
+      .sw-chevron-wrap {
+        width: 36px;
+        height: 36px;
+      }
+      .sw-chevron {
+        font-size: 18px;
+      }
+    }
+  </style>
+  
+  
+  <div class="sw-wrap">
+  
+    <!-- Frosted glass card — image panel -->
+    <div class="sw-img-card">
+      <div class="sw-img-wrap" id="swImgs">
+        <img src="https://images.squarespace-cdn.com/content/69866a537fe19438ada9fffd/3d70201a-0e84-4dcc-8caa-c162259ea047/Gemini_Generated_Image_sly2hisly2hisly2.png?content-type=image%2Fpng" alt="Postural Assessments" class="sw-vis">
+        <img src="https://images.squarespace-cdn.com/content/69866a537fe19438ada9fffd/8c5d85fd-ee67-43af-8e1e-965d4e3773b2/Gemini_Generated_Image_dprx6adprx6adprx.png?content-type=image%2Fpng" alt="Science-Backed Coaching">
+        <img src="https://images.squarespace-cdn.com/content/69866a537fe19438ada9fffd/b7c1635a-c8b2-4e37-b2fb-4a3aaa4b2df2/Gemini_Generated_Image_qflra1qflra1qflr.png?content-type=image%2Fpng" alt="Personalized Programming">
+        <img src="https://images.squarespace-cdn.com/content/69866a537fe19438ada9fffd/dc0411db-846f-4d6b-9c0c-8bcd21ea2967/Gemini_Generated_Image_30qq4s30qq4s30qq.png?content-type=image%2Fpng" alt="Goal Oriented Approach">
+      </div>
+    </div>
+
+    <div class="sw-list" id="swList">
+  
+      <!-- ▸ ITEM 1 -->
+      <div class="sw-card sw-open">
+        <button type="button" class="sw-head" aria-expanded="true" aria-controls="sw-body-1" id="sw-head-1">
+          <span class="sw-head-title">Postural Assessments</span>
+          <span class="sw-chevron-wrap" aria-hidden="true"><span class="sw-chevron">›</span></span>
+        </button>
+        <div class="sw-body" id="sw-body-1" role="region" aria-labelledby="sw-head-1">
+          <div class="sw-body-pad">
+            <p>So often, we are told our posture is "bad" or "wrong." I view it differently: your body has simply found clever ways to keep you moving. A postural assessment is our chance to thank your body for its adaptability while providing it with better options. Together, we'll create an intentional plan to move you out of compensation and into a state of balanced, pain-free power.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ▸ ITEM 2 -->
+      <div class="sw-card">
+        <button type="button" class="sw-head" aria-expanded="false" aria-controls="sw-body-2" id="sw-head-2">
+          <span class="sw-head-title">Science-Backed Coaching</span>
+          <span class="sw-chevron-wrap" aria-hidden="true"><span class="sw-chevron">›</span></span>
+        </button>
+        <div class="sw-body" id="sw-body-2" role="region" aria-labelledby="sw-head-2">
+          <div class="sw-body-pad">
+            <p>Evidence-Led, Athlete-Tested. My approach is rooted in the science of how the body actually heals and strengthens. Combining my OSU Exercise Science background with over 6 years of clinical and field experience, I translate complex biomechanics into a simple, effective roadmap for you. You get a program backed by the highest academic honors and the lived experience of a DI track athlete.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ▸ ITEM 3 -->
+      <div class="sw-card">
+        <button type="button" class="sw-head" aria-expanded="false" aria-controls="sw-body-3" id="sw-head-3">
+          <span class="sw-head-title">Personalized Programming</span>
+          <span class="sw-chevron-wrap" aria-hidden="true"><span class="sw-chevron">›</span></span>
+        </button>
+        <div class="sw-body" id="sw-body-3" role="region" aria-labelledby="sw-head-3">
+          <div class="sw-body-pad">
+            <p>A program only works if it fits your life. Drawing on my Exercise Science degree and years in corporate wellness, I build custom roadmaps that respect your schedule and your injury history. Whether it's a corrective routine for your desk or a 4-day strength split, every exercise is chosen to help you move through the world with more ease and less pain.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ▸ ITEM 4 -->
+      <div class="sw-card">
+        <button type="button" class="sw-head" aria-expanded="false" aria-controls="sw-body-4" id="sw-head-4">
+          <span class="sw-head-title">Goal Oriented Approach</span>
+          <span class="sw-chevron-wrap" aria-hidden="true"><span class="sw-chevron">›</span></span>
+        </button>
+        <div class="sw-body" id="sw-body-4" role="region" aria-labelledby="sw-head-4">
+          <div class="sw-body-pad">
+            <p>Every big win is built on a foundation of small, intentional victories. We start by honoring where you are today and identifying the meaningful milestones that will move the needle for you. This is a collaborative journey where your feedback is just as important as the data. Together, we'll turn "I wish I could" into "I'm glad I did," celebrating every step of your evolution.</p>
+          </div>
+        </div>
+      </div>
+  
+    </div>
+  </div>
+  
+  
+  <script>
+  (function () {
+    var cards = Array.from(document.querySelectorAll('#swList .sw-card'));
+    var imgs  = Array.from(document.querySelectorAll('#swImgs img'));
+  
+    function activate(index) {
+      cards.forEach(function(c, i) {
+        c.classList.remove('sw-open');
+        c.querySelector('.sw-body').style.maxHeight = '';
+        var btn = c.querySelector('.sw-head');
+        if (btn) {
+          btn.setAttribute('aria-expanded', i === index ? 'true' : 'false');
+        }
+      });
+      imgs.forEach(function(img) { img.classList.remove('sw-vis'); });
+  
+      cards[index].classList.add('sw-open');
+      var body = cards[index].querySelector('.sw-body');
+      body.style.maxHeight = body.scrollHeight + 'px';
+      imgs[index].classList.add('sw-vis');
+    }
+  
+    (function init() {
+      var b = cards[0].querySelector('.sw-body');
+      b.style.maxHeight = b.scrollHeight + 'px';
+    })();
+  
+    cards.forEach(function(card, i) {
+      var head = card.querySelector('.sw-head');
+      if (head) {
+        head.addEventListener('click', function() {
+          if (!card.classList.contains('sw-open')) {
+            activate(i);
+          }
+        });
+      }
+    });
+  })();
+  </script>
+  

@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI Calculator - Restorative Kinetics</title>
+    <style>
+        * { box-sizing: border-box; }
+        
+        body { 
+            font-family: 'Montserrat', 'Avenir', -apple-system, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: transparent;
+        }
+        
+        .calculator-container {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        h1 { 
+            color: #2c3e50;
+            font-size: 2.2em;
+            margin: 0 0 10px 0;
+            font-weight: 700;
+        }
+        
+        h2 {
+            color: #2c3e50;
+            font-size: 1.5em;
+            margin: 30px 0 15px 0;
+            font-weight: 600;
+        }
+        
+        h3 {
+            color: #2c3e50;
+            font-size: 1.2em;
+            margin: 20px 0 10px 0;
+            font-weight: 600;
+        }
+        
+        .subtitle {
+            color: #5a6c7d;
+            font-size: 1em;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+        
+        .education-section {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(8px);
+            padding: 24px;
+            border-radius: 16px;
+            margin-bottom: 30px;
+            border: 2px solid rgba(212, 168, 83, 0.3);
+        }
+        
+        .concept-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin: 20px 0;
+        }
+        
+        .concept-card {
+            background: rgba(255, 255, 255, 0.6);
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid #D4A853;
+        }
+        
+        .concept-icon {
+            font-size: 2em;
+            margin-bottom: 8px;
+        }
+        
+        .concept-title {
+            font-size: 1.1em;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+        
+        .concept-text {
+            font-size: 0.9em;
+            color: #5a6c7d;
+            line-height: 1.5;
+            font-weight: 500;
+        }
+        
+        .bmi-formula {
+            background: rgba(255, 255, 255, 0.5);
+            padding: 16px;
+            border-radius: 10px;
+            margin-top: 16px;
+            text-align: center;
+        }
+        
+        .formula-text {
+            font-size: 1.1em;
+            font-weight: 700;
+            color: #2c3e50;
+            margin: 10px 0;
+        }
+        
+        .form-group {
+            margin-bottom: 24px;
+        }
+        
+        label { 
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 0.95em;
+        }
+        
+        input, select { 
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid rgba(230, 230, 230, 0.6);
+            border-radius: 12px;
+            font-size: 1em;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(8px);
+            transition: all 0.3s ease;
+            color: #2c3e50;
+        }
+        
+        input:focus, select:focus {
+            outline: none;
+            border-color: #D4A853;
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 0 0 3px rgba(212, 168, 83, 0.1);
+        }
+        
+        .height-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+        
+        button { 
+            flex: 1;
+            min-width: 140px;
+            padding: 16px 24px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #D4A853 0%, #C89B48 100%);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 168, 83, 0.3);
+        }
+        
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(8px);
+            color: #5a6c7d;
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.8);
+        }
+        
+        #result { 
+            margin-top: 30px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            display: none;
+        }
+        
+        .bmi-score {
+            font-size: 3em;
+            font-weight: 700;
+            margin: 10px 0;
+            text-align: center;
+        }
+        
+        .bmi-category {
+            text-align: center;
+            font-size: 1.4em;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        
+        .info-card {
+            background: rgba(255, 255, 255, 0.5);
+            padding: 16px;
+            border-radius: 12px;
+            margin: 12px 0;
+        }
+        
+        .info-card strong {
+            color: #2c3e50;
+            display: block;
+            margin-bottom: 4px;
+        }
+        
+        .metric-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 20px;
+        }
+        
+        .metric-box {
+            background: rgba(255, 255, 255, 0.6);
+            padding: 16px;
+            border-radius: 12px;
+            text-align: center;
+        }
+        
+        .metric-box .number {
+            font-size: 1.6em;
+            font-weight: 700;
+            color: #D4A853;
+            display: block;
+        }
+        
+        .metric-box .label {
+            font-size: 0.85em;
+            color: #5a6c7d;
+            margin-top: 4px;
+        }
+        
+        #history {
+            margin-top: 20px;
+        }
+        
+        .history-item { 
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(8px);
+            padding: 14px 18px;
+            margin: 8px 0;
+            border-radius: 12px;
+            color: #2c3e50;
+            font-size: 0.95em;
+        }
+        
+        .info-banner {
+            background: rgba(212, 168, 83, 0.15);
+            backdrop-filter: blur(8px);
+            padding: 16px 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            border-left: 4px solid #D4A853;
+            color: #2c3e50;
+            font-size: 0.9em;
+            line-height: 1.6;
+        }
+
+        /* New Disclaimer and Upsell Styles */
+        .disclaimer-box {
+            background: rgba(231, 76, 60, 0.08);
+            border: 1px dashed #e74c3c;
+            padding: 20px;
+            border-radius: 16px;
+            margin-top: 20px;
+        }
+
+        .upsell-box {
+            background: linear-gradient(135deg, #2c3e50 0%, #1a252f 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            margin-top: 40px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            border: 2px solid #D4A853;
+        }
+
+        .upsell-box h3 { color: #D4A853; margin-top: 0; }
+        .upsell-box p { font-size: 0.95em; line-height: 1.6; opacity: 0.9; }
+        .price-tag { 
+            display: inline-block; 
+            padding: 8px 16px; 
+            background: #D4A853; 
+            color: #2c3e50; 
+            border-radius: 50px; 
+            font-weight: 800; 
+            margin: 10px 0;
+        }
+        
+        table { 
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(8px);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        
+        th, td { 
+            padding: 14px;
+            text-align: left;
+            color: #2c3e50;
+        }
+        
+        th { 
+            background: rgba(212, 168, 83, 0.2);
+            font-weight: 600;
+        }
+        
+        tr:not(:last-child) td {
+            border-bottom: 1px solid rgba(200, 200, 200, 0.3);
+        }
+        
+        /* Mobile: horizontal scroll for concept cards + arrows */
+        .concept-arrows {
+            display: none;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            margin-top: 12px;
+        }
+        .concept-arrow-btn {
+            width: 28px !important;
+            min-width: 28px !important;
+            height: 28px !important;
+            min-height: 28px !important;
+            padding: 0 !important;
+            border-radius: 50%;
+            border: 1px solid #D4A853;
+            background: rgba(212, 168, 83, 0.15);
+            color: #2c3e50;
+            font-size: 18px !important;
+            line-height: 1 !important;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: background 0.2s;
+        }
+        .concept-arrow-btn:hover, .concept-arrow-btn:focus {
+            background: rgba(212, 168, 83, 0.3);
+            outline: none;
+        }
+        
+        @media (max-width: 768px) {
+            .education-section .concept-grid {
+                display: flex !important;
+                flex-wrap: nowrap !important;
+                align-items: stretch !important;
+                overflow-x: auto !important;
+                overflow-y: visible !important;
+                gap: 16px;
+                margin: 20px 0 0;
+                padding-bottom: 8px;
+                scroll-snap-type: x mandatory;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+            }
+            .education-section .concept-grid::-webkit-scrollbar { display: none; }
+            .education-section .concept-card {
+                flex: 0 0 100% !important;
+                width: 100% !important;
+                min-width: 0 !important;
+                max-width: 100% !important;
+                min-height: auto !important;
+                scroll-snap-align: start;
+                overflow: visible !important;
+                box-sizing: border-box;
+            }
+            .education-section .concept-card .concept-text {
+                overflow: visible !important;
+                white-space: normal !important;
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+            }
+            .concept-arrows { display: flex !important; gap: 12px !important; }
+        }
+        
+        @media (max-width: 600px) {
+            .calculator-container {
+                padding: 24px;
+            }
+            h1 {
+                font-size: 1.8em;
+            }
+            .metric-grid {
+                grid-template-columns: 1fr;
+            }
+            .button-group {
+                flex-direction: column;
+            }
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator-container">
+        <h1>💪🏽🏋🏼 BMI Calculator</h1>
+        <p class="subtitle">Get personalized insights on your body mass index, metabolic rate, and ideal weight range. This tool is designed for adults 20+.</p>
+
+        <div class="education-section">
+            <h2>Understanding Body Mass Index (BMI)</h2>
+            <p style="color: #5a6c7d; line-height: 1.6; font-weight: 500;">BMI is a simple screening tool that uses your height and weight to estimate body fat. While it's a quick starting point, it has significant limitations for active individuals.</p>
+            
+            <div class="concept-grid" id="conceptGrid" role="region" aria-label="BMI information">
+                <div class="concept-card">
+                    <div class="concept-icon">📐</div>
+                    <div class="concept-title">What Is BMI?</div>
+                    <div class="concept-text">BMI calculates your weight relative to your height. It's used worldwide as a quick screening method for weight categories.</div>
+                </div>
+                
+                <div class="concept-card">
+                    <div class="concept-icon">🎯</div>
+                    <div class="concept-title">Why It Matters</div>
+                    <div class="concept-text">BMI correlates with health risks. Higher BMI is linked to increased risk of heart disease and diabetes.</div>
+                </div>
+                
+                <div class="concept-card">
+                    <div class="concept-icon">⚠️</div>
+                    <div class="concept-title">Limitations</div>
+                    <div class="concept-text">BMI doesn't distinguish between muscle and fat. Athletes often appear "overweight" due to dense muscle mass.</div>
+                </div>
+                
+                <div class="concept-card">
+                    <div class="concept-icon">💡</div>
+                    <div class="concept-title">Best Used With</div>
+                    <div class="concept-text">Combine BMI with body fat percentage and performance metrics for a complete health picture.</div>
+                </div>
+            </div>
+            <div class="concept-arrows" id="conceptArrows" aria-hidden="true">
+                <button type="button" class="concept-arrow-btn" id="conceptPrev" aria-label="Previous">‹</button>
+                <button type="button" class="concept-arrow-btn" id="conceptNext" aria-label="Next">›</button>
+            </div>
+        </div>
+
+        <h2>Calculate Your BMI</h2>
+
+        <div class="form-group">
+            <label>Age (years)</label>
+            <input type="number" id="age" min="20" value="30" required>
+        </div>
+        
+        <div class="form-group">
+            <label>Gender</label>
+            <select id="gender">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label>Height</label>
+            <select id="heightUnit">
+                <option value="imperial">Feet & Inches</option>
+                <option value="metric">Centimeters</option>
+            </select>
+        </div>
+        <div id="heightInputs"></div>
+        
+        <div class="form-group">
+            <label>Weight</label>
+            <select id="weightUnit">
+                <option value="imperial">Pounds (lbs)</option>
+                <option value="metric">Kilograms (kg)</option>
+            </select>
+            <input type="number" id="weight" min="1" step="0.1" placeholder="150" required>
+        </div>
+        
+        <div class="form-group">
+            <label>Activity Level</label>
+            <select id="activity">
+                <option value="1.2">Sedentary (little exercise)</option>
+                <option value="1.375">Lightly Active (1-3 days/week)</option>
+                <option value="1.55">Moderately Active (3-5 days/week)</option>
+                <option value="1.725">Very Active (6-7 days/week)</option>
+                <option value="1.9">Extra Active (athlete level)</option>
+            </select>
+        </div>
+        
+        <div class="button-group">
+            <button class="btn-primary" onclick="calculateBMI()">Calculate Results</button>
+            <button class="btn-secondary" onclick="addToHistory()" id="historyBtn" style="display:none;">Save to History</button>
+            <button class="btn-secondary" onclick="clearHistory()">Clear History</button>
+        </div>
+
+        <div id="result"></div>
+
+        <div class="disclaimer-box">
+            <strong style="color: #e74c3c; display: block; margin-bottom: 5px;">🛑 Important Disclaimer: BMI Accuracy</strong>
+            <p style="margin: 0; font-size: 0.85em; color: #5a6c7d; line-height: 1.5;">
+                BMI is a mathematical estimate and **not** a direct measurement of body fat. It cannot differentiate between lean muscle mass and adipose tissue (fat). For athletes, weightlifters, or those with high bone density, a "high" BMI may be a sign of peak physical condition rather than a health risk. Conversely, "Skinny Fat" individuals may have a "normal" BMI but high health risks.
+            </p>
+        </div>
+
+        <div id="history"></div>
+
+        <h2 style="color: #2c3e50; margin-top: 40px;">BMI Reference Chart</h2>
+        <table>
+            <tr><th>Category</th><th>BMI Range</th><th>Health Note</th></tr>
+            <tr><td>Underweight</td><td>&lt;18.5</td><td>May need guidance</td></tr>
+            <tr><td>Normal</td><td>18.5-24.9</td><td>Healthy range</td></tr>
+            <tr><td>Overweight</td><td>25-29.9</td><td>Monitor health</td></tr>
+            <tr><td>Obesity I</td><td>30-34.9</td><td>Consider action</td></tr>
+            <tr><td>Obesity II</td><td>35-39.9</td><td>Seek support</td></tr>
+            <tr><td>Obesity III</td><td>≥40</td><td>Medical guidance</td></tr>
+        </table>
+
+        <div class="upsell-box">
+            <h3>Want Accuracy? Get the Real Data.</h3>
+            <p>Don't rely on a height/weight math equation. Know exactly how much of your weight is muscle vs. fat with a professional <strong>Skin Caliper Body Composition Test</strong>.</p>
+            <div class="price-tag">$25 Per Session</div>
+            <p style="font-weight: 700; color: #D4A853;">OR FREE WITH AN ASSESSMENT!</p>
+            <p style="font-size: 0.9em; font-style: italic;">Ask me about it today to upgrade your fitness tracking!</p>
+        </div>
+    </div>
+
+    <script>
+        const bmiCategories = {
+            underweight: { color: '#e67e22', risk: 'Your BMI suggests you may be underweight. Focus on nutrient-dense foods and strength training.' },
+            normal: { color: '#27ae60', risk: 'Your BMI is in the healthy range. Keep up your balanced lifestyle!' },
+            overweight: { color: '#e74c3c', risk: 'Your BMI indicates you may benefit from adjusting your nutrition and activity. Note: This may be skewed if you have high muscle mass.' },
+            obese1: { color: '#c0392b', risk: 'Consider working with a trainer to develop a sustainable weight management plan.' },
+            obese2: { color: '#8e44ad', risk: 'It may be beneficial to consult with healthcare professionals for personalized guidance.' },
+            obese3: { color: '#2c3e50', risk: 'We recommend consulting with medical professionals for comprehensive support.' }
+        };
+
+        function updateHeightInputs() {
+            const unit = document.getElementById('heightUnit').value;
+            const container = document.getElementById('heightInputs');
+            
+            if (unit === 'imperial') {
+                container.innerHTML = `
+                    <div class="form-group">
+                        <div class="height-row">
+                            <input type="number" id="heightFeet" min="3" max="8" placeholder="Feet (5)" required>
+                            <input type="number" id="heightInches" min="0" max="11" placeholder="Inches (10)" required>
+                        </div>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = `
+                    <div class="form-group">
+                        <input type="number" id="height" min="1" placeholder="170" step="0.1" required>
+                    </div>
+                `;
+            }
+        }
+
+        document.getElementById('heightUnit').addEventListener('change', updateHeightInputs);
+        updateHeightInputs();
+
+        function calculateBMI() {
+            const age = parseFloat(document.getElementById('age').value);
+            const gender = document.getElementById('gender').value;
+            const weight = parseFloat(document.getElementById('weight').value);
+            const activity = parseFloat(document.getElementById('activity').value);
+            const heightUnit = document.getElementById('heightUnit').value;
+            const weightUnit = document.getElementById('weightUnit').value;
+
+            if(!weight || (heightUnit === 'imperial' && !document.getElementById('heightFeet').value)) {
+                alert("Please fill in all fields");
+                return;
+            }
+
+            let heightMeters;
+            if (heightUnit === 'imperial') {
+                const feet = parseFloat(document.getElementById('heightFeet').value) || 0;
+                const inches = parseFloat(document.getElementById('heightInches').value) || 0;
+                const totalInches = (feet * 12) + inches;
+                heightMeters = totalInches * 0.0254;
+            } else {
+                const heightCm = parseFloat(document.getElementById('height').value);
+                heightMeters = heightCm / 100;
+            }
+
+            let weightKg = weight;
+            if (weightUnit === 'imperial') {
+                weightKg = weight * 0.453592;
+            }
+
+            const bmi = weightKg / (heightMeters * heightMeters);
+            const category = getCategory(bmi);
+            const bmr = calculateBMR(weightKg, heightMeters * 100, age, gender);
+            const tdee = bmr * activity;
+            const idealMinKg = 18.5 * heightMeters * heightMeters;
+            const idealMaxKg = 24.9 * heightMeters * heightMeters;
+            
+            let idealMinDisplay = idealMinKg.toFixed(1);
+            let idealMaxDisplay = idealMaxKg.toFixed(1);
+            let weightUnit2 = 'kg';
+            
+            if (weightUnit === 'imperial') {
+                idealMinDisplay = (idealMinKg * 2.20462).toFixed(1);
+                idealMaxDisplay = (idealMaxKg * 2.20462).toFixed(1);
+                weightUnit2 = 'lbs';
+            }
+
+            document.getElementById('result').innerHTML = `
+                <div class="bmi-score" style="color: ${bmiCategories[category].color};">${bmi.toFixed(1)}</div>
+                <div class="bmi-category" style="color: ${bmiCategories[category].color};">${getCategoryName(category)}</div>
+                
+                <div class="info-card">
+                    ${bmiCategories[category].risk}
+                </div>
+                
+                <div class="metric-grid">
+                    <div class="metric-box">
+                        <span class="number">${bmr.toFixed(0)}</span>
+                        <span class="label">BMR (cal/day)</span>
+                    </div>
+                    <div class="metric-box">
+                        <span class="number">${tdee.toFixed(0)}</span>
+                        <span class="label">TDEE (cal/day)</span>
+                    </div>
+                </div>
+                
+                <div class="info-card" style="margin-top: 16px;">
+                    <strong>Healthy Weight Range</strong>
+                    ${idealMinDisplay} - ${idealMaxDisplay} ${weightUnit2}
+                </div>
+            `;
+            
+            document.getElementById('result').style.display = 'block';
+            document.getElementById('historyBtn').style.display = 'inline-block';
+            window.currentResult = { bmi: bmi.toFixed(1), category, date: new Date().toLocaleDateString() };
+            
+            // Scroll to result for better UX on mobile
+            document.getElementById('result').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function getCategory(bmi) {
+            if (bmi < 18.5) return 'underweight';
+            if (bmi < 25) return 'normal';
+            if (bmi < 30) return 'overweight';
+            if (bmi < 35) return 'obese1';
+            if (bmi < 40) return 'obese2';
+            return 'obese3';
+        }
+
+        function getCategoryName(cat) {
+            const names = { 
+                underweight: 'Underweight', 
+                normal: 'Healthy Weight', 
+                overweight: 'Overweight', 
+                obese1: 'Obesity Class I', 
+                obese2: 'Obesity Class II', 
+                obese3: 'Obesity Class III' 
+            };
+            return names[cat];
+        }
+
+        function calculateBMR(weightKg, heightCm, age, gender) {
+            if (gender === 'male') {
+                return 88.362 + (13.397 * weightKg) + (4.799 * heightCm) - (5.677 * age);
+            } else {
+                return 447.593 + (9.247 * weightKg) + (3.098 * heightCm) - (4.330 * age);
+            }
+        }
+
+        function addToHistory() {
+            if (!window.currentResult) return;
+            const history = JSON.parse(localStorage.getItem('bmiHistory') || '[]');
+            history.unshift(window.currentResult);
+            if (history.length > 10) history.pop();
+            localStorage.setItem('bmiHistory', JSON.stringify(history));
+            loadHistory();
+        }
+
+        function loadHistory() {
+            const history = JSON.parse(localStorage.getItem('bmiHistory') || '[]');
+            if (history.length === 0) {
+                document.getElementById('history').innerHTML = '';
+                return;
+            }
+            const html = history.map(item => `
+                <div class="history-item">
+                    <strong>${item.date}</strong> • BMI ${item.bmi} • ${getCategoryName(item.category)}
+                </div>
+            `).join('');
+            document.getElementById('history').innerHTML = `<h3 style="color: #2c3e50; margin-top: 30px;">Your History</h3>${html}`;
+        }
+
+        function clearHistory() {
+            localStorage.removeItem('bmiHistory');
+            loadHistory();
+        }
+
+        loadHistory();
+
+        // Mobile: arrow buttons scroll concept cards
+        (function() {
+            var grid = document.getElementById('conceptGrid');
+            var prevBtn = document.getElementById('conceptPrev');
+            var nextBtn = document.getElementById('conceptNext');
+            if (!grid || !prevBtn || !nextBtn) return;
+            function scrollConcept(direction) {
+                var cardWidth = grid.querySelector('.concept-card') ? grid.querySelector('.concept-card').offsetWidth + 16 : 300;
+                grid.scrollBy({ left: direction * cardWidth, behavior: 'smooth' });
+            }
+            prevBtn.addEventListener('click', function() { scrollConcept(-1); });
+            nextBtn.addEventListener('click', function() { scrollConcept(1); });
+        })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,494 @@
+
+<!-- TRAINING PACKAGES PAGE - Restorative Kinetics Style -->
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+  
+    .rehab-packages {
+      font-family: 'Poppins', 'Helvetica Neue', Arial, sans-serif;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 60px 20px;
+      color: #2c3e50;
+    }
+  
+    .packages-hero {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+  
+    .packages-hero h1 {
+      font-size: 3.5rem;
+      font-weight: 300;
+      margin-bottom: 15px;
+      color: #3498db;
+      letter-spacing: 1px;
+    }
+  
+    .packages-hero h1 strong {
+      font-weight: 600;
+      color: #e74c3c;
+    }
+  
+    .packages-hero p {
+      font-size: 1.2rem;
+      color: #666;
+      font-weight: 300;
+    }
+  
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      margin-bottom: 70px;
+    }
+  
+    .price-card {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(20px);
+      border-radius: 25px;
+      padding: 45px 35px;
+      border: 1px solid rgba(52, 152, 219, 0.2);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+  
+    .price-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #f1c40f, #3498db, #e74c3c);
+    }
+  
+    .price-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.12);
+      border-color: rgba(52, 152, 219, 0.4);
+    }
+  
+    .price-card h3 {
+      font-size: 1.8rem;
+      margin-bottom: 12px;
+      color: #2c3e50;
+      font-weight: 500;
+    }
+  
+    .price-card .duration {
+      font-size: 1.05rem;
+      color: #7f8c8d;
+      margin-bottom: 25px;
+      font-weight: 300;
+    }
+  
+    .price-card .price {
+      font-size: 3rem;
+      font-weight: 600;
+      color: #3498db;
+      margin-bottom: 8px;
+    }
+  
+    .price-card .per-session {
+      font-size: 0.95rem;
+      color: #95a5a6;
+      margin-bottom: 30px;
+      font-weight: 300;
+    }
+  
+    .price-card ul {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 25px;
+    }
+  
+    .price-card ul li {
+      padding: 12px 0 12px 25px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+      color: #555;
+      font-weight: 300;
+      position: relative;
+    }
+  
+    .price-card ul li::before {
+      content: '✦';
+      position: absolute;
+      left: 0;
+      color: #e74c3c;
+      font-size: 0.9rem;
+    }
+  
+    .price-card ul li:last-child {
+      border-bottom: none;
+    }
+  
+    .featured-badge {
+      background: linear-gradient(135deg, #f1c40f, #f39c12);
+      color: white;
+      padding: 8px 22px;
+      border-radius: 25px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      display: inline-block;
+      margin-bottom: 18px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+  
+    .package-section {
+      background: linear-gradient(135deg, rgba(241, 196, 15, 0.1), rgba(52, 152, 219, 0.1));
+      border-radius: 25px;
+      padding: 60px 50px;
+      margin-bottom: 70px;
+      border: 1px solid rgba(241, 196, 15, 0.2);
+      backdrop-filter: blur(10px);
+    }
+  
+    .package-section h2 {
+      font-size: 2.8rem;
+      margin-bottom: 15px;
+      color: #3498db;
+      font-weight: 400;
+      text-align: center;
+    }
+  
+    .package-intro {
+      text-align: center;
+      font-size: 1.15rem;
+      color: #666;
+      margin-bottom: 40px;
+      font-weight: 300;
+    }
+  
+    .package-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      margin-top: 30px;
+    }
+  
+    .package-option {
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(15px);
+      border-radius: 20px;
+      padding: 40px 30px;
+      border: 1px solid rgba(52, 152, 219, 0.2);
+      transition: all 0.3s ease;
+      text-align: center;
+    }
+  
+    .package-option:hover {
+      border-color: #3498db;
+      transform: translateY(-5px);
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.1);
+    }
+  
+    .package-option h3 {
+      font-size: 1.6rem;
+      color: #2c3e50;
+      margin-bottom: 15px;
+      font-weight: 500;
+    }
+  
+    .package-option .package-price {
+      font-size: 2.2rem;
+      font-weight: 600;
+      color: #e74c3c;
+      margin-bottom: 12px;
+    }
+  
+    .package-option .savings {
+      color: #f39c12;
+      font-weight: 500;
+      background: rgba(241, 196, 15, 0.15);
+      padding: 6px 18px;
+      border-radius: 15px;
+      display: inline-block;
+      margin-bottom: 15px;
+      font-size: 0.95rem;
+    }
+  
+    .package-option .per-session-text {
+      color: #7f8c8d;
+      font-weight: 300;
+      font-size: 1.05rem;
+    }
+  
+    .programming-section {
+      background: rgba(231, 76, 60, 0.08);
+      backdrop-filter: blur(15px);
+      border-radius: 25px;
+      padding: 60px 50px;
+      border: 1px solid rgba(231, 76, 60, 0.2);
+      margin-bottom: 70px;
+    }
+  
+    .programming-section h2 {
+      font-size: 2.8rem;
+      margin-bottom: 15px;
+      color: #e74c3c;
+      font-weight: 400;
+      text-align: center;
+    }
+  
+    .programming-section p {
+      font-size: 1.15rem;
+      line-height: 1.8;
+      color: #555;
+      margin-bottom: 40px;
+      font-weight: 300;
+      text-align: center;
+    }
+  
+    .programming-options {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+    }
+  
+    .programming-item {
+      background: white;
+      padding: 30px 25px;
+      border-radius: 18px;
+      border: 1px solid rgba(231, 76, 60, 0.15);
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+  
+    .programming-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      border-color: rgba(231, 76, 60, 0.3);
+    }
+  
+    .programming-item h4 {
+      font-size: 1.25rem;
+      color: #2c3e50;
+      margin-bottom: 12px;
+      font-weight: 500;
+    }
+  
+    .programming-item .prog-price {
+      font-size: 2rem;
+      font-weight: 600;
+      color: #3498db;
+      margin-bottom: 8px;
+    }
+  
+    .programming-item p {
+      font-size: 0.95rem;
+      color: #7f8c8d;
+      font-weight: 300;
+      line-height: 1.5;
+    }
+  
+    .assessment-section {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(20px);
+      border-radius: 25px;
+      padding: 60px 50px;
+      border: 1px solid rgba(52, 152, 219, 0.2);
+      text-align: center;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    }
+  
+    .assessment-section .image-placeholder {
+      width: 100%;
+      max-width: 650px;
+      height: 380px;
+      background: linear-gradient(135deg, rgba(52, 152, 219, 0.15), rgba(241, 196, 15, 0.15));
+      border-radius: 20px;
+      margin: 0 auto 35px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #95a5a6;
+      font-size: 1.1rem;
+    }
+  
+    .assessment-section h2 {
+      font-size: 2.8rem;
+      color: #3498db;
+      margin-bottom: 20px;
+      font-weight: 400;
+    }
+  
+    .assessment-section .price {
+      font-size: 2.8rem;
+      font-weight: 600;
+      color: #e74c3c;
+      margin: 25px 0;
+    }
+  
+    .note-box {
+      background: rgba(241, 196, 15, 0.1);
+      border-left: 4px solid #f1c40f;
+      padding: 25px 30px;
+      border-radius: 15px;
+      margin-top: 45px;
+      font-style: italic;
+      color: #555;
+      font-weight: 300;
+      text-align: left;
+    }
+  
+    .note-box strong {
+      font-weight: 500;
+      font-style: normal;
+    }
+  
+    @media (max-width: 968px) {
+      .pricing-grid, .package-grid, .programming-options {
+        grid-template-columns: 1fr;
+      }
+    }
+  
+    @media (max-width: 768px) {
+      .packages-hero h1 {
+        font-size: 2.5rem;
+      }
+      .package-section, .programming-section, .assessment-section {
+        padding: 40px 25px;
+      }
+    }
+  </style>
+  
+  <div class="rehab-packages">
+    <div class="packages-hero">
+      <h1>Training <strong>Sessions</strong></h1>
+      <p>Flexible options to fit your schedule and goals</p>
+    </div>
+  
+    <div class="pricing-grid">
+      <div class="price-card">
+        <h3>30-Minute Session</h3>
+        <p class="duration">Focused training</p>
+        <div class="price">$55</div>
+        <p class="per-session">per session</p>
+        <ul>
+          <li>Efficient, targeted work</li>
+          <li>Perfect for maintenance</li>
+          <li>Skill-specific training</li>
+        </ul>
+      </div>
+  
+      <div class="price-card">
+        <span class="featured-badge">Most Popular</span>
+        <h3>55-Minute Session</h3>
+        <p class="duration">Full training experience</p>
+        <div class="price">$105</div>
+        <p class="per-session">per session</p>
+        <ul>
+          <li>Complete warm-up & training</li>
+          <li>Mobility & strength work</li>
+          <li>Individualized programming</li>
+          <li>Best value for results</li>
+        </ul>
+      </div>
+  
+      <div class="price-card">
+        <h3>90-Minute Session</h3>
+        <p class="duration">Integrative experience</p>
+        <div class="price">$150</div>
+        <p class="per-session">per session</p>
+        <ul>
+          <li>Everything in 55-min session</li>
+          <li>Soft tissue work integrated</li>
+          <li>Deep mobility practice</li>
+          <li>Ideal for complex goals</li>
+        </ul>
+      </div>
+    </div>
+  
+    <div class="package-section">
+      <h2>Session Packages</h2>
+      <p class="package-intro">Commit to your training and save. All packages feature 55-minute sessions.</p>
+  
+      <div class="package-grid">
+        <div class="package-option">
+          <h3>5-Session Package</h3>
+          <div class="package-price">$475</div>
+          <div class="savings">Save $50</div>
+          <p class="per-session-text">$95 per session</p>
+        </div>
+  
+        <div class="package-option">
+          <h3>10-Session Package</h3>
+          <div class="package-price">$900</div>
+          <div class="savings">Save $150</div>
+          <p class="per-session-text">$90 per session</p>
+        </div>
+  
+        <div class="package-option">
+          <h3>15-Session Package</h3>
+          <div class="package-price">$1,300</div>
+          <div class="savings">Save $275</div>
+          <p class="per-session-text">$86.67 per session</p>
+        </div>
+      </div>
+    </div>
+  
+    <div class="programming-section">
+      <h2>Remote Programming</h2>
+      <p>
+        Train independently with expert guidance. All programs include exercise videos, cardio recommendations, and email support throughout your fitness journey.
+      </p>
+  
+      <div class="programming-options">
+        <div class="programming-item">
+          <h4>Corrective Exercise Email</h4>
+          <div class="prog-price">$30</div>
+          <p>Targeted exercises for specific issues</p>
+        </div>
+  
+        <div class="programming-item">
+          <h4>Corrective Exercise Sheet</h4>
+          <div class="prog-price">$50</div>
+          <p>Detailed Excel program with videos</p>
+        </div>
+  
+        <div class="programming-item">
+          <h4>1-Day Training Program</h4>
+          <div class="prog-price">$50</div>
+          <p>Full workout template</p>
+        </div>
+  
+        <div class="programming-item">
+          <h4>2-Day Training Program</h4>
+          <div class="prog-price">$100</div>
+          <p>Split routine programming</p>
+        </div>
+  
+        <div class="programming-item">
+          <h4>3-Day Training Program</h4>
+          <div class="prog-price">$150</div>
+          <p>Comprehensive weekly plan</p>
+        </div>
+  
+        <div class="programming-item">
+          <h4>4+ Day Training Program</h4>
+          <div class="prog-price">$200</div>
+          <p>Advanced training split</p>
+        </div>
+      </div>
+    </div>
+  
+    <div class="assessment-section">
+      <div class="image-placeholder">
+     <img src="https://images.squarespace-cdn.com/content/69866a537fe19438ada9fffd/5c69443d-4c63-4ec5-a446-1cb138fd28fc/AllieTraining-11.jpg?content-type=image%2Fjpeg" alt="Training session" style="width: 100%; height: 100%; object-fit: cover; border-radius: 15px;">
+  
+      </div>
+      <h2>Initial Assessment</h2>
+      <p style="font-size: 1.2rem; color: #555; max-width: 700px; margin: 0 auto 20px; font-weight: 300;">
+        Required for all new clients after your free consultation. A comprehensive movement evaluation that identifies limitations, asymmetries, and builds the foundation for your personalized program.
+      </p>
+      <div class="price">$90</div>
+  
+      <div class="note-box">
+        <strong>Ready to get started?</strong> Book your free 30-minute consultation first. We'll discuss your goals, answer questions, and determine if we're a good fit before scheduling your assessment.
+      </div>
+    </div>
+  </div>
+  

@@ -1,0 +1,360 @@
+<!-- Massage Services - Restorative Kinetics | Massage therapy, manual therapy, training integration -->
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+  .rk-massage {
+    --rk-blue: #1565c0;
+    --rk-red: #b71c1c;
+    --rk-gold: #f1c40f;
+    --rk-gold-dark: #d4a012;
+    --rk-dark: #1a252f;
+    --rk-muted: #5d6d7e;
+    --rk-light: #4a5f6e;
+    --rk-bg-soft: #f8fafb;
+    background: #DBA523;
+    font-family: 'Poppins', 'Helvetica Neue', Arial, sans-serif;
+    color: var(--rk-dark);
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: clamp(32px, 6vw, 56px) clamp(20px, 4vw, 32px);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .rk-seo-lead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+  .rk-seo-lead span { font-size: 0; }
+
+  .rk-hero {
+    text-align: center;
+    margin-bottom: clamp(48px, 8vw, 72px);
+    padding: clamp(24px, 4vw, 40px) 0;
+  }
+  .rk-hero .rk-hero-label {
+    font-size: clamp(0.75rem, 1.5vw, 0.85rem);
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--rk-blue);
+    margin-bottom: 12px;
+  }
+  .rk-hero h1 {
+    font-size: clamp(2.25rem, 5vw, 3.5rem);
+    font-weight: 300;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--rk-dark);
+    margin: 0 0 16px;
+    max-width: 18ch;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .rk-hero h1 strong {
+    font-weight: 600;
+    color: var(--rk-red);
+  }
+  .rk-hero p {
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    font-weight: 500;
+    color: var(--rk-muted);
+    max-width: 40ch;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  .rk-section {
+    margin-bottom: clamp(48px, 8vw, 80px);
+  }
+  .rk-section-head {
+    text-align: center;
+    margin-bottom: clamp(28px, 4vw, 40px);
+  }
+  .rk-section-head h2 {
+    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    font-weight: 500;
+    color: var(--rk-dark);
+    margin: 0 0 8px;
+    letter-spacing: -0.01em;
+  }
+  .rk-section-head p {
+    font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+    font-weight: 500;
+    color: var(--rk-muted);
+    margin: 0;
+    max-width: 42ch;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.5;
+  }
+
+  /* Bento block - education / image + copy */
+  .rk-massage-bento {
+    background: #fff;
+    border-radius: 24px;
+    overflow: hidden;
+    border: 1px solid rgba(52, 152, 219, 0.15);
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.06);
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 0;
+    margin-bottom: clamp(40px, 6vw, 64px);
+  }
+  .rk-massage-bento-img {
+    min-height: 280px;
+    background: linear-gradient(135deg, rgba(52, 152, 219, 0.08), rgba(241, 196, 15, 0.08));
+  }
+  .rk-massage-bento-img img {
+    width: 100%;
+    height: 100%;
+    min-height: 280px;
+    object-fit: cover;
+    display: block;
+  }
+  .rk-massage-bento-body {
+    padding: clamp(28px, 4vw, 44px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .rk-massage-bento-body .rk-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--rk-blue);
+    margin-bottom: 8px;
+  }
+  .rk-massage-bento-body h2 {
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
+    font-weight: 500;
+    color: var(--rk-dark);
+    margin: 0 0 12px;
+  }
+  .rk-massage-bento-body .rk-desc {
+    font-size: clamp(0.9rem, 1.2vw, 1rem);
+    font-weight: 300;
+    color: var(--rk-muted);
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+  .rk-note {
+    background: rgba(241, 196, 15, 0.1);
+    border-left: 4px solid var(--rk-gold);
+    padding: 18px 20px;
+    border-radius: 0 12px 12px 0;
+    font-size: 0.95rem;
+    font-weight: 300;
+    color: var(--rk-dark);
+    line-height: 1.55;
+  }
+  .rk-note strong { font-weight: 600; font-style: normal; }
+
+  /* Philosophy block */
+  .rk-philosophy-wrap {
+    background: linear-gradient(160deg, rgba(231, 76, 60, 0.06), rgba(241, 196, 15, 0.06));
+    border-radius: 24px;
+    padding: clamp(36px, 5vw, 56px);
+    border: 1px solid rgba(231, 76, 60, 0.12);
+  }
+  .rk-philosophy-wrap .rk-section-head h2 { color: var(--rk-red); }
+  .rk-philosophy-wrap .rk-section-head p { max-width: 48ch; }
+
+  /* How massage fits - card grid */
+  .rk-fit-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(20px, 3vw, 28px);
+    align-items: stretch;
+  }
+  .rk-fit-card {
+    background: #fff;
+    border-radius: 20px;
+    padding: clamp(28px, 3vw, 40px);
+    border: 1px solid rgba(52, 152, 219, 0.12);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    text-align: center;
+  }
+  .rk-fit-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+    border-color: rgba(52, 152, 219, 0.25);
+  }
+  .rk-fit-card h3 {
+    font-size: clamp(1.25rem, 2vw, 1.5rem);
+    font-weight: 500;
+    color: var(--rk-dark);
+    margin: 0 0 12px;
+  }
+  .rk-fit-card p {
+    font-size: 0.95rem;
+    font-weight: 300;
+    color: var(--rk-muted);
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  /* Availability */
+  .rk-avail-wrap {
+    background: linear-gradient(180deg, rgba(241, 196, 15, 0.08) 0%, rgba(241, 196, 15, 0.03) 100%);
+    border-radius: 24px;
+    padding: clamp(36px, 5vw, 56px);
+    border: 1px solid rgba(241, 196, 15, 0.2);
+    text-align: center;
+  }
+  .rk-avail-wrap .rk-section-head h2 { color: var(--rk-dark); }
+  .rk-free-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--rk-gold), var(--rk-gold-dark));
+    color: #fff;
+    font-size: clamp(1.25rem, 2.5vw, 1.9rem);
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    padding: 14px 40px;
+    border-radius: 50px;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 20px rgba(241, 196, 15, 0.3);
+  }
+  .rk-avail-wrap .rk-avail-desc {
+    font-size: clamp(1rem, 1.5vw, 1.15rem);
+    font-weight: 500;
+    color: var(--rk-muted);
+    max-width: 42ch;
+    margin: 0 auto 28px;
+    line-height: 1.6;
+  }
+  .rk-avail-note {
+    background: rgba(231, 76, 60, 0.08);
+    border-left: 4px solid var(--rk-red);
+    padding: 20px 24px;
+    border-radius: 0 12px 12px 0;
+    font-size: 0.95rem;
+    font-weight: 300;
+    color: var(--rk-dark);
+    line-height: 1.55;
+    text-align: left;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+  .rk-avail-note strong { font-weight: 600; }
+
+  /* CTA */
+  .rk-cta {
+    text-align: center;
+    margin-top: clamp(48px, 8vw, 70px);
+  }
+  .rk-cta .rk-cta-btn {
+    display: inline-block;
+    background: var(--rk-blue);
+    color: #fff;
+    padding: 16px 48px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-size: 1.05rem;
+    font-weight: 500;
+    box-shadow: 0 4px 20px rgba(52, 152, 219, 0.3);
+    transition: all 0.25s ease;
+  }
+  .rk-cta .rk-cta-btn:hover {
+    background: #2980b9;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 28px rgba(52, 152, 219, 0.35);
+  }
+  .rk-cta .rk-cta-sub {
+    margin-top: 14px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--rk-muted);
+  }
+
+  @media (max-width: 900px) {
+    .rk-massage-bento { grid-template-columns: 1fr; }
+    .rk-massage-bento-img { min-height: 220px; }
+    .rk-massage-bento-img img { min-height: 220px; }
+    .rk-fit-grid { grid-template-columns: 1fr; }
+  }
+</style>
+
+<div class="rk-seo-lead" aria-hidden="true">
+  <span>Massage therapy. Manual therapy. Soft tissue work. Massage and strength training. Restorative Kinetics massage services.</span>
+</div>
+
+<article class="rk-massage" id="massage">
+  <header class="rk-hero">
+    <p class="rk-hero-label">Massage</p>
+    <h1>Massage <strong>Therapy</strong></h1>
+    <p>Deepening my hands-on skills so I can support you better—in the gym and beyond. Clear, integrated, and built around how you move.</p>
+  </header>
+
+  <section class="rk-section" aria-labelledby="massage-education-heading">
+    <div class="rk-massage-bento">
+      <div class="rk-massage-bento-img">
+        <img src="https://images.squarespace-cdn.com/content/69866a537fe19438ada9fffd/c2bc709a-fbda-4d81-81bd-c902268ace35/AllieTraining-73.jpg?content-type=image%2Fjpeg" alt="Training session" loading="lazy" width="650" height="380">
+      </div>
+      <div class="rk-massage-bento-body">
+        <p class="rk-label">Where this fits in</p>
+        <h2 id="massage-education-heading">Currently in massage therapy school</h2>
+        <p class="rk-desc">I'm adding formal massage therapy training to what I already do—so I can read tissue, spot restrictions, and use hands-on work in a way that supports your training instead of replacing it. You get better assessment and smarter integration, not just another appointment.</p>
+        <div class="rk-note">
+          <strong>One thing to know:</strong> Massage isn't a substitute for strength training—it's a partner to it. Building capacity through movement is what creates lasting change; manual work helps clear the way so you can train and recover better.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="rk-section" aria-labelledby="philosophy-heading">
+    <div class="rk-philosophy-wrap">
+      <div class="rk-section-head">
+        <h2 id="philosophy-heading">Integration, not isolation</h2>
+        <p>Hands-on work is most useful when it supports your training—not when it stands alone. I use it to address limits that get in the way of how you move, so you can train more effectively and feel better doing it. The goal is always: move better, build resilience.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="rk-section" aria-labelledby="fit-heading">
+    <div class="rk-section-head">
+      <h2 id="fit-heading">How massage fits into your training</h2>
+      <p>Manual work can support you in three clear ways—assessment, mobility, and recovery. Pick what matters most for where you are right now.</p>
+    </div>
+    <div class="rk-fit-grid">
+      <div class="rk-fit-card">
+        <h3>Assessment</h3>
+        <p>Hands-on evaluation helps find tissue restrictions, asymmetries, and compensation patterns—so we can make better decisions about what to train and how.</p>
+      </div>
+      <div class="rk-fit-card">
+        <h3>Mobility support</h3>
+        <p>Targeted soft tissue work can improve range of motion and prep your body so your movement training is more effective.</p>
+      </div>
+      <div class="rk-fit-card">
+        <h3>Recovery</h3>
+        <p>Strategic manual work between sessions can support recovery and keep tissue quality up when training is intense.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="rk-section" aria-labelledby="avail-heading">
+    <div class="rk-avail-wrap">
+      <div class="rk-section-head">
+        <h2 id="avail-heading">Current availability</h2>
+        <div class="rk-free-badge">FREE</div>
+        <p class="rk-avail-desc">As part of my massage program, I'm offering complimentary sessions on a limited basis. It's a chance for me to refine my skills while giving something useful to my training clients and community.</p>
+        <div class="rk-avail-note">
+          <strong>Scheduling:</strong> I have a limited number of hours each week for massage. Sessions are first-come, first-served and booked directly with me based on my weekly availability. Ask during your consultation or at your next training session and we'll find a time that works.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="rk-cta">
+    <a href="#" class="rk-cta-btn">Book a free consultation</a>
+    <p class="rk-cta-sub">We'll talk about how massage can fit into your training—no pressure, just clarity.</p>
+  </div>
+</article>
