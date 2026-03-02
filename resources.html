@@ -1,0 +1,317 @@
+<!-- Resources - Restorative Kinetics | Trusted links for certification, screening, body composition, and nutrition -->
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+  .rk-resources {
+    --rk-blue: #3498db;
+    --rk-blue-dark: #2980b9;
+    --rk-red: #e74c3c;
+    --rk-dark: #2c3e50;
+    --rk-muted: #5d6d7e;
+    --rk-soft: #95a5a6;
+    --rk-bg-soft: #f8fafb;
+    font-family: 'Poppins', 'Helvetica Neue', Arial, sans-serif;
+    color: var(--rk-dark);
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 clamp(20px, 4vw, 32px);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .rk-seo-lead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+  .rk-seo-lead span { font-size: 0; }
+
+  /* Hero */
+  .rk-res-hero {
+    text-align: center;
+    margin-bottom: clamp(48px, 8vw, 72px);
+    padding: clamp(48px, 8vw, 80px) 0 clamp(32px, 5vw, 48px);
+  }
+  .rk-res-hero .rk-hero-label {
+    font-size: clamp(0.75rem, 1.5vw, 0.85rem);
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--rk-blue);
+    margin-bottom: 12px;
+  }
+  .rk-res-hero h1 {
+    font-size: clamp(2.25rem, 5vw, 3.5rem);
+    font-weight: 300;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--rk-dark);
+    margin: 0 0 16px;
+    max-width: 16ch;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .rk-res-hero h1 strong {
+    font-weight: 600;
+    color: var(--rk-red);
+  }
+  .rk-res-hero p {
+    font-size: clamp(1rem, 2vw, 1.125rem);
+    font-weight: 400;
+    color: var(--rk-muted);
+    max-width: 42ch;
+    margin: 0 auto;
+    line-height: 1.65;
+  }
+
+  /* Resource block: image + copy (alternating) */
+  .rk-res-block {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 320px;
+    align-items: stretch;
+    margin-bottom: clamp(40px, 6vw, 64px);
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid rgba(52, 152, 219, 0.12);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+    background: #fff;
+  }
+  .rk-res-block.reverse {
+    direction: rtl;
+  }
+  .rk-res-block.reverse > * {
+    direction: ltr;
+  }
+  .rk-res-block .rk-res-media {
+    position: relative;
+    overflow: hidden;
+    background: var(--rk-bg-soft);
+  }
+  .rk-res-block .rk-res-media img {
+    width: 100%;
+    height: 100%;
+    min-height: 280px;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+  .rk-res-block .rk-res-copy {
+    padding: clamp(28px, 4vw, 44px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .rk-res-block .rk-res-copy h2 {
+    font-size: clamp(1.35rem, 2vw, 1.65rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--rk-blue);
+    margin: 0 0 0.75rem;
+    line-height: 1.25;
+  }
+  .rk-res-block .rk-res-copy .rk-res-desc {
+    font-size: clamp(0.95rem, 1.2vw, 1rem);
+    line-height: 1.7;
+    color: var(--rk-dark);
+    margin: 0 0 1rem;
+  }
+  .rk-res-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--rk-blue);
+    text-decoration: none;
+    margin-top: auto;
+    transition: color 0.2s ease, gap 0.2s ease;
+  }
+  .rk-res-link:hover {
+    color: var(--rk-blue-dark);
+    gap: 0.75rem;
+  }
+  .rk-res-link::after {
+    content: '→';
+  }
+
+  /* CTA */
+  .rk-res-cta {
+    text-align: center;
+    padding: clamp(48px, 8vw, 72px) 0;
+  }
+  .rk-res-cta .rk-cta-btn {
+    display: inline-block;
+    background: var(--rk-blue);
+    color: #fff;
+    padding: 16px 48px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-size: 1.05rem;
+    font-weight: 500;
+    box-shadow: 0 4px 20px rgba(52, 152, 219, 0.25);
+    transition: all 0.25s ease;
+  }
+  .rk-res-cta .rk-cta-btn:hover {
+    background: var(--rk-blue-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 28px rgba(52, 152, 219, 0.35);
+  }
+  .rk-res-cta .rk-cta-sub {
+    margin-top: 14px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--rk-muted);
+  }
+
+  @media (max-width: 900px) {
+    .rk-res-block {
+      grid-template-columns: 1fr;
+      min-height: 0;
+      direction: ltr;
+    }
+    .rk-res-block.reverse {
+      direction: ltr;
+    }
+    .rk-res-block .rk-res-media {
+      aspect-ratio: 16 / 10;
+      min-height: 220px;
+    }
+    .rk-res-block .rk-res-media img {
+      min-height: 220px;
+    }
+    .rk-res-block .rk-res-copy {
+      padding: clamp(24px, 4vw, 36px);
+    }
+  }
+</style>
+
+<div class="rk-seo-lead" aria-hidden="true">
+  <span>Resources: NSCA, PAR-Q, body composition, Stacy Sims, Andy Galpin, Rhonda Patrick, nutrition, USDA dietary guidelines, Ayurvedic nutrition, NIA older adults.</span>
+</div>
+
+<main class="rk-resources" id="resources">
+  <header class="rk-res-hero">
+    <p class="rk-hero-label">Resources</p>
+    <h1>Trusted <strong>Links</strong></h1>
+    <p>Evidence-based organizations, screening tools, and experts I recommend for certification, readiness, body composition, and nutrition.</p>
+  </header>
+
+  <!-- NSCA -->
+  <article class="rk-res-block" id="nsca">
+    <div class="rk-res-media">
+      <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&q=80" alt="Strength training" loading="lazy" width="600" height="400">
+    </div>
+    <div class="rk-res-copy">
+      <h2>National Strength and Conditioning Association (NSCA)</h2>
+      <p class="rk-res-desc">This is the organization my personal training certification is from. I recommend the NSCA if you want access to strength and conditioning journal material (including the Journal of Strength and Conditioning Research) and if you’re interested in becoming a certified personal trainer.</p>
+      <a href="https://www.nsca.com/" class="rk-res-link" target="_blank" rel="noopener noreferrer">Visit NSCA</a>
+    </div>
+  </article>
+
+  <!-- PAR-Q+ -->
+  <article class="rk-res-block reverse" id="parq">
+    <div class="rk-res-media">
+      <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800&q=80" alt="Health and fitness" loading="lazy" width="600" height="400">
+    </div>
+    <div class="rk-res-copy">
+      <h2>PAR-Q+ (Pre-Participation Screening)</h2>
+      <p class="rk-res-desc">A health questionnaire that helps you understand how ready you are for physical activity and whether you should consult your doctor before starting or increasing training. It’s the international standard for pre-participation screening and reduces barriers to safe, informed movement.</p>
+      <a href="https://eparmedx.com/" class="rk-res-link" target="_blank" rel="noopener noreferrer">Visit PAR-Q+</a>
+    </div>
+  </article>
+
+  <!-- Body composition -->
+  <article class="rk-res-block" id="bodycomp">
+    <div class="rk-res-media">
+      <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=800&q=80" alt="Health and measurement" loading="lazy" width="600" height="400">
+    </div>
+    <div class="rk-res-copy">
+      <h2>Ways to Measure Body Fat (Healthline)</h2>
+      <p class="rk-res-desc">A clear overview of the main methods used to estimate body fat—from skinfold calipers and circumference equations to DXA, hydrostatic weighing, BIA, and more. Helps you understand accuracy, cost, and what’s realistic to use at home vs. in a clinic.</p>
+      <a href="https://www.healthline.com/nutrition/ways-to-measure-body-fat" class="rk-res-link" target="_blank" rel="noopener noreferrer">Read the article</a>
+    </div>
+  </article>
+
+  <!-- Stacy Sims -->
+  <article class="rk-res-block reverse" id="stacysims">
+    <div class="rk-res-media">
+      <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&q=80" alt="Women and fitness" loading="lazy" width="600" height="400">
+    </div>
+    <div class="rk-res-copy">
+      <h2>Dr. Stacy Sims</h2>
+      <p class="rk-res-desc">Dr. Stacy Sims specializes in research on women’s health and physical training across the lifespan. Her work helps active women and their supporters understand how to work with female physiology—from the teen years through midlife and beyond—for strength and longevity.</p>
+      <a href="https://www.drstacysims.com/" class="rk-res-link" target="_blank" rel="noopener noreferrer">Visit Dr. Stacy Sims</a>
+    </div>
+  </article>
+
+  <!-- Andy Galpin -->
+  <article class="rk-res-block" id="galpin">
+    <div class="rk-res-media">
+      <img src="https://images.unsplash.com/photo-1478737270239-2f02b77fc618?w=800&q=80" alt="Podcast and performance" loading="lazy" width="600" height="400">
+    </div>
+    <div class="rk-res-copy">
+      <h2>Perform with Dr. Andy Galpin</h2>
+      <p class="rk-res-desc">Dr. Andy Galpin is a physiologist who hosts an excellent podcast on human performance. It covers a wide range of evidence-based topics—recovery, nutrition, strength, endurance, and more—in a way that’s accessible and practical.</p>
+      <a href="https://performpodcast.com/" class="rk-res-link" target="_blank" rel="noopener noreferrer">Visit Perform podcast</a>
+    </div>
+  </article>
+
+  <!-- Rhonda Patrick -->
+  <article class="rk-res-block reverse" id="rhonda">
+    <div class="rk-res-media">
+      <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=800&q=80" alt="Nutrition and longevity" loading="lazy" width="600" height="400">
+    </div>
+    <div class="rk-res-copy">
+      <h2>Dr. Rhonda Patrick (FoundMyFitness)</h2>
+      <p class="rk-res-desc">Dr. Rhonda Patrick is a researcher who focuses on longevity and nutrition. She translates complex science into actionable information through her site, podcast, and videos—a great resource for anyone who wants to go deeper into the science of the body, aging, and diet.</p>
+      <a href="https://www.foundmyfitness.com/" class="rk-res-link" target="_blank" rel="noopener noreferrer">Visit FoundMyFitness</a>
+    </div>
+  </article>
+
+  <!-- NIA Nutrition -->
+  <article class="rk-res-block" id="nia">
+    <div class="rk-res-media">
+      <img src="https://images.unsplash.com/photo-1547592166-23ac45744acd?w=800&q=80" alt="Healthy eating" loading="lazy" width="600" height="400">
+    </div>
+    <div class="rk-res-copy">
+      <h2>Nutrition for Older Adults (NIA)</h2>
+      <p class="rk-res-desc">The National Institute on Aging offers practical, evidence-based information on healthy eating and nutrition for older adults—including how to choose foods, stay hydrated, and adapt nutrition as we age. A solid, accessible starting point for this population.</p>
+      <a href="https://www.nia.nih.gov/health/healthy-eating-nutrition-and-diet" class="rk-res-link" target="_blank" rel="noopener noreferrer">Visit NIA nutrition</a>
+    </div>
+  </article>
+
+  <!-- Ayurvedic -->
+  <article class="rk-res-block reverse" id="ayurveda">
+    <div class="rk-res-media">
+      <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=800&q=80" alt="Whole foods and wellness" loading="lazy" width="600" height="400">
+    </div>
+    <div class="rk-res-copy">
+      <h2>Ayurvedic Food Guidelines</h2>
+      <p class="rk-res-desc">From the Ayurvedic Institute: food guidelines for balancing Vata, Pitta, and Kapha. A useful resource if you’re curious about eating according to Ayurvedic principles—with charts and guidance on fruits, vegetables, grains, legumes, dairy, and more.</p>
+      <a href="https://ayurveda.com/food-guidelines/" class="rk-res-link" target="_blank" rel="noopener noreferrer">Visit Ayurvedic food guidelines</a>
+    </div>
+  </article>
+
+  <!-- USDA -->
+  <article class="rk-res-block" id="usda">
+    <div class="rk-res-media">
+      <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?w=800&q=80" alt="Healthy diet and guidelines" loading="lazy" width="600" height="400">
+    </div>
+    <div class="rk-res-copy">
+      <h2>USDA Dietary Guidelines for Americans</h2>
+      <p class="rk-res-desc">The official federal recommendations for healthy eating—nutrient needs, food groups, and practical guidance for the general public. A go-to reference for evidence-based dietary advice in the U.S.</p>
+      <a href="https://www.dietaryguidelines.gov/" class="rk-res-link" target="_blank" rel="noopener noreferrer">Visit Dietary Guidelines</a>
+    </div>
+  </article>
+
+  <div class="rk-res-cta">
+    <a href="#" class="rk-cta-btn">Book a free consultation</a>
+    <p class="rk-cta-sub">Let’s talk about your goals and how these resources might support your training.</p>
+  </div>
+</main>

@@ -73,6 +73,28 @@
     margin: 0 auto;
   }
 
+  .resource-tip {
+    max-width: 640px;
+    margin: 1.75rem auto 0;
+    background: rgba(52, 152, 219, 0.06);
+    border-left: 3px solid var(--blue);
+    padding: 16px 18px;
+    border-radius: 0 12px 12px 0;
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: var(--text-muted);
+  }
+  .resource-tip strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+  .resource-tip a {
+    color: var(--blue);
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .resource-tip a:hover { text-decoration: underline; }
+
   /* ——— Feature blocks: image + copy (no card, no frame) ——— */
   .feature-block {
     display: grid;
@@ -323,6 +345,9 @@
     <div class="eyebrow-divider" aria-hidden="true"></div>
     <h1>Movement-First <strong>Training</strong></h1>
     <p class="hero-p">High-quality assessments and custom training programs designed to increase your movement vocabulary, build strength, and keep you healthy for the long term.</p>
+    <div class="resource-tip">
+      <strong>Related resource:</strong> New to training (or returning after time off)? Start with the <a href="https://eparmedx.com/" target="_blank" rel="noopener noreferrer">PAR-Q+</a> readiness questionnaire, and browse <a href="https://www.healthline.com/nutrition/ways-to-measure-body-fat" target="_blank" rel="noopener noreferrer">body composition testing options</a> if you want more detail than the scale.
+    </div>
   </section>
 
   <article class="feature-block">
