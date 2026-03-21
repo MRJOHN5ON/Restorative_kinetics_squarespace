@@ -6,13 +6,39 @@
   :root {
     --blue: #3498db;
     --blue-dark: #2980b9;
-    --blue-tint: rgba(52, 152, 219, 0.04);
+    --blue-tint: rgba(52, 152, 219, 0.12);
     --red: #e74c3c;
     --red-tint: rgba(231, 76, 60, 0.06);
     --text: #1a1f26;
     --text-muted: #4d5560;
     --text-soft: #7a8492;
     --surface: #ffffff;
+    --header-highlight: #e4f2fb;
+    --radius-xl: clamp(20px, 3.2vw, 32px);
+    --radius-lg: clamp(14px, 2vw, 22px);
+    --radius-md: 14px;
+    --glass-fill: linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.58) 0%,
+      rgba(228, 242, 251, 0.45) 42%,
+      rgba(255, 255, 255, 0.4) 100%
+    );
+    --glass-fill-strong: linear-gradient(
+      155deg,
+      rgba(228, 242, 251, 0.62) 0%,
+      rgba(255, 255, 255, 0.48) 48%,
+      rgba(200, 228, 247, 0.52) 100%
+    );
+    --glass-border: rgba(255, 255, 255, 0.75);
+    --glass-shadow:
+      0 4px 28px rgba(52, 152, 219, 0.09),
+      0 1px 4px rgba(26, 31, 38, 0.05),
+      inset 0 1px 0 rgba(255, 255, 255, 0.7);
+    --glass-blur: blur(28px) saturate(1.14);
+    --heading-shadow:
+      0 1px 2px rgba(26, 31, 38, 0.12),
+      0 2px 6px rgba(26, 31, 38, 0.08),
+      0 4px 20px rgba(52, 152, 219, 0.14);
     --ease: cubic-bezier(0.33, 1, 0.68, 1);
   }
 
@@ -21,13 +47,17 @@
     color: var(--text);
     max-width: 1400px;
     margin: 0 auto;
-    padding: 0;
+    padding: clamp(14px, 3vw, 32px);
+    background: #dba523;
+    isolation: isolate;
   }
 
-  /* ——— Hero ——— */
+  /* ——— Hero (open on page canvas — no glass card) ——— */
   .hero-section {
-    padding: clamp(64px, 12vw, 120px) clamp(24px, 6vw, 64px) clamp(56px, 10vw, 88px);
+    padding: clamp(56px, 12vw, 120px) clamp(24px, 6vw, 64px) clamp(48px, 9vw, 88px);
+    margin-bottom: clamp(16px, 2.5vw, 28px);
     text-align: center;
+    background: none;
   }
 
   .hero-section .eyebrow {
@@ -73,40 +103,24 @@
     margin: 0 auto;
   }
 
-  .resource-tip {
-    max-width: 640px;
-    margin: 1.75rem auto 0;
-    background: rgba(52, 152, 219, 0.06);
-    border-left: 3px solid var(--blue);
-    padding: 16px 18px;
-    border-radius: 0 12px 12px 0;
-    font-size: 0.95rem;
-    line-height: 1.65;
-    color: var(--text-muted);
-  }
-  .resource-tip strong {
-    color: var(--text);
-    font-weight: 600;
-  }
-  .resource-tip a {
-    color: var(--blue);
-    font-weight: 600;
-    text-decoration: none;
-  }
-  .resource-tip a:hover { text-decoration: underline; }
-
-  /* ——— Feature blocks: image + copy (no card, no frame) ——— */
+  /* ——— Feature blocks: image + frosted copy ——— */
   .feature-block {
     display: grid;
     grid-template-columns: 1fr 1fr;
     min-height: 420px;
     align-items: stretch;
+    margin-bottom: clamp(16px, 2.5vw, 28px);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
   }
 
   .feature-block .media {
     position: relative;
     overflow: hidden;
     background: var(--blue-tint);
+    min-height: 260px;
   }
 
   .feature-block .media img {
@@ -123,15 +137,29 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    background: var(--glass-fill-strong);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border-left: 1px solid rgba(255, 255, 255, 0.5);
   }
 
   .feature-block .copy h2 {
     font-size: clamp(1.5rem, 2vw, 1.875rem);
-    font-weight: 600;
+    font-weight: 700;
     letter-spacing: -0.02em;
-    color: var(--blue);
-    margin-bottom: 1rem;
+    color: var(--text);
+    text-shadow: var(--heading-shadow);
+    margin: 0 0 1rem;
     line-height: 1.25;
+    display: inline-block;
+    padding: 0 0.1em;
+    /* Marker band behind bottom ~25% of line (per line when wrapped) */
+    background-image: linear-gradient(var(--header-highlight), var(--header-highlight));
+    background-size: 100% 25%;
+    background-position: left bottom;
+    background-repeat: no-repeat;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
   }
 
   .feature-block .copy p {
@@ -151,6 +179,11 @@
     direction: ltr;
   }
 
+  .feature-block.reverse .copy {
+    border-left: none;
+    border-right: 1px solid rgba(255, 255, 255, 0.5);
+  }
+
   /* ——— Modalities: list, not cards ——— */
   .modalities-section .section-head {
     text-align: center;
@@ -159,11 +192,20 @@
 
   .modalities-section h2 {
     font-size: clamp(1.75rem, 2.5vw, 2.25rem);
-    font-weight: 600;
+    font-weight: 700;
     letter-spacing: -0.02em;
-    color: var(--blue);
-    margin-bottom: 0.75rem;
+    color: var(--text);
+    text-shadow: var(--heading-shadow);
+    margin: 0 0 0.75rem;
     line-height: 1.2;
+    display: inline-block;
+    padding: 0 0.1em;
+    background-image: linear-gradient(var(--header-highlight), var(--header-highlight));
+    background-size: 100% 25%;
+    background-position: left bottom;
+    background-repeat: no-repeat;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
   }
 
   .modalities-intro {
@@ -177,19 +219,23 @@
   .modalities-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 1px;
+    gap: clamp(10px, 1.5vw, 16px);
     max-width: 900px;
     margin: 0 auto;
-    background: rgba(0, 0, 0, 0.06);
+    background: transparent;
   }
 
   .modality-item {
-    background: rgba(255, 255, 255, 0.65);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    border-radius: var(--radius-md);
+    background: rgba(255, 255, 255, 0.42);
+    backdrop-filter: blur(22px) saturate(1.08);
+    -webkit-backdrop-filter: blur(22px) saturate(1.08);
     padding: clamp(24px, 3vw, 32px);
     position: relative;
-    border: 1px solid rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.62);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.55),
+      0 2px 12px rgba(52, 152, 219, 0.06);
   }
 
   .modality-item::before {
@@ -222,14 +268,49 @@
   }
 
   .modalities-section {
-    padding: clamp(72px, 12vw, 120px) clamp(24px, 6vw, 64px);
-    background: linear-gradient(180deg, var(--blue-tint) 0%, rgba(231, 76, 60, 0.04) 100%);
+    padding: clamp(56px, 9vw, 100px) clamp(22px, 5vw, 48px) clamp(28px, 4vw, 44px);
+    margin-bottom: clamp(16px, 2.5vw, 28px);
+    border-radius: var(--radius-xl);
+    background: var(--glass-fill);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
   }
 
   /* ——— Philosophy ——— */
   .philosophy-section {
-    padding: clamp(56px, 10vw, 96px) clamp(24px, 6vw, 64px);
-    background: var(--blue-tint);
+    padding: clamp(32px, 5vw, 52px) clamp(22px, 5vw, 48px) clamp(44px, 8vw, 72px);
+    margin-bottom: clamp(16px, 2.5vw, 28px);
+    border-radius: var(--radius-xl);
+    background: var(--glass-fill-strong);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+  }
+
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .modalities-section,
+    .philosophy-section {
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
+
+    .modalities-section {
+      background: linear-gradient(145deg, rgba(252, 254, 255, 0.96), rgba(228, 242, 251, 0.93));
+    }
+
+    .feature-block .copy,
+    .philosophy-section {
+      background: linear-gradient(155deg, rgba(228, 242, 251, 0.95), rgba(255, 255, 255, 0.93));
+    }
+
+    .modality-item {
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      background: rgba(255, 255, 255, 0.88);
+    }
   }
 
   .philosophy-section .wrap {
@@ -240,11 +321,20 @@
 
   .philosophy-section h2 {
     font-size: clamp(1.375rem, 2vw, 1.625rem);
-    font-weight: 600;
+    font-weight: 700;
     letter-spacing: -0.02em;
-    color: var(--blue);
-    margin-bottom: 1.25rem;
+    color: var(--text);
+    text-shadow: var(--heading-shadow);
+    margin: 0 0 1.25rem;
     line-height: 1.3;
+    display: inline-block;
+    padding: 0 0.1em;
+    background-image: linear-gradient(var(--header-highlight), var(--header-highlight));
+    background-size: 100% 25%;
+    background-position: left bottom;
+    background-repeat: no-repeat;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
   }
 
   .philosophy-section p {
@@ -255,10 +345,11 @@
     margin: 0;
   }
 
-  /* ——— CTA ——— */
+  /* ——— CTA (open on canvas — no glass card; flat button) ——— */
   .cta-section {
-    padding: clamp(64px, 10vw, 96px) clamp(24px, 6vw, 64px);
+    padding: clamp(56px, 10vw, 96px) clamp(22px, 5vw, 48px);
     text-align: center;
+    background: none;
   }
 
   .cta-button {
@@ -274,6 +365,8 @@
     font-weight: 500;
     letter-spacing: 0.04em;
     text-transform: uppercase;
+    border: none;
+    box-shadow: none;
     transition: background 0.2s var(--ease);
   }
 
@@ -312,6 +405,9 @@
 
     .feature-block .copy {
       padding: clamp(32px, 5vw, 48px) clamp(24px, 5vw, 40px);
+      border-left: none;
+      border-right: none;
+      border-top: 1px solid rgba(255, 255, 255, 0.55);
     }
 
     .modalities-grid {
@@ -345,9 +441,6 @@
     <div class="eyebrow-divider" aria-hidden="true"></div>
     <h1>Movement-First <strong>Training</strong></h1>
     <p class="hero-p">High-quality assessments and custom training programs designed to increase your movement vocabulary, build strength, and keep you healthy for the long term.</p>
-    <div class="resource-tip">
-      <strong>Related resource:</strong> New to training (or returning after time off)? Start with the <a href="https://eparmedx.com/" target="_blank" rel="noopener noreferrer">PAR-Q+</a> readiness questionnaire, and browse <a href="https://www.healthline.com/nutrition/ways-to-measure-body-fat" target="_blank" rel="noopener noreferrer">body composition testing options</a> if you want more detail than the scale.
-    </div>
   </section>
 
   <article class="feature-block">
@@ -397,13 +490,13 @@
       <img src="https://images.squarespace-cdn.com/content/69866a537fe19438ada9fffd/1049d6ff-28aa-45eb-8ece-cead4864f72f/AllieTraining-16.jpg?content-type=image%2Fjpeg" alt="Assessment session">
     </div>
     <div class="copy">
-      <h2>Comprehensive Assessment Process</h2>
-      <p>Every new client begins with a mandatory intake assessment ($90) following a free 30-minute consultation. This thorough evaluation identifies movement limitations, asymmetries, and opportunities for improvement—forming the foundation of your personalized training program.</p>
+      <h2>Comprehensive Assessment</h2>
+      <p>Your journey starts with a <strong>complimentary 60-minute consultation</strong>, where we’ll chat about your goals and get to know each other. From there, we move into a deep-dive intake assessment ($90). This initial evaluation is the essential first step in mapping out your movement patterns and identifying exactly how to build your personalized foundation.</p>
     </div>
   </article>
 
   <div class="cta-section">
     <a href="#" class="cta-button">Book a free consultation</a>
-    <p class="cta-subtitle">30-minute consultation · No obligation · Let's discuss your goals</p>
+    <p class="cta-subtitle">60-minute consultation · No obligation · Let's discuss your goals</p>
   </div>
 </div>
