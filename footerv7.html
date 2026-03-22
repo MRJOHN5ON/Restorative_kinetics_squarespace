@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Footer v7 — Kinetic skew</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;900&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <style>
+    /* Loads fonts when pasted into Squarespace (Code blocks often omit <head> links). */
+    @import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;900&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap');
+
+    :root {
+      /* Site triad only: blue, red, yellow (no slate / violet stops) */
+      --rk-blue: #3498db;
+      --rk-blue-mid: #2b78a4;
+      --rk-blue-deep: #1f6fa3;
+      --rk-red: #e74c3c;
+      --rk-yellow: #f1c40f;
+      --rk-bg-soft: #f8fafb;
+    }
+    * { box-sizing: border-box; }
+    html {
+      overflow-x: hidden;
+    }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: var(--rk-bg-soft);
+    }
+    .kn {
+      margin-top: auto;
+      font-family: 'DM Sans', sans-serif !important;
+      padding: 0;
+      /* Full-bleed to viewport (works inside narrow embed wrappers too) */
+      width: 100vw;
+      max-width: none;
+      margin-left: calc(50% - 50vw);
+      margin-right: calc(50% - 50vw);
+      position: relative;
+      overflow: hidden;
+    }
+    .kn__strip {
+      background: linear-gradient(
+        125deg,
+        var(--rk-blue-deep) 0%,
+        var(--rk-blue-mid) 42%,
+        var(--rk-blue) 100%
+      );
+      color: #fff;
+      transform: skewY(-2.5deg);
+      margin: clamp(40px, 8vw, 80px) 0 0;
+      padding: clamp(48px, 10vw, 100px) clamp(20px, 6vw, 56px);
+      position: relative;
+      box-shadow:
+        0 -5px 0 var(--rk-red),
+        0 5px 0 var(--rk-yellow),
+        0 24px 40px rgba(31, 111, 163, 0.35);
+    }
+    .kn__strip-inner {
+      transform: skewY(2.5deg);
+      max-width: 1180px;
+      margin: 0 auto;
+      display: grid;
+      gap: clamp(28px, 5vw, 48px);
+      align-items: center;
+    }
+    @media (min-width: 880px) {
+      .kn__strip-inner {
+        grid-template-columns: 1fr 1.2fr;
+      }
+    }
+    .kn__side {
+      position: relative;
+    }
+    .kn__side::before {
+      content: '';
+      position: absolute;
+      left: -12px;
+      top: 0;
+      bottom: 0;
+      width: 6px;
+      background: linear-gradient(
+        180deg,
+        var(--rk-red) 0%,
+        var(--rk-yellow) 50%,
+        var(--rk-blue) 100%
+      );
+      border-radius: 3px;
+    }
+    /* High specificity + !important so Squarespace paragraph/heading styles do not win. */
+    footer.kn .kn__name {
+      font-family: 'Unbounded', sans-serif !important;
+      font-weight: 900 !important;
+      font-size: clamp(2rem, 5vw, 3.25rem);
+      line-height: 1;
+      margin: 0 0 1rem;
+      padding-left: 1rem;
+      letter-spacing: -0.03em;
+    }
+    .kn__creds {
+      margin: 0;
+      padding: 0 0 0 1rem;
+      list-style: none;
+      font-size: 0.88rem;
+      line-height: 1.65;
+      color: rgba(248, 250, 251, 0.88);
+    }
+    .kn__visual {
+      text-align: center;
+    }
+    .kn__logo {
+      width: min(100%, 540px);
+      height: auto;
+      margin: 0 auto;
+      display: block;
+      filter: drop-shadow(0 14px 24px rgba(0, 0, 0, 0.28));
+    }
+    .kn__bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem 2rem;
+      margin-top: clamp(20px, 4vw, 32px);
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.28);
+    }
+    footer.kn .kn__loc {
+      font-family: 'Unbounded', sans-serif !important;
+      font-weight: 500 !important;
+      font-size: clamp(0.7rem, 1.5vw, 0.8rem);
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      margin: 0;
+      color: var(--rk-yellow);
+    }
+    footer.kn .kn__phone {
+      font-family: 'Unbounded', sans-serif !important;
+      font-weight: 700 !important;
+      font-size: clamp(1rem, 2.2vw, 1.2rem);
+      color: #fff;
+      text-decoration: none;
+      padding: 0.5rem 0;
+      background: linear-gradient(90deg, currentColor, currentColor) 0 100% / 100% 2px no-repeat;
+      transition: background-size 0.25s ease, color 0.25s ease;
+    }
+    .kn__phone:hover {
+      background-size: 0% 2px;
+      color: var(--rk-yellow);
+    }
+    .kn__phone:focus-visible {
+      outline: 2px solid var(--rk-red);
+      outline-offset: 6px;
+    }
+  </style>
+</head>
+<body>
+  <footer class="kn" role="contentinfo">
+    <div class="kn__strip">
+      <div class="kn__strip-inner">
+        <div class="kn__side">
+          <div class="kn__name">Allie Church</div>
+          <ul class="kn__creds">
+            <li>NSCA Certified Personal Trainer</li>
+            <li>Certified Biomechanics Specialist</li>
+            <li>Level 1 PPSC Pain Free Performance Coach</li>
+          </ul>
+        </div>
+        <div class="kn__visual">
+          <img
+            class="kn__logo"
+            src="https://i.postimg.cc/QNBPSC3P/upscaled-2x-traced-unnamed.png"
+            width="560"
+            height="160"
+            alt="Restorative Kinetics">
+          <div class="kn__bar">
+            <div class="kn__loc">Gallatin County, Montana</div>
+            <a class="kn__phone" href="tel:+15555555555">(555) 555-5555</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

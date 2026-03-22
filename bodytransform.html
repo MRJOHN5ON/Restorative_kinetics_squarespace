@@ -1,0 +1,121 @@
+<style>
+    .ba-slider-wrap {
+      position: relative;
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
+      overflow: hidden;
+      border-radius: 8px;
+      user-select: none;
+      cursor: col-resize;
+    }
+    .ba-slider-wrap img {
+      display: block;
+      width: 100%;
+      height: auto;
+      pointer-events: none;
+    }
+    .ba-after {
+      position: absolute;
+      top: 0; left: 0;
+      width: 50%;
+      height: 100%;
+      overflow: hidden;
+    }
+    .ba-after img {
+      width: var(--ba-full-width, 800px);
+      max-width: none;
+    }
+    .ba-handle {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 4px;
+      height: 100%;
+      background: #fff;
+      cursor: col-resize;
+      z-index: 10;
+    }
+    .ba-handle::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 40px;
+      height: 40px;
+      background: #fff;
+      border-radius: 50%;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    }
+    .ba-handle::after {
+      content: '◀ ▶';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      color: #555;
+      width: 40px;
+      height: 40px;
+    }
+    .ba-label {
+      position: absolute;
+      top: 12px;
+      padding: 4px 10px;
+      background: rgba(0,0,0,0.5);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      border-radius: 4px;
+      pointer-events: none;
+      z-index: 5;
+    }
+    .ba-label-before { left: 12px; }
+    .ba-label-after  { right: 12px; }
+  </style>
+  
+  <div class="ba-slider-wrap" id="baSlider">
+    <img src="https://i.postimg.cc/RVfQ5T8q/photo-2026-03-19-14-20-35.jpg" alt="Before" id="baBeforeImg">
+    <div class="ba-after" id="baAfterDiv">
+      <img src="https://i.postimg.cc/hjfTC8Tg/photo-2026-03-19-14-20-30.jpg" alt="After" id="baAfterImg">
+    </div>
+    <div class="ba-handle" id="baHandle"></div>
+    <span class="ba-label ba-label-before">Before</span>
+    <span class="ba-label ba-label-after">After</span>
+  </div>
+  
+  <script>
+    (function() {
+      var wrap     = document.getElementById('baSlider');
+      var after    = document.getElementById('baAfterDiv');
+      var handle   = document.getElementById('baHandle');
+      var afterImg = document.getElementById('baAfterImg');
+      var dragging = false;
+  
+      function setPosition(x) {
+        var rect = wrap.getBoundingClientRect();
+        var pct  = Math.min(Math.max((x - rect.left) / rect.width * 100, 0), 100);
+        after.style.width  = pct + '%';
+        handle.style.left  = pct + '%';
+        afterImg.style.width = rect.width + 'px';
+      }
+  
+      wrap.addEventListener('mousedown', function(e) { dragging = true; setPosition(e.clientX); e.preventDefault(); });
+      document.addEventListener('mousemove', function(e) { if (dragging) setPosition(e.clientX); });
+      document.addEventListener('mouseup',   function()  { dragging = false; });
+  
+      wrap.addEventListener('touchstart', function(e) { dragging = true; setPosition(e.touches[0].clientX); }, {passive:true});
+      document.addEventListener('touchmove',  function(e) { if (dragging) setPosition(e.touches[0].clientX); }, {passive:true});
+      document.addEventListener('touchend',   function()  { dragging = false; });
+  
+      window.addEventListener('load', function() {
+        afterImg.style.width = wrap.offsetWidth + 'px';
+      });
+    })();
+  </script>
+  

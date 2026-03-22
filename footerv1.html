@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Footer v1 — Restorative Kinetics (reference layout)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --banner-blue: #2b78a4;
+      --banner-gold: #f1c40f;
+      --banner-white: #ffffff;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+      background: #e8eef2;
+    }
+    .rk-footer-v1 {
+      margin-top: auto;
+      background: var(--banner-blue);
+      color: var(--banner-white);
+      padding: clamp(28px, 5vw, 40px) clamp(20px, 4vw, 36px);
+    }
+    .rk-footer-v1__inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: clamp(1.5rem, 4vw, 2.25rem);
+      align-items: center;
+    }
+    @media (min-width: 800px) {
+      .rk-footer-v1__inner {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
+        gap: 1.5rem 2rem;
+      }
+    }
+    .rk-footer-v1__owner {
+      text-align: left;
+    }
+    .rk-footer-v1__name {
+      margin: 0 0 0.65rem;
+      font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+      font-weight: 700;
+      color: var(--banner-white);
+      line-height: 1.2;
+    }
+    .rk-footer-v1__creds {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      font-size: clamp(0.8rem, 1.6vw, 0.9rem);
+      font-weight: 500;
+      line-height: 1.55;
+      color: rgba(255, 255, 255, 0.95);
+    }
+    .rk-footer-v1__center {
+      text-align: center;
+    }
+    .rk-footer-v1__logo {
+      height: clamp(52px, 12vw, 72px);
+      width: auto;
+      display: block;
+      margin: 0 auto 0.65rem;
+    }
+    .rk-footer-v1__location {
+      margin: 0;
+      font-size: clamp(0.85rem, 1.8vw, 0.95rem);
+      font-weight: 600;
+      color: var(--banner-gold);
+      letter-spacing: 0.02em;
+    }
+    .rk-footer-v1__right {
+      text-align: left;
+    }
+    @media (min-width: 800px) {
+      .rk-footer-v1__right {
+        text-align: right;
+      }
+    }
+    .rk-footer-v1__phone {
+      font-size: clamp(1.1rem, 2.4vw, 1.35rem);
+      font-weight: 700;
+      color: var(--banner-gold);
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .rk-footer-v1__phone:hover,
+    .rk-footer-v1__phone:focus-visible {
+      opacity: 0.88;
+      outline: none;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+  </style>
+</head>
+<body>
+  <!--
+    Content matches assets/footer-reference-banner.png.
+    If your banner shows a different phone, update href (E.164) + visible number below.
+  -->
+  <footer class="rk-footer-v1" role="contentinfo">
+    <div class="rk-footer-v1__inner">
+      <div class="rk-footer-v1__owner">
+        <p class="rk-footer-v1__name">Allie Church</p>
+        <ul class="rk-footer-v1__creds">
+          <li>NSCA Certified Personal Trainer</li>
+          <li>Certified Biomechanics Specialist</li>
+          <li>Level 1 PPSC Pain Free Performance Coach</li>
+        </ul>
+      </div>
+      <div class="rk-footer-v1__center">
+        <img
+          class="rk-footer-v1__logo"
+          src="https://i.postimg.cc/QNBPSC3P/upscaled-2x-traced-unnamed.png"
+          width="280"
+          height="80"
+          alt="Restorative Kinetics">
+        <p class="rk-footer-v1__location">Gallatin County, Montana</p>
+      </div>
+      <div class="rk-footer-v1__right">
+        <a class="rk-footer-v1__phone" href="tel:+15555555555">(555) 555-5555</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
