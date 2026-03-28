@@ -1,0 +1,1301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <title>PAR-Q+ Questionnaire — Restorative Kinetics</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --blue: #3498db;
+      --blue-dark: #2980b9;
+      --blue-soft: rgba(52, 152, 219, 0.22);
+      --red: #e74c3c;
+      --red-soft: rgba(231, 76, 60, 0.2);
+      --text: #1a1f26;
+      --text-muted: #4d5560;
+      --gold: #dba523;
+      --radius-xl: clamp(20px, 3.2vw, 28px);
+      --radius-md: 14px;
+      --glass-fill: linear-gradient(
+        145deg,
+        rgba(255, 255, 255, 0.58) 0%,
+        rgba(228, 242, 251, 0.45) 42%,
+        rgba(255, 255, 255, 0.4) 100%
+      );
+      --glass-border: rgba(255, 255, 255, 0.75);
+      --glass-shadow:
+        0 4px 28px rgba(52, 152, 219, 0.09),
+        0 1px 4px rgba(26, 31, 38, 0.05),
+        inset 0 1px 0 rgba(255, 255, 255, 0.7);
+      --blur: blur(28px) saturate(1.14);
+      --ease: cubic-bezier(0.33, 1, 0.68, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: 'Poppins', 'Helvetica Neue', Arial, sans-serif;
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      background: var(--gold);
+      line-height: 1.55;
+    }
+
+    /* Animated color “waves” + depth */
+    .rk-parq-page {
+      position: relative;
+      isolation: isolate;
+      overflow-x: clip;
+      padding: clamp(20px, 4vw, 48px) clamp(16px, 4vw, 32px) clamp(48px, 8vw, 80px);
+    }
+
+    .rk-parq-page::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse 100% 60% at 50% -10%, rgba(255, 255, 255, 0.35), transparent 55%),
+        radial-gradient(ellipse 70% 50% at 0% 40%, var(--blue-soft), transparent 50%),
+        radial-gradient(ellipse 65% 45% at 100% 55%, var(--red-soft), transparent 48%),
+        radial-gradient(ellipse 90% 40% at 50% 100%, rgba(52, 152, 219, 0.15), transparent 50%);
+    }
+
+    .rk-parq-wave {
+      position: fixed;
+      left: 50%;
+      width: 140%;
+      max-width: none;
+      height: clamp(120px, 22vw, 200px);
+      transform: translateX(-50%);
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.45;
+      background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(52, 152, 219, 0.25) 25%,
+        rgba(231, 76, 60, 0.2) 50%,
+        rgba(52, 152, 219, 0.22) 75%,
+        transparent 100%
+      );
+      border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+      filter: blur(2px);
+    }
+
+    .rk-parq-wave--top {
+      top: -40px;
+      animation: rk-parq-wave-drift 18s var(--ease) infinite alternate;
+    }
+
+    .rk-parq-wave--bottom {
+      bottom: -60px;
+      transform: translateX(-50%) scaleX(-1);
+      animation: rk-parq-wave-drift 22s var(--ease) infinite alternate-reverse;
+    }
+
+    @keyframes rk-parq-wave-drift {
+      0% { transform: translateX(-50%) translateX(-3%); }
+      100% { transform: translateX(-50%) translateX(3%); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .rk-parq-wave--top,
+      .rk-parq-wave--bottom { animation: none; }
+    }
+
+    .rk-parq-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .rk-parq-hero {
+      text-align: center;
+      margin-bottom: clamp(24px, 4vw, 36px);
+    }
+
+    .rk-parq-hero .eyebrow {
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin: 0 0 0.5rem;
+    }
+
+    .rk-parq-hero .divider {
+      width: 72px;
+      height: 2px;
+      margin: 0 auto 1rem;
+      background: linear-gradient(90deg, var(--red), var(--blue), transparent);
+      border-radius: 1px;
+      opacity: 0.85;
+    }
+
+    .rk-parq-hero h1 {
+      font-size: clamp(1.65rem, 4vw, 2.25rem);
+      font-weight: 300;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin: 0 0 0.75rem;
+    }
+
+    .rk-parq-hero h1 strong {
+      font-weight: 700;
+      color: var(--blue-dark);
+    }
+
+    .rk-parq-hero p {
+      margin: 0 auto;
+      max-width: 52ch;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .rk-parq-hero a {
+      color: var(--blue-dark);
+      font-weight: 600;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .rk-parq-card {
+      border-radius: var(--radius-xl);
+      padding: clamp(24px, 4vw, 40px);
+      background: var(--glass-fill);
+      backdrop-filter: var(--blur);
+      -webkit-backdrop-filter: var(--blur);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--glass-shadow);
+      margin-bottom: clamp(20px, 3vw, 28px);
+    }
+
+    .rk-parq-card h2 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin: 2rem 0 1rem;
+      color: var(--text);
+    }
+
+    .rk-parq-card h2:first-of-type {
+      margin-top: 0;
+    }
+
+    .rk-parq-card h3 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin: 1.35rem 0 0.75rem;
+      color: var(--blue-dark);
+    }
+
+    .rk-parq-card > p {
+      margin: 0 0 1rem;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .rk-parq-static {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+      margin: 0 0 1rem;
+    }
+
+    .rk-parq-static strong { color: var(--text); }
+
+    .rk-parq-static--tight { margin-bottom: 0.65rem; }
+
+    .rk-parq-static ul {
+      margin: 0.5rem 0 0.85rem 1.1rem;
+      padding: 0;
+    }
+
+    .rk-parq-static li { margin-bottom: 0.4rem; }
+
+    .rk-parq-req-when-yes {
+      font-weight: 500;
+      color: var(--blue-dark);
+      font-size: 0.8em;
+    }
+
+    .rk-parq-pdf-title {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text);
+      margin: 0 0 0.5rem;
+    }
+
+    .rk-parq-notice {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      padding: 14px 16px;
+      border-radius: var(--radius-md);
+      background: rgba(255, 255, 255, 0.35);
+      border: 1px solid rgba(52, 152, 219, 0.28);
+      margin-bottom: 1.25rem;
+      line-height: 1.5;
+    }
+
+    /* Section rhythm: indent + soft panels */
+    .rk-parq-ghq-and-followup {
+      margin-top: 0.5rem;
+    }
+
+    .rk-parq-contact-grid {
+      padding: 4px 0 2px clamp(10px, 2vw, 16px);
+      border-left: 2px solid rgba(52, 152, 219, 0.3);
+      margin-bottom: 0.25rem;
+    }
+
+    #rk-parq-ghq-root {
+      border-left: 3px solid rgba(52, 152, 219, 0.45);
+      padding: 0.25rem 0 0.25rem clamp(12px, 2.5vw, 20px);
+      margin: 0 0 1.25rem;
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0.22) 0%, transparent 100%);
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    }
+
+    #rk-parq-ghq-root fieldset {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: var(--radius-md);
+      padding: 12px 14px 14px;
+      margin-bottom: 0.85rem;
+      border: 1px solid rgba(255, 255, 255, 0.45);
+    }
+
+    #rk-parq-ghq-root fieldset:last-child { margin-bottom: 0; }
+
+    .rk-parq-page1-after {
+      padding-left: clamp(8px, 2vw, 14px);
+      border-left: 2px solid rgba(231, 76, 60, 0.2);
+      margin: 1rem 0 1.25rem;
+    }
+
+    /* Follow-up block hidden until any General Health = YES (appears directly under those questions) */
+    #rk-parq-followup-wrap {
+      display: none;
+      margin: 0 0 1rem;
+      padding: clamp(12px, 2.5vw, 18px);
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(52, 152, 219, 0.28);
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .rk-parq-ghq-and-followup:has(#rk-parq-ghq-root input[type="radio"][value="YES"]:checked) #rk-parq-followup-wrap {
+      display: block;
+    }
+
+    .rk-parq-followup-callout {
+      font-size: 0.88rem;
+      line-height: 1.5;
+      color: var(--text);
+      padding: 14px 16px;
+      margin: 0 0 1rem;
+      border-radius: var(--radius-md);
+      background: rgba(231, 76, 60, 0.1);
+      border: 1px solid rgba(231, 76, 60, 0.28);
+    }
+
+    .rk-parq-fu-subs {
+      margin-top: 0.35rem;
+      padding-left: clamp(8px, 2vw, 14px);
+      border-left: 2px solid rgba(52, 152, 219, 0.35);
+    }
+
+    .rk-parq-fu-subs[hidden] {
+      display: none !important;
+    }
+
+    .rk-parq-cond-list {
+      display: none;
+      margin-top: 0.75rem;
+    }
+
+    fieldset:has(input[name="page1_q4"][value="YES"]:checked) .rk-parq-cond-list--q4,
+    fieldset:has(input[name="page1_q6"][value="YES"]:checked) .rk-parq-cond-list--q6 {
+      display: block;
+    }
+
+    .rk-parq-acc {
+      border: 1px solid rgba(255, 255, 255, 0.55);
+      border-radius: var(--radius-md);
+      margin-bottom: 0.55rem;
+      background: rgba(255, 255, 255, 0.22);
+      overflow: clip;
+    }
+
+    .rk-parq-acc summary {
+      cursor: pointer;
+      padding: 12px 14px 12px 12px;
+      font-weight: 600;
+      font-size: 0.88rem;
+      line-height: 1.4;
+      color: var(--text);
+      list-style: none;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+
+    .rk-parq-acc summary::-webkit-details-marker { display: none; }
+
+    .rk-parq-acc summary::before {
+      content: '▸';
+      flex-shrink: 0;
+      color: var(--blue-dark);
+      font-size: 0.75rem;
+      margin-top: 0.2em;
+      transition: transform 0.2s var(--ease);
+    }
+
+    .rk-parq-acc[open] summary::before {
+      transform: rotate(90deg);
+    }
+
+    .rk-parq-acc__lead {
+      font-size: 0.78rem;
+      font-weight: 400;
+      color: var(--text-muted);
+      margin: 0 0 0.75rem;
+      line-height: 1.45;
+      padding: 0 14px 0 14px;
+    }
+
+    .rk-parq-acc__body {
+      padding: 0 12px 14px clamp(14px, 3vw, 22px);
+      border-top: 1px solid rgba(255, 255, 255, 0.35);
+    }
+
+    .rk-parq-acc__body fieldset {
+      margin-bottom: 1rem;
+      padding-bottom: 0.25rem;
+      border-bottom: 1px solid rgba(28, 119, 166, 0.08);
+    }
+
+    .rk-parq-acc__body fieldset:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+    }
+
+    .rk-parq-p4-wrap {
+      text-align: center;
+      margin: 1.5rem 0 0.5rem;
+    }
+
+    .rk-parq-p4-wrap h2 {
+      margin: 0 0 0.65rem;
+      text-align: center;
+    }
+
+    .rk-parq-p4-details {
+      margin: 0 auto 1.5rem;
+      max-width: 100%;
+      text-align: left;
+      border: 1px solid rgba(52, 152, 219, 0.25);
+      border-radius: var(--radius-md);
+      background: rgba(255, 255, 255, 0.18);
+    }
+
+    .rk-parq-p4-details > summary {
+      cursor: pointer;
+      padding: 14px 16px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      list-style: none;
+      color: var(--blue-dark);
+    }
+
+    .rk-parq-p4-details > summary::-webkit-details-marker { display: none; }
+
+    .rk-parq-p4-details .rk-parq-notice {
+      margin: 0 12px 12px;
+      border-radius: var(--radius-md);
+    }
+
+    .rk-parq-declaration-block {
+      margin-top: 1.5rem;
+      padding: clamp(16px, 3vw, 22px);
+      border-radius: var(--radius-md);
+      background: rgba(255, 255, 255, 0.28);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+    }
+
+    .rk-parq-submit-wrap {
+      margin-top: clamp(2.25rem, 6vw, 3.5rem);
+      padding-top: clamp(1.25rem, 3vw, 2rem);
+      border-top: 1px solid rgba(28, 119, 166, 0.12);
+    }
+
+    fieldset {
+      border: none;
+      margin: 0 0 1.5rem;
+      padding: 0;
+    }
+
+    legend {
+      font-weight: 600;
+      font-size: 0.92rem;
+      margin-bottom: 0.65rem;
+      padding: 0;
+      line-height: 1.45;
+    }
+
+    .rk-parq-qtext {
+      font-size: 0.88rem;
+      color: var(--text);
+      margin-bottom: 0.65rem;
+      line-height: 1.5;
+    }
+
+    .rk-parq-yesno {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem 1.75rem;
+      align-items: center;
+    }
+
+    .rk-parq-yesno label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.88rem;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    .rk-parq-yesno input {
+      width: 1.05rem;
+      height: 1.05rem;
+      accent-color: var(--blue-dark);
+    }
+
+    .rk-parq-field {
+      margin-bottom: 1.1rem;
+    }
+
+    .rk-parq-field > label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+      color: var(--text);
+    }
+
+    .rk-parq-field input[type="text"],
+    .rk-parq-field input[type="email"],
+    .rk-parq-field input[type="tel"],
+    .rk-parq-field input[type="date"],
+    textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(26, 31, 38, 0.12);
+      background: rgba(255, 255, 255, 0.55);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      font-family: inherit;
+      font-size: 0.9rem;
+      color: var(--text);
+      transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease);
+    }
+
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .rk-parq-field input:focus,
+    textarea:focus {
+      outline: none;
+      border-color: rgba(52, 152, 219, 0.55);
+      box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.15);
+    }
+
+    .rk-parq-grid2 {
+      display: grid;
+      gap: 1rem;
+    }
+
+    @media (min-width: 560px) {
+      .rk-parq-grid2 { grid-template-columns: 1fr 1fr; }
+    }
+
+    .rk-parq-check {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.65rem;
+      margin: 1rem 0 1.25rem;
+    }
+
+    .rk-parq-check input {
+      margin-top: 0.25rem;
+      width: 1.1rem;
+      height: 1.1rem;
+      flex-shrink: 0;
+      accent-color: var(--blue-dark);
+    }
+
+    .rk-parq-check label {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      cursor: pointer;
+    }
+
+    .rk-parq-submit {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 16px 24px;
+      border: none;
+      border-radius: 14px;
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #fff;
+      cursor: pointer;
+      background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dark) 100%);
+      box-shadow: 0 4px 20px rgba(52, 152, 219, 0.35);
+      transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease);
+    }
+
+    .rk-parq-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(52, 152, 219, 0.4);
+    }
+
+    .rk-parq-submit:active {
+      transform: translateY(0);
+    }
+
+    .rk-parq-foot {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-align: center;
+      max-width: min(42rem, 92vw);
+      margin: clamp(1.5rem, 4vw, 2.5rem) auto 0;
+      padding: 0 clamp(12px, 3vw, 20px);
+      line-height: 1.55;
+    }
+
+    .rk-parq-foot,
+    .rk-parq-foot strong {
+      text-align: center;
+    }
+
+    .rk-parq-foot a { color: var(--blue-dark); font-weight: 600; }
+
+    @supports not selector(:has(*)) {
+      #rk-parq-followup-wrap { display: block; }
+      .rk-parq-cond-list { display: block; }
+    }
+  </style>
+</head>
+<body>
+  <div class="rk-parq-page">
+    <div class="rk-parq-wave rk-parq-wave--top" aria-hidden="true"></div>
+    <div class="rk-parq-wave rk-parq-wave--bottom" aria-hidden="true"></div>
+
+    <div class="rk-parq-inner">
+      <header class="rk-parq-hero">
+        <p class="eyebrow">Health screening</p>
+        <div class="divider" aria-hidden="true"></div>
+        <h1><strong>PAR-Q+</strong> Questionnaire</h1>
+        <p>Physical Activity Readiness Questionnaire for Everyone. Answer honestly; extra questions appear when your answers require them.</p>
+      </header>
+
+      <!--
+        EMAIL: Replace YOUR_EMAIL@example.com with the address that should receive submissions.
+        First submit triggers FormSubmit verification — check your inbox and confirm.
+
+        Optional: After confirming, set _next to your thank-you page URL.
+        Docs: https://formsubmit.co/documentation
+      -->
+      <!--
+        Validation summary: required — full legal name, email, all 7 general-health YES/NO,
+        participant declaration checkbox, declaration name + typed signature + date.
+        Optional — phone, both “list conditions/medications” textareas, parent/guardian, witness.
+        Conditional — Q4 and Q6 list textareas required only when that question is YES (enforced in JS).
+        Follow-up section radios are optional for submit (complete when applicable).
+      -->
+      <form
+        id="rk-parq-form"
+        class="rk-parq-card"
+        action="https://formsubmit.co/YOUR_EMAIL@example.com"
+        method="POST"
+        autocomplete="off"
+        data-form-type="other"
+      >
+        <input type="hidden" name="_subject" value="New PAR-Q+ submission — Restorative Kinetics">
+        <input type="hidden" name="_template" value="table">
+        <!-- Optional: add <input type="hidden" name="_next" value="https://yoursite.com/thank-you"> for post-submit redirect -->
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;height:0;width:0;opacity:0">
+
+        <p class="rk-parq-pdf-title">The Physical Activity Readiness Questionnaire for Everyone</p>
+        <div class="rk-parq-notice">
+          The health benefits of regular physical activity are clear; more people should engage in physical activity every day of the week. Participating in physical activity is very safe for MOST people. This questionnaire will tell you whether it is necessary for you to seek further advice from your doctor OR a qualified exercise professional before becoming more physically active.<br><br>
+          Please read the 7 questions below carefully and answer each one honestly: check YES or NO.
+        </div>
+
+        <h2>Your contact details</h2>
+        <div class="rk-parq-grid2 rk-parq-contact-grid">
+          <div class="rk-parq-field">
+            <label for="legal_name">Full legal name</label>
+            <input id="legal_name" name="legal_name" type="text" required autocomplete="off">
+          </div>
+          <div class="rk-parq-field">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" required autocomplete="off" inputmode="email">
+          </div>
+          <div class="rk-parq-field">
+            <label for="phone">Phone <span style="font-weight:400;color:var(--text-muted)">(optional)</span></label>
+            <input id="phone" name="phone" type="tel" autocomplete="off" inputmode="tel">
+          </div>
+        </div>
+
+        <div class="rk-parq-ghq-and-followup">
+        <h2>GENERAL HEALTH QUESTIONS</h2>
+        <p class="rk-parq-static rk-parq-static--tight">Answer YES or NO to each question. If you choose YES where asked, a space to list details will open directly under that question.</p>
+
+        <div id="rk-parq-ghq-root">
+        <fieldset>
+          <legend class="rk-parq-qtext">1) Has your doctor ever said that you have a heart condition OR high blood pressure ?</legend>
+          <div class="rk-parq-yesno">
+            <label><input type="radio" name="page1_q1" value="YES" required> YES</label>
+            <label><input type="radio" name="page1_q1" value="NO"> NO</label>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend class="rk-parq-qtext">2) Do you feel pain in your chest at rest, during your daily activities of living, OR when you do physical activity?</legend>
+          <div class="rk-parq-yesno">
+            <label><input type="radio" name="page1_q2" value="YES" required> YES</label>
+            <label><input type="radio" name="page1_q2" value="NO"> NO</label>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend class="rk-parq-qtext">3) Do you lose balance because of dizziness OR have you lost consciousness in the last 12 months? Please answer NO if your dizziness was associated with over-breathing (including during vigorous exercise).</legend>
+          <div class="rk-parq-yesno">
+            <label><input type="radio" name="page1_q3" value="YES" required> YES</label>
+            <label><input type="radio" name="page1_q3" value="NO"> NO</label>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend class="rk-parq-qtext">4) Have you ever been diagnosed with another chronic medical condition (other than heart disease or high blood pressure)? PLEASE LIST CONDITION(S) HERE:</legend>
+          <div class="rk-parq-yesno">
+            <label><input type="radio" name="page1_q4" value="YES" required> YES</label>
+            <label><input type="radio" name="page1_q4" value="NO"> NO</label>
+          </div>
+          <div class="rk-parq-field rk-parq-cond-list rk-parq-cond-list--q4">
+            <label for="page1_q4_list">List condition(s) <span class="rk-parq-req-when-yes">(required when you answered YES above)</span></label>
+            <textarea id="page1_q4_list" name="page1_q4_list" rows="3"></textarea>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend class="rk-parq-qtext">5) Are you currently taking prescribed medications for a chronic medical condition?</legend>
+          <div class="rk-parq-yesno">
+            <label><input type="radio" name="page1_q5" value="YES" required> YES</label>
+            <label><input type="radio" name="page1_q5" value="NO"> NO</label>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend class="rk-parq-qtext">6) Do you currently have (or have had within the past 12 months) a bone, joint, or soft tissue (muscle, ligament, or tendon) problem that could be made worse by becoming more physically active? Please answer NO if you had a problem in the past, but it does not limit your current ability to be physically active. PLEASE LIST CONDITION(S) HERE:</legend>
+          <div class="rk-parq-yesno">
+            <label><input type="radio" name="page1_q6" value="YES" required> YES</label>
+            <label><input type="radio" name="page1_q6" value="NO"> NO</label>
+          </div>
+          <div class="rk-parq-field rk-parq-cond-list rk-parq-cond-list--q6">
+            <label for="page1_q6_list">List condition(s) <span class="rk-parq-req-when-yes">(required when you answered YES above)</span></label>
+            <textarea id="page1_q6_list" name="page1_q6_list" rows="3"></textarea>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend class="rk-parq-qtext">7) Has your doctor ever said that you should only do medically supervised physical activity?</legend>
+          <div class="rk-parq-yesno">
+            <label><input type="radio" name="page1_q7" value="YES" required> YES</label>
+            <label><input type="radio" name="page1_q7" value="NO"> NO</label>
+          </div>
+        </fieldset>
+        </div><!-- #rk-parq-ghq-root -->
+
+        <div id="rk-parq-followup-wrap">
+        <div class="rk-parq-followup-callout" role="status">
+          <strong>Follow-up needed:</strong> You answered <strong>YES</strong> to at least one question above. Open each topic below that applies. When you answer <strong>YES</strong> to that topic’s main question, the next questions for that topic appear directly underneath.
+        </div>
+        <h2>FOLLOW-UP QUESTIONS ABOUT YOUR MEDICAL CONDITION(S)</h2>
+        <p class="rk-parq-static">Tap a heading to expand a section. Answer <strong>YES</strong> or <strong>NO</strong> to each question in order.</p>
+
+        <details class="rk-parq-acc" name="parq-fu">
+        <summary>1. Do you have Arthritis, Osteoporosis, or Back Problems?</summary>
+        <p class="rk-parq-acc__lead">If the above condition(s) is/are present, answer questions 1a–1c. If NO, go to question 2.</p>
+        <div class="rk-parq-acc__body">
+        <fieldset>
+          <legend class="rk-parq-qtext">1 — Arthritis, Osteoporosis, or Back Problems (main)</legend>
+          <div class="rk-parq-yesno">
+            <label><input type="radio" name="p2_q1" value="YES"> YES</label>
+            <label><input type="radio" name="p2_q1" value="NO"> NO</label>
+          </div>
+        </fieldset>
+        <div class="rk-parq-fu-subs" data-parq-main="p2_q1" hidden>
+        <fieldset>
+          <legend class="rk-parq-qtext">1a. Do you have difficulty controlling your condition with medications or other physician-prescribed therapies? (Answer NO if you are not currently taking medications or other treatments)</legend>
+          <div class="rk-parq-yesno">
+            <label><input type="radio" name="p2_q1a" value="YES"> YES</label>
+            <label><input type="radio" name="p2_q1a" value="NO"> NO</label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend class="rk-parq-qtext">1b. Do you have joint problems causing pain, a recent fracture or fracture caused by osteoporosis or cancer, displaced vertebra (e.g., spondylolisthesis), and/or spondylolysis/pars defect (a crack in the bony ring on the back of the spinal column)?</legend>
+          <div class="rk-parq-yesno">
+            <label><input type="radio" name="p2_q1b" value="YES"> YES</label>
+            <label><input type="radio" name="p2_q1b" value="NO"> NO</label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend class="rk-parq-qtext">1c. Have you had steroid injections or taken steroid tablets regularly for more than 3 months?</legend>
+          <div class="rk-parq-yesno">
+            <label><input type="radio" name="p2_q1c" value="YES"> YES</label>
+            <label><input type="radio" name="p2_q1c" value="NO"> NO</label>
+          </div>
+        </fieldset>
+        </div>
+        </div>
+        </details>
+
+        <details class="rk-parq-acc" name="parq-fu">
+        <summary>2. Do you currently have Cancer of any kind?</summary>
+        <p class="rk-parq-acc__lead">If the above condition(s) is/are present, answer questions 2a–2b. If NO, go to question 3.</p>
+        <div class="rk-parq-acc__body">
+        <fieldset>
+          <legend class="rk-parq-qtext">2 — Cancer of any kind (main)</legend>
+          <div class="rk-parq-yesno">
+            <label><input type="radio" name="p2_q2" value="YES"> YES</label>
+            <label><input type="radio" name="p2_q2" value="NO"> NO</label>
+          </div>
+        </fieldset>
+        <div class="rk-parq-fu-subs" data-parq-main="p2_q2" hidden>
+        <fieldset>
+          <legend class="rk-parq-qtext">2a. Does your cancer diagnosis include any of the following types: lung/bronchogenic, multiple myeloma (cancer of plasma cells), head, and/or neck?</legend>
+          <div class="rk-parq-yesno">
+            <label><input type="radio" name="p2_q2a" value="YES"> YES</label>
+            <label><input type="radio" name="p2_q2a" value="NO"> NO</label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend class="rk-parq-qtext">2b. Are you currently receiving cancer therapy (such as chemotheraphy or radiotherapy)?</legend>
+          <div class="rk-parq-yesno">
+            <label><input type="radio" name="p2_q2b" value="YES"> YES</label>
+            <label><input type="radio" name="p2_q2b" value="NO"> NO</label>
+          </div>
+        </fieldset>
+        </div>
+        </div>
+        </details>
+
+        <details class="rk-parq-acc" name="parq-fu">
+        <summary>3. Heart or Cardiovascular Condition (Coronary Artery Disease, Heart Failure, Diagnosed Abnormality of Heart Rhythm)</summary>
+        <p class="rk-parq-acc__lead">If the above condition(s) is/are present, answer questions 3a–3d. If NO, go to question 4.</p>
+        <div class="rk-parq-acc__body">
+        <fieldset>
+          <legend class="rk-parq-qtext">3 — Heart or Cardiovascular Condition (main)</legend>
+          <div class="rk-parq-yesno">
+            <label><input type="radio" name="p2_q3" value="YES"> YES</label>
+            <label><input type="radio" name="p2_q3" value="NO"> NO</label>
+          </div>
+        </fieldset>
+        <div class="rk-parq-fu-subs" data-parq-main="p2_q3" hidden>
+        <fieldset>
+          <legend class="rk-parq-qtext">3a. Do you have difficulty controlling your condition with medications or other physician-prescribed therapies? (Answer NO if you are not currently taking medications or other treatments)</legend>
+          <div class="rk-parq-yesno">
+            <label><input type="radio" name="p2_q3a" value="YES"> YES</label>
+            <label><input type="radio" name="p2_q3a" value="NO"> NO</label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend class="rk-parq-qtext">3b. Do you have an irregular heart beat that requires medical management? (e.g., atrial fibrillation, premature ventricular contraction)</legend>
+          <div class="rk-parq-yesno">
+            <label><input type="radio" name="p2_q3b" value="YES"> YES</label>
+            <label><input type="radio" name="p2_q3b" value="NO"> NO</label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend class="rk-parq-qtext">3c. Do you have chronic heart failure?</legend>
+          <div class="rk-parq-yesno">
+            <label><input type="radio" name="p2_q3c" value="YES"> YES</label>
+            <label><input type="radio" name="p2_q3c" value="NO"> NO</label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend class="rk-parq-qtext">3d. Do you have diagnosed coronary artery (cardiovascular) disease and have not participated in regular physical activity in the last 2 months?</legend>
+          <div class="rk-parq-yesno">
+            <label><input type="radio" name="p2_q3d" value="YES"> YES</label>
+            <label><input type="radio" name="p2_q3d" value="NO"> NO</label>
+          </div>
+        </fieldset>
+        </div>
+        </div>
+        </details>
+
+        <details class="rk-parq-acc" name="parq-fu">
+        <summary>4. Do you currently have High Blood Pressure?</summary>
+        <p class="rk-parq-acc__lead">If the above condition(s) is/are present, answer questions 4a–4b. If NO, go to question 5.</p>
+        <div class="rk-parq-acc__body">
+        <fieldset>
+          <legend class="rk-parq-qtext">4 — High Blood Pressure (main)</legend>
+          <div class="rk-parq-yesno">
+            <label><input type="radio" name="p2_q4" value="YES"> YES</label>
+            <label><input type="radio" name="p2_q4" value="NO"> NO</label>
+          </div>
+        </fieldset>
+        <div class="rk-parq-fu-subs" data-parq-main="p2_q4" hidden>
+        <fieldset>
+          <legend class="rk-parq-qtext">4a. Do you have difficulty controlling your condition with medications or other physician-prescribed therapies? (Answer NO if you are not currently taking medications or other treatments)</legend>
+          <div class="rk-parq-yesno">
+            <label><input type="radio" name="p2_q4a" value="YES"> YES</label>
+            <label><input type="radio" name="p2_q4a" value="NO"> NO</label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend class="rk-parq-qtext">4b. Do you have a resting blood pressure equal to or greater than 160/90 mmHg with or without medication? (Answer YES if you do not know your resting blood pressure)</legend>
+          <div class="rk-parq-yesno">
+            <label><input type="radio" name="p2_q4b" value="YES"> YES</label>
+            <label><input type="radio" name="p2_q4b" value="NO"> NO</label>
+          </div>
+        </fieldset>
+        </div>
+        </div>
+        </details>
+
+        <details class="rk-parq-acc" name="parq-fu">
+        <summary>5. Metabolic Conditions (Type 1 Diabetes, Type 2 Diabetes, Pre-Diabetes)</summary>
+        <p class="rk-parq-acc__lead">If the above condition(s) is/are present, answer questions 5a–5e. If NO, go to question 6.</p>
+        <div class="rk-parq-acc__body">
+        <fieldset>
+          <legend class="rk-parq-qtext">5 — Metabolic Conditions (main)</legend>
+          <div class="rk-parq-yesno">
+            <label><input type="radio" name="p2_q5" value="YES"> YES</label>
+            <label><input type="radio" name="p2_q5" value="NO"> NO</label>
+          </div>
+        </fieldset>
+        <div class="rk-parq-fu-subs" data-parq-main="p2_q5" hidden>
+        <fieldset>
+          <legend class="rk-parq-qtext">5a. Do you often have difficulty controlling your blood sugar levels with foods, medications, or other physician-prescribed therapies?</legend>
+          <div class="rk-parq-yesno">
+            <label><input type="radio" name="p2_q5a" value="YES"> YES</label>
+            <label><input type="radio" name="p2_q5a" value="NO"> NO</label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend class="rk-parq-qtext">5b. Do you often suffer from signs and symptoms of low blood sugar (hypoglycemia) following exercise and/or during activities of daily living? Signs of hypoglycemia may include shakiness, nervousness, unusual irritability, abnormal sweating, dizziness or light-headedness, mental confusion, difficulty speaking, weakness, or sleepiness.</legend>
+          <div class="rk-parq-yesno">
+            <label><input type="radio" name="p2_q5b" value="YES"> YES</label>
+            <label><input type="radio" name="p2_q5b" value="NO"> NO</label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend class="rk-parq-qtext">5c. Do you have any signs or symptoms of diabetes complications such as heart or vascular disease and/or complications affecting your eyes, kidneys, OR the sensation in your toes and feet?</legend>
+          <div class="rk-parq-yesno">
+            <label><input type="radio" name="p2_q5c" value="YES"> YES</label>
+            <label><input type="radio" name="p2_q5c" value="NO"> NO</label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend class="rk-parq-qtext">5d. Do you have other metabolic conditions (such as current pregnancy-related diabetes, chronic kidney disease, or liver problems)?</legend>
+          <div class="rk-parq-yesno">
+            <label><input type="radio" name="p2_q5d" value="YES"> YES</label>
+            <label><input type="radio" name="p2_q5d" value="NO"> NO</label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend class="rk-parq-qtext">5e. Are you planning to engage in what for you is unusually high (or vigorous) intensity exercise in the near future?</legend>
+          <div class="rk-parq-yesno">
+            <label><input type="radio" name="p2_q5e" value="YES"> YES</label>
+            <label><input type="radio" name="p2_q5e" value="NO"> NO</label>
+          </div>
+        </fieldset>
+        </div>
+        </div>
+        </details>
+
+        <details class="rk-parq-acc" name="parq-fu">
+        <summary>6. Mental Health Problems or Learning Difficulties (incl. Alzheimer’s, Dementia, Depression, Anxiety, Eating Disorder, Psychotic Disorder, Intellectual Disability, Down Syndrome)</summary>
+        <p class="rk-parq-acc__lead">If the above condition(s) is/are present, answer questions 6a–6b. If NO, go to question 7.</p>
+        <div class="rk-parq-acc__body">
+        <fieldset>
+          <legend class="rk-parq-qtext">6 — Mental Health Problems or Learning Difficulties (main)</legend>
+          <div class="rk-parq-yesno">
+            <label><input type="radio" name="p2_q6" value="YES"> YES</label>
+            <label><input type="radio" name="p2_q6" value="NO"> NO</label>
+          </div>
+        </fieldset>
+        <div class="rk-parq-fu-subs" data-parq-main="p2_q6" hidden>
+        <fieldset>
+          <legend class="rk-parq-qtext">6a. Do you have difficulty controlling your condition with medications or other physician-prescribed therapies? (Answer NO if you are not currently taking medications or other treatments)</legend>
+          <div class="rk-parq-yesno">
+            <label><input type="radio" name="p2_q6a" value="YES"> YES</label>
+            <label><input type="radio" name="p2_q6a" value="NO"> NO</label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend class="rk-parq-qtext">6b. Do you have Down Syndrome AND back problems affecting nerves or muscles?</legend>
+          <div class="rk-parq-yesno">
+            <label><input type="radio" name="p2_q6b" value="YES"> YES</label>
+            <label><input type="radio" name="p2_q6b" value="NO"> NO</label>
+          </div>
+        </fieldset>
+        </div>
+        </div>
+        </details>
+
+        <details class="rk-parq-acc" name="parq-fu">
+        <summary>7. Respiratory Disease (COPD, Asthma, Pulmonary High Blood Pressure)</summary>
+        <p class="rk-parq-acc__lead">If the above condition(s) is/are present, answer questions 7a–7d. If NO, go to question 8.</p>
+        <div class="rk-parq-acc__body">
+        <fieldset>
+          <legend class="rk-parq-qtext">7 — Respiratory Disease (main)</legend>
+          <div class="rk-parq-yesno">
+            <label><input type="radio" name="p2_q7" value="YES"> YES</label>
+            <label><input type="radio" name="p2_q7" value="NO"> NO</label>
+          </div>
+        </fieldset>
+        <div class="rk-parq-fu-subs" data-parq-main="p2_q7" hidden>
+        <fieldset>
+          <legend class="rk-parq-qtext">7a. Do you have difficulty controlling your condition with medications or other physician-prescribed therapies? (Answer NO if you are not currently taking medications or other treatments)</legend>
+          <div class="rk-parq-yesno">
+            <label><input type="radio" name="p2_q7a" value="YES"> YES</label>
+            <label><input type="radio" name="p2_q7a" value="NO"> NO</label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend class="rk-parq-qtext">7b. Has your doctor ever said your blood oxygen level is low at rest or during exercise and/or that you require supplemental oxygen therapy?</legend>
+          <div class="rk-parq-yesno">
+            <label><input type="radio" name="p2_q7b" value="YES"> YES</label>
+            <label><input type="radio" name="p2_q7b" value="NO"> NO</label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend class="rk-parq-qtext">7c. If asthmatic, do you currently have symptoms of chest tightness, wheezing, laboured breathing, consistent cough (more than 2 days/week), or have you used your rescue medication more than twice in the last week?</legend>
+          <div class="rk-parq-yesno">
+            <label><input type="radio" name="p2_q7c" value="YES"> YES</label>
+            <label><input type="radio" name="p2_q7c" value="NO"> NO</label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend class="rk-parq-qtext">7d. Has your doctor ever said you have high blood pressure in the blood vessels of your lungs?</legend>
+          <div class="rk-parq-yesno">
+            <label><input type="radio" name="p2_q7d" value="YES"> YES</label>
+            <label><input type="radio" name="p2_q7d" value="NO"> NO</label>
+          </div>
+        </fieldset>
+        </div>
+        </div>
+        </details>
+
+        <details class="rk-parq-acc" name="parq-fu">
+        <summary>8. Spinal Cord Injury (Tetraplegia and Paraplegia)</summary>
+        <p class="rk-parq-acc__lead">If the above condition(s) is/are present, answer questions 8a–8c. If NO, go to question 9.</p>
+        <div class="rk-parq-acc__body">
+        <fieldset>
+          <legend class="rk-parq-qtext">8 — Spinal Cord Injury (main)</legend>
+          <div class="rk-parq-yesno">
+            <label><input type="radio" name="p2_q8" value="YES"> YES</label>
+            <label><input type="radio" name="p2_q8" value="NO"> NO</label>
+          </div>
+        </fieldset>
+        <div class="rk-parq-fu-subs" data-parq-main="p2_q8" hidden>
+        <fieldset>
+          <legend class="rk-parq-qtext">8a. Do you have difficulty controlling your condition with medications or other physician-prescribed therapies? (Answer NO if you are not currently taking medications or other treatments)</legend>
+          <div class="rk-parq-yesno">
+            <label><input type="radio" name="p2_q8a" value="YES"> YES</label>
+            <label><input type="radio" name="p2_q8a" value="NO"> NO</label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend class="rk-parq-qtext">8b. Do you commonly exhibit low resting blood pressure significant enough to cause dizziness, light-headedness, and/or fainting?</legend>
+          <div class="rk-parq-yesno">
+            <label><input type="radio" name="p2_q8b" value="YES"> YES</label>
+            <label><input type="radio" name="p2_q8b" value="NO"> NO</label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend class="rk-parq-qtext">8c. Has your physician indicated that you exhibit sudden bouts of high blood pressure (known as Autonomic Dysreflexia)?</legend>
+          <div class="rk-parq-yesno">
+            <label><input type="radio" name="p2_q8c" value="YES"> YES</label>
+            <label><input type="radio" name="p2_q8c" value="NO"> NO</label>
+          </div>
+        </fieldset>
+        </div>
+        </div>
+        </details>
+
+        <details class="rk-parq-acc" name="parq-fu">
+        <summary>9. Stroke (TIA or Cerebrovascular Event)</summary>
+        <p class="rk-parq-acc__lead">If the above condition(s) is/are present, answer questions 9a–9c. If NO, go to question 10.</p>
+        <div class="rk-parq-acc__body">
+        <fieldset>
+          <legend class="rk-parq-qtext">9 — Stroke / TIA / Cerebrovascular Event (main)</legend>
+          <div class="rk-parq-yesno">
+            <label><input type="radio" name="p2_q9" value="YES"> YES</label>
+            <label><input type="radio" name="p2_q9" value="NO"> NO</label>
+          </div>
+        </fieldset>
+        <div class="rk-parq-fu-subs" data-parq-main="p2_q9" hidden>
+        <fieldset>
+          <legend class="rk-parq-qtext">9a. Do you have difficulty controlling your condition with medications or other physician-prescribed therapies? (Answer NO if you are not currently taking medications or other treatments)</legend>
+          <div class="rk-parq-yesno">
+            <label><input type="radio" name="p2_q9a" value="YES"> YES</label>
+            <label><input type="radio" name="p2_q9a" value="NO"> NO</label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend class="rk-parq-qtext">9b. Do you have any impairment in walking or mobility?</legend>
+          <div class="rk-parq-yesno">
+            <label><input type="radio" name="p2_q9b" value="YES"> YES</label>
+            <label><input type="radio" name="p2_q9b" value="NO"> NO</label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend class="rk-parq-qtext">9c. Have you experienced a stroke or impairment in nerves or muscles in the past 6 months?</legend>
+          <div class="rk-parq-yesno">
+            <label><input type="radio" name="p2_q9c" value="YES"> YES</label>
+            <label><input type="radio" name="p2_q9c" value="NO"> NO</label>
+          </div>
+        </fieldset>
+        </div>
+        </div>
+        </details>
+
+        <details class="rk-parq-acc" name="parq-fu">
+        <summary>10. Other medical condition not listed above, or two or more medical conditions</summary>
+        <p class="rk-parq-acc__lead">If the above condition(s) is/are present, answer questions 10a–10c. If NO, open the recommendations section below when you are ready.</p>
+        <div class="rk-parq-acc__body">
+        <fieldset>
+          <legend class="rk-parq-qtext">10 — Other / two or more medical conditions (main)</legend>
+          <div class="rk-parq-yesno">
+            <label><input type="radio" name="p2_q10" value="YES"> YES</label>
+            <label><input type="radio" name="p2_q10" value="NO"> NO</label>
+          </div>
+        </fieldset>
+        <div class="rk-parq-fu-subs" data-parq-main="p2_q10" hidden>
+        <fieldset>
+          <legend class="rk-parq-qtext">10a. Have you experienced a blackout, fainted, or lost consciousness as a result of a head injury within the last 12 months OR have you had a diagnosed concussion within the last 12 months?</legend>
+          <div class="rk-parq-yesno">
+            <label><input type="radio" name="p2_q10a" value="YES"> YES</label>
+            <label><input type="radio" name="p2_q10a" value="NO"> NO</label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend class="rk-parq-qtext">10b. Do you have a medical condition that is not listed (such as epilepsy, neurological conditions, kidney problems)?</legend>
+          <div class="rk-parq-yesno">
+            <label><input type="radio" name="p2_q10b" value="YES"> YES</label>
+            <label><input type="radio" name="p2_q10b" value="NO"> NO</label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend class="rk-parq-qtext">10c. Do you currently live with two or more medical conditions?</legend>
+          <div class="rk-parq-yesno">
+            <label><input type="radio" name="p2_q10c" value="YES"> YES</label>
+            <label><input type="radio" name="p2_q10c" value="NO"> NO</label>
+          </div>
+        </fieldset>
+        </div>
+        </div>
+        </details>
+
+        <div class="rk-parq-field">
+          <label for="p3_list_conditions_medications">PLEASE LIST YOUR MEDICAL CONDITION(S) AND ANY RELATED MEDICATIONS HERE: <span style="font-weight:400;color:var(--text-muted)">(optional)</span></label>
+          <textarea id="p3_list_conditions_medications" name="p3_list_conditions_medications" rows="5"></textarea>
+        </div>
+        </div><!-- #rk-parq-followup-wrap -->
+
+        <div class="rk-parq-page1-after">
+        <p class="rk-parq-static"><strong>Delay becoming more active if:</strong></p>
+        <ul class="rk-parq-static">
+          <li>You are currently experiencing a temporary illness, such as a cold or fever. It is best to wait until you feel better.</li>
+          <li>You are pregnant. In this case, talk with your health care practitioner, physician, qualified exercise professional, and/or complete the ePARmed-X+ at <a href="https://www.eparmedx.com" target="_blank" rel="noopener noreferrer">www.eparmedx.com</a> before becoming more physically active.</li>
+          <li>Your health changes. Complete the follow-up questions that appeared above (if any) and/or talk to your health care practitioner, physician, or qualified exercise professional before proceeding with any physical activity program.</li>
+        </ul>
+
+        <div class="rk-parq-notice" style="margin-top:1.25rem">
+          <p class="rk-parq-static rk-parq-static--tight" style="margin-bottom:0.75rem"><strong>Start becoming much more physically active – start slowly and build up gradually.</strong></p>
+          <p class="rk-parq-static rk-parq-static--tight">Follow Global Physical Activity Guidelines for your age (<a href="https://www.who.int/publications/i/item/9789240015128" target="_blank" rel="noopener noreferrer">https://www.who.int/publications/i/item/9789240015128</a>).</p>
+          <p class="rk-parq-static rk-parq-static--tight">You may take part in a health and fitness appraisal.</p>
+          <p class="rk-parq-static rk-parq-static--tight">If you are over the age of 45 yr and NOT accustomed to regular vigorous to maximal effort exercise, consult a qualified exercise professional before engaging in this intensity of exercise.</p>
+          <p class="rk-parq-static" style="margin-bottom:0">If you have any further questions, contact a qualified exercise professional.</p>
+        </div>
+
+        <div class="rk-parq-field">
+          <label for="page1_list_conditions_medications">PLEASE LIST CONDITION(S) AND MEDICATIONS HERE: <span style="font-weight:400;color:var(--text-muted)">(optional)</span></label>
+          <textarea id="page1_list_conditions_medications" name="page1_list_conditions_medications" rows="4"></textarea>
+        </div>
+
+        <p class="rk-parq-static"><strong>PARTICIPANT DECLARATION:</strong> If you are less than the legal age required for consent or require the assent of a care provider, your parent, guardian or care provider must also sign this form.</p>
+        </div><!-- .rk-parq-page1-after -->
+
+
+        </div><!-- .rk-parq-ghq-and-followup -->
+
+        <div class="rk-parq-p4-wrap">
+        <h2>Recommendations and notes</h2>
+        <details class="rk-parq-p4-details">
+        <summary>Show full recommendations &amp; legal text</summary>
+        <div class="rk-parq-notice">
+          <p class="rk-parq-static rk-parq-static--tight"><strong>If you answered NO to all of the follow-up questions about your medical condition, you are ready to become more physically active</strong> — sign the participant declaration below.</p>
+          <p class="rk-parq-static rk-parq-static--tight"><strong>If you answered YES to one or more of the follow-up questions about your medical condition:</strong> You should seek further information before becoming more physically active or engaging in a fitness appraisal. You should complete the specially designed online screening and exercise recommendations program — the ePARmed-X+ at <a href="https://www.eparmedx.com" target="_blank" rel="noopener noreferrer">www.eparmedx.com</a> and/or visit a qualified exercise professional to work through the ePARmed-X+ and for further information.</p>
+          <p class="rk-parq-static rk-parq-static--tight">It is advised that you consult a qualified exercise professional to help you develop a safe and effective physical activity plan to meet your health needs.</p>
+          <p class="rk-parq-static rk-parq-static--tight">You are encouraged to start slowly and build up gradually — 20 to 60 minutes of low to moderate intensity exercise, 3–5 days per week including aerobic and muscle strengthening exercises.</p>
+          <p class="rk-parq-static rk-parq-static--tight">As you progress, you should aim to accumulate 150 minutes or more of moderate intensity physical activity per week.</p>
+          <p class="rk-parq-static rk-parq-static--tight">If you are over the age of 45 yr and NOT accustomed to regular vigorous to maximal effort exercise, consult a qualified exercise professional before engaging in this intensity of exercise.</p>
+          <p class="rk-parq-static rk-parq-static--tight"><strong>All persons who have completed the PAR-Q+ please read and sign the declaration below.</strong></p>
+          <p class="rk-parq-static rk-parq-static--tight">If you are less than the legal age required for consent or require the assent of a care provider, your parent, guardian or care provider must also sign this form.</p>
+          <p class="rk-parq-static rk-parq-static--tight"><strong>Delay becoming more active if:</strong></p>
+          <ul class="rk-parq-static">
+            <li>You are currently experiencing a temporary illness, such as a cold or fever. It is best to wait until you feel better.</li>
+            <li>You are pregnant. In this case, talk to your health care practitioner, physician, qualified exercise professional, and/or complete the ePARmed-X+ at <a href="https://www.eparmedx.com" target="_blank" rel="noopener noreferrer">www.eparmedx.com</a> before becoming more physically active.</li>
+            <li>Your health changes. Talk to your health care practitioner, physician, or qualified exercise professional before continuing with any physical activity program.</li>
+          </ul>
+          <p class="rk-parq-static rk-parq-static--tight">You are encouraged to photocopy the PAR-Q+. You must use the entire questionnaire and NO changes are permitted.</p>
+          <p class="rk-parq-static rk-parq-static--tight">The authors, the PAR-Q+ Collaboration, partner organizations, and their agents assume no liability for persons who undertake physical activity and/or make use of the PAR-Q+ or ePARmed-X+. If in doubt after completing the questionnaire, consult your doctor prior to physical activity.</p>
+          <p class="rk-parq-static" style="margin-bottom:0">The PAR-Q+ was created using the evidence-based AGREE process (1) by the PAR-Q+ Collaboration chaired by Dr. Darren E. R. Warburton with Dr. Norman Gledhill, Dr. Veronica Jamnik, and Dr. Donald C. McKenzie (2). Production of this document has been made possible through financial contributions from the Public Health Agency of Canada and the BC Ministry of Health Services. The views expressed herein do not necessarily represent the views of the Public Health Agency of Canada or the BC Ministry of Health Services.</p>
+        </div>
+        </details>
+        </div>
+
+        <div class="rk-parq-declaration-block">
+        <h2>PARTICIPANT DECLARATION</h2>
+        <p class="rk-parq-static">If you are less than the legal age required for consent or require the assent of a care provider, your parent, guardian or care provider must also sign this form.</p>
+
+        <div class="rk-parq-check">
+          <input type="checkbox" id="declaration_ack" name="declaration_ack" value="yes" required>
+          <label for="declaration_ack">I, the undersigned, have read, understood to my full satisfaction and completed this questionnaire. I acknowledge that this physical activity clearance is valid for a maximum of 12 months from the date it is completed and becomes invalid if my condition changes. I also acknowledge that the community/fitness center may retain a copy of this form for records. In these instances, it will maintain the confidentiality of the same, complying with applicable law.</label>
+        </div>
+
+        <div class="rk-parq-grid2">
+          <div class="rk-parq-field">
+            <label for="declaration_name">NAME</label>
+            <input id="declaration_name" name="declaration_name" type="text" required autocomplete="off">
+          </div>
+          <div class="rk-parq-field">
+            <label for="declaration_signature">SIGNATURE (type your full legal name)</label>
+            <input id="declaration_signature" name="declaration_signature" type="text" required autocomplete="off">
+          </div>
+          <div class="rk-parq-field">
+            <label for="declaration_parent_guardian">SIGNATURE OF PARENT/GUARDIAN/CARE PROVIDER <span style="font-weight:400;color:var(--text-muted)">(if required)</span></label>
+            <input id="declaration_parent_guardian" name="declaration_parent_guardian" type="text" autocomplete="off">
+          </div>
+          <div class="rk-parq-field">
+            <label for="declaration_witness">WITNESS <span style="font-weight:400;color:var(--text-muted)">(optional)</span></label>
+            <input id="declaration_witness" name="declaration_witness" type="text" autocomplete="off">
+          </div>
+          <div class="rk-parq-field">
+            <label for="declaration_date">DATE</label>
+            <input id="declaration_date" name="declaration_date" type="date" required autocomplete="off">
+          </div>
+        </div>
+        </div><!-- .rk-parq-declaration-block -->
+
+        <div class="rk-parq-submit-wrap">
+          <button type="submit" class="rk-parq-submit">Submit questionnaire</button>
+        </div>
+      </form>
+
+      <p class="rk-parq-foot">
+        Copyright © 2025 PAR-Q+ Collaboration. For more information: <a href="https://www.eparmedx.com" target="_blank" rel="noopener noreferrer">www.eparmedx.com</a> · Email: eparmedx@gmail.com<br><br>
+        <strong>Key references:</strong><br>
+        1. Jamnik VK, Warburton DER, Makarski J, McKenzie DC, Shephard RJ, Stone J, and Gledhill N. Enhancing the effectiveness of clearance for physical activity participation; background and overall process. APNM 36(S1):S3-S13, 2011.<br>
+        2. Warburton DER, Gledhill N, Jamnik VK, Bredin SSD, McKenzie DC, Stone J, Charlesworth S, and Shephard RJ. Evidence-based risk assessment and recommendations for physical activity clearance; Consensus Document. APNM 36(S1):S266-s298, 2011.<br>
+        3. Chisholm DM, Collis ML, Kulak LL, Davenport W, and Gruber N. Physical activity readiness. British Columbia Medical Journal. 1975;17:375-378.<br>
+        4. Thomas S, Reading J, and Shephard RJ. Revision of the Physical Activity Readiness Questionnaire (PAR-Q). Canadian Journal of Sport Science 1992;17:4 338-345.<br><br>
+        <strong>Citation for PAR-Q+:</strong> Warburton DER, Jamnik VK, Bredin SSD, and Gledhill N on behalf of the PAR-Q+ Collaboration. The Physical Activity Readiness Questionnaire for Everyone (PAR-Q+) and Electronic Physical Activity Readiness Medical Examination (ePARmed-X+). Health &amp; Fitness Journal of Canada 4(2):3-23, 2011.
+      </p>
+    </div>
+  </div>
+  <script>
+  (function () {
+    var form = document.getElementById('rk-parq-form');
+    if (!form) return;
+
+    form.querySelectorAll('input, textarea, select').forEach(function (el) {
+      if (el.name === '_gotcha') return;
+      el.setAttribute('autocomplete', 'off');
+      el.setAttribute('data-lpignore', 'true');
+      el.setAttribute('data-1p-ignore', 'true');
+    });
+
+    function syncSubs(mainName) {
+      var wrap = form.querySelector('.rk-parq-fu-subs[data-parq-main="' + mainName + '"]');
+      if (!wrap) return;
+      var yes = form.querySelector('input[name="' + mainName + '"][value="YES"]:checked');
+      if (yes) {
+        wrap.removeAttribute('hidden');
+      } else {
+        wrap.setAttribute('hidden', '');
+        wrap.querySelectorAll('input[type="radio"]').forEach(function (r) {
+          r.checked = false;
+        });
+      }
+    }
+
+    function syncAllSubs() {
+      form.querySelectorAll('.rk-parq-fu-subs[data-parq-main]').forEach(function (w) {
+        syncSubs(w.getAttribute('data-parq-main'));
+      });
+    }
+
+    function syncGhqListRequired() {
+      [['page1_q4', 'page1_q4_list'], ['page1_q6', 'page1_q6_list']].forEach(function (pair) {
+        var yes = form.querySelector('input[name="' + pair[0] + '"][value="YES"]:checked');
+        var ta = form.querySelector('#' + pair[1]);
+        if (!ta) return;
+        ta.required = !!yes;
+      });
+    }
+
+    form.addEventListener('change', function (e) {
+      var t = e.target;
+      if (!t || !t.name) return;
+      if (t.name === 'page1_q4' || t.name === 'page1_q6') {
+        syncGhqListRequired();
+      }
+      if (form.querySelector('.rk-parq-fu-subs[data-parq-main="' + t.name + '"]')) {
+        syncSubs(t.name);
+      }
+    });
+
+    function freshSession() {
+      form.reset();
+      form.querySelectorAll('details').forEach(function (d) {
+        d.removeAttribute('open');
+      });
+      syncAllSubs();
+      syncGhqListRequired();
+    }
+
+    window.addEventListener('pageshow', function (e) {
+      if (e.persisted) freshSession();
+    });
+    freshSession();
+  })();
+  </script>
+</body>
+</html>

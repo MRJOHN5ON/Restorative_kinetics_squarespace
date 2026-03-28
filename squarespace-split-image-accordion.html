@@ -44,24 +44,58 @@
         --sw-ease-out:   linear;
         --sw-ease-in-out: linear;
       }
+      .sw-cta {
+        animation: none;
+      }
+    }
+
+    @keyframes sw-cta-pulse-glow {
+      0%, 100% {
+        box-shadow:
+          0 1px 2px rgba(0, 0, 0, 0.04),
+          0 2px 8px rgba(0, 0, 0, 0.04),
+          0 0 0 0 rgba(187, 35, 39, 0),
+          0 0 0 0 rgba(28, 119, 166, 0);
+      }
+      50% {
+        box-shadow:
+          0 1px 2px rgba(0, 0, 0, 0.05),
+          0 4px 14px rgba(0, 0, 0, 0.06),
+          0 0 22px 4px rgba(187, 35, 39, 0.32),
+          0 0 44px 8px rgba(28, 119, 166, 0.14);
+      }
+    }
+
+    /* Isolate from Squarespace section overflow so sticky can stick to the viewport */
+    .sw-split-root {
+      position: relative;
+      overflow: visible;
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+      padding: var(--sw-space-6) 0;
     }
 
     .sw-wrap {
       display: flex;
       gap: var(--sw-space-8);
       max-width: 1200px;
-      margin: var(--sw-space-8) auto;
+      margin: 0 auto;
       padding: 0 var(--sw-space-6);
       font-family: var(--sw-font);
       align-items: flex-start;
       box-sizing: border-box;
+      overflow: visible;
     }
 
     /* ── LEFT: Image panel (frosted glass) ── */
     .sw-img-card {
       flex: 0 0 44%;
+      align-self: flex-start;
+      height: fit-content;
+      position: -webkit-sticky;
       position: sticky;
-      top: 96px;
+      top: clamp(72px, 10vh, 120px);
       border-radius: var(--sw-radius-xl);
       padding: var(--sw-space-4);
       background: var(--sw-glass);
@@ -70,9 +104,14 @@
       border: 1px solid var(--sw-glass-border);
       box-shadow: var(--sw-shadow-md);
       box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      gap: var(--sw-space-4);
     }
 
     .sw-img-wrap {
+      flex: 1 1 auto;
+      min-height: 0;
       border-radius: var(--sw-radius-md);
       overflow: hidden;
       position: relative;
@@ -100,6 +139,56 @@
 
     .sw-img-wrap img.sw-vis {
       opacity: 1;
+    }
+
+    .sw-cta {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: var(--sw-space-4) var(--sw-space-5);
+      border-radius: var(--sw-radius-md);
+      background: rgba(255, 255, 255, 0.28);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--sw-glass-border);
+      box-shadow: var(--sw-shadow-sm);
+      font-family: var(--sw-font);
+      font-size: clamp(1rem, 1.35vw, 1.125rem);
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      line-height: 1.35;
+      color: var(--sw-text-body);
+      text-decoration: none;
+      animation: sw-cta-pulse-glow 2.8s ease-in-out infinite;
+      transition:
+        background 0.25s var(--sw-ease-out),
+        border-color 0.25s var(--sw-ease-out),
+        box-shadow 0.25s var(--sw-ease-out),
+        color 0.25s var(--sw-ease-out),
+        transform 0.25s var(--sw-ease-out);
+    }
+
+    .sw-cta:hover {
+      animation: none;
+      background: var(--sw-glass-strong);
+      border-color: rgba(255, 255, 255, 0.65);
+      box-shadow:
+        var(--sw-shadow-md),
+        0 0 24px 4px rgba(187, 35, 39, 0.25),
+        0 0 48px 10px rgba(28, 119, 166, 0.12);
+      color: var(--sw-accent);
+      transform: translateY(-1px);
+    }
+
+    .sw-cta:focus-visible {
+      animation: none;
+      outline: none;
+      box-shadow:
+        var(--sw-shadow-md),
+        var(--sw-focus-ring),
+        0 0 20px 3px rgba(187, 35, 39, 0.22);
     }
 
     /* ── RIGHT: Accordion ── */
@@ -253,10 +342,13 @@
 
     /* ── Mobile ── */
     @media (max-width: 768px) {
+      .sw-split-root {
+        padding: var(--sw-space-5) 0;
+      }
       .sw-wrap {
         flex-direction: column;
         gap: var(--sw-space-6);
-        margin: var(--sw-space-6) auto;
+        margin: 0 auto;
         padding: 0 var(--sw-space-4);
       }
       .sw-img-card {
@@ -290,6 +382,7 @@
   </style>
   
   
+  <div class="sw-split-root">
   <div class="sw-wrap">
   
     <!-- Frosted glass card — image panel -->
@@ -300,6 +393,7 @@
         <img src="https://images.squarespace-cdn.com/content/69866a537fe19438ada9fffd/b7c1635a-c8b2-4e37-b2fb-4a3aaa4b2df2/Gemini_Generated_Image_qflra1qflra1qflr.png?content-type=image%2Fpng" alt="Personalized Programming">
         <img src="https://images.squarespace-cdn.com/content/69866a537fe19438ada9fffd/dc0411db-846f-4d6b-9c0c-8bcd21ea2967/Gemini_Generated_Image_30qq4s30qq4s30qq.png?content-type=image%2Fpng" alt="Goal Oriented Approach">
       </div>
+      <a class="sw-cta" href="https://www.restorativekineticsfitness.com/overview">Click here to learn more</a>
     </div>
 
     <div class="sw-list" id="swList">
@@ -312,7 +406,7 @@
         </button>
         <div class="sw-body" id="sw-body-1" role="region" aria-labelledby="sw-head-1">
           <div class="sw-body-pad">
-            <p>So often, we are told our posture is "bad" or "wrong." I view it differently: your body has simply found clever ways to keep you moving. A postural assessment is our chance to thank your body for its adaptability while providing it with better options. Together, we'll create an intentional plan to move you out of compensation and into a state of balanced, pain-free power.</p>
+            <p>So often, we are told our posture is "bad" or "wrong." I view it differently: your body has simply found clever ways to keep you moving. A postural assessment is our chance to pinpoint where your body exists in space, and to discover if there are opportunities for optimization. Together, we'll create a personalized plan to help you move more freely, and do the things you love to do!</p>
           </div>
         </div>
       </div>
@@ -325,7 +419,7 @@
         </button>
         <div class="sw-body" id="sw-body-2" role="region" aria-labelledby="sw-head-2">
           <div class="sw-body-pad">
-            <p>Evidence-Led, Athlete-Tested. My approach is rooted in the science of how the body actually heals and strengthens. Combining my OSU Exercise Science background with over 6 years of clinical and field experience, I translate complex biomechanics into a simple, effective roadmap for you. You get a program backed by the highest academic honors and the lived experience of a DI track athlete.</p>
+            <p>My training approach is rooted in exercise science, and physiology at its core. Combining my Bachelor's Degree in Exercise Science, experience working as a personal trainer with diverse populations for 8 years, and devotion to continuing education, I translate complex health concepts into a simple effective roadmap for you.</p>
             <a class="sw-link" href="https://www.nsca.com/" target="_blank" rel="noopener noreferrer">Related resource (NSCA) →</a>
           </div>
         </div>
@@ -339,7 +433,7 @@
         </button>
         <div class="sw-body" id="sw-body-3" role="region" aria-labelledby="sw-head-3">
           <div class="sw-body-pad">
-            <p>A program only works if it fits your life. Drawing on my Exercise Science degree and years in corporate wellness, I build custom roadmaps that respect your schedule and your injury history. Whether it's a corrective routine for your desk or a 4-day strength split, every exercise is chosen to help you move through the world with more ease and less pain.</p>
+            <p>A program only works if it fits your life. Drawing on my exercise science degree and years in corporate wellness, I build custom programs that respect your schedule and your injury history if applicable. Whether it's a micro-break routine to fit your desk job, or a 4-day strength training split, every exercise is chosen to help you move through the world with ease.</p>
           </div>
         </div>
       </div>
@@ -352,12 +446,13 @@
         </button>
         <div class="sw-body" id="sw-body-4" role="region" aria-labelledby="sw-head-4">
           <div class="sw-body-pad">
-            <p>Every big win is built on a foundation of small, intentional victories. We start by honoring where you are today and identifying the meaningful milestones that will move the needle for you. This is a collaborative journey where your feedback is just as important as the data. Together, we'll turn "I wish I could" into "I'm glad I did," celebrating every step of your evolution.</p>
+            <p>Every big win is built on a foundation of small, intentional victories. It all starts by honoring where you are today and identifying the milestones that will move the needle day by day. This is a collaborative journey where your feedback is just as important as the data. Together, we'll turn "I wish I could" into "I'm glad I did," celebrating every step of your evolution.</p>
           </div>
         </div>
       </div>
   
     </div>
+  </div>
   </div>
   
   
