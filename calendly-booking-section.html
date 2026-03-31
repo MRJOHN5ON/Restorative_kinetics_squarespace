@@ -1,0 +1,255 @@
+<!-- ============================================================
+  CALENDLY BOOKING — Inline embed (design tokens: parq-plus-form,
+  methodology.html, contact-v1-editorial-glass.html)
+  Paste as a single Code Block on Squarespace or include in a page.
+  ============================================================ -->
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+  .rk-cal-booking {
+    /* Mirrors :root in parq-plus-form.html / methodology.html */
+    --blue: #3498db;
+    --blue-dark: #2980b9;
+    --red: #e74c3c;
+    --text: #1a1f26;
+    --text-muted: #4d5560;
+    --surface: #ffffff;
+    --header-highlight: #e4f2fb;
+    --gold: #dba523;
+    --radius-xl: clamp(20px, 3.2vw, 32px);
+    --radius-md: 14px;
+    --glass-fill: linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.58) 0%,
+      rgba(228, 242, 251, 0.45) 42%,
+      rgba(255, 255, 255, 0.4) 100%
+    );
+    --glass-border: rgba(255, 255, 255, 0.75);
+    --glass-shadow:
+      0 4px 28px rgba(52, 152, 219, 0.09),
+      0 1px 4px rgba(26, 31, 38, 0.05),
+      inset 0 1px 0 rgba(255, 255, 255, 0.7);
+    --glass-shadow-hover:
+      0 8px 32px rgba(52, 152, 219, 0.14),
+      0 2px 8px rgba(26, 31, 38, 0.08),
+      inset 0 1px 0 rgba(255, 255, 255, 0.75);
+    --blur: blur(28px) saturate(1.14);
+    --heading-shadow:
+      0 1px 2px rgba(26, 31, 38, 0.12),
+      0 2px 6px rgba(26, 31, 38, 0.08),
+      0 4px 20px rgba(52, 152, 219, 0.14);
+    --ease: cubic-bezier(0.33, 1, 0.68, 1);
+
+    font-family: 'Poppins', 'Helvetica Neue', Arial, sans-serif;
+    color: var(--text);
+    box-sizing: border-box;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: clamp(16px, 4vw, 40px);
+    background: var(--gold);
+    isolation: isolate;
+  }
+
+  .rk-cal-booking *,
+  .rk-cal-booking *::before,
+  .rk-cal-booking *::after {
+    box-sizing: border-box;
+  }
+
+  /* Section title: .modalities-section h2 (methodology.html) */
+  .rk-cal-booking__card {
+    border-radius: var(--radius-xl);
+    padding: clamp(24px, 4vw, 40px);
+    background: var(--glass-fill);
+    backdrop-filter: var(--blur);
+    -webkit-backdrop-filter: var(--blur);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+    transition:
+      transform 0.45s var(--ease),
+      box-shadow 0.45s var(--ease),
+      opacity 0.55s var(--ease);
+  }
+
+  /* Fade-in on scroll (same spirit as vo2.html fadeIn keyframes) */
+  .rk-cal-booking__card.rk-cal-booking__reveal {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  .rk-cal-booking__card.rk-cal-booking__reveal.rk-cal-booking--visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Subtle lift on hover (contact-v1 link / CTA pattern) — only after reveal */
+  @media (hover: hover) and (pointer: fine) {
+    .rk-cal-booking__card.rk-cal-booking--visible:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--glass-shadow-hover);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .rk-cal-booking__card {
+      transition: box-shadow 0.35s var(--ease);
+    }
+
+    .rk-cal-booking__card.rk-cal-booking__reveal {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  .rk-cal-booking__header {
+    text-align: center;
+    max-width: 42rem;
+    margin: 0 auto;
+  }
+
+  .rk-cal-booking__title {
+    font-size: clamp(1.75rem, 2.5vw, 2.25rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    text-shadow: var(--heading-shadow);
+    margin: 0 0 0.75rem;
+    line-height: 1.2;
+  }
+
+  /* Body / lead: .rk-contact-v1__lead + hero copy scale */
+  .rk-cal-booking__lead {
+    margin: 0;
+    color: var(--text-muted);
+    line-height: 1.75;
+    font-size: clamp(0.95rem, 1.2vw, 1rem);
+    font-weight: 400;
+  }
+
+  /* Divider: .rk-parq-hero .divider / .rk-contact-v1__divider */
+  .rk-cal-booking__divider {
+    width: 72px;
+    height: 2px;
+    margin: clamp(1.25rem, 3vw, 1.75rem) auto;
+    background: linear-gradient(90deg, var(--red), var(--blue), transparent);
+    border-radius: 1px;
+    opacity: 0.85;
+  }
+
+  .rk-cal-booking__widget-wrap {
+    margin-top: clamp(0.25rem, 1vw, 0.5rem);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.35);
+    border: 1px solid rgba(52, 152, 219, 0.12);
+  }
+
+  /*
+   * Shorter initial height — Calendly grows via data-resize + page_height
+   * messages when the user opens date/time/confirm steps (widget.js).
+   */
+  .rk-cal-booking .calendly-inline-widget {
+    min-width: 320px;
+    min-height: 320px;
+    height: 480px;
+    transition: height 0.28s var(--ease);
+  }
+
+  @media (max-width: 768px) {
+    .rk-cal-booking {
+      padding: clamp(12px, 3vw, 20px);
+    }
+
+    .rk-cal-booking__card {
+      padding: clamp(16px, 4vw, 24px);
+      border-radius: clamp(16px, 4vw, 24px);
+    }
+
+    .rk-cal-booking .calendly-inline-widget {
+      min-height: 360px;
+      height: 520px;
+    }
+  }
+</style>
+
+<section id="rk-cal-booking-root" class="rk-cal-booking" aria-labelledby="rk-cal-booking-title">
+  <article class="rk-cal-booking__card rk-cal-booking__reveal">
+    <header class="rk-cal-booking__header">
+      <h2 id="rk-cal-booking-title" class="rk-cal-booking__title">
+        Book Your Free Consultation
+      </h2>
+      <p class="rk-cal-booking__lead">
+        Schedule a free 60-minute session — no commitment required.
+      </p>
+    </header>
+
+    <div class="rk-cal-booking__divider" aria-hidden="true"></div>
+
+    <div class="rk-cal-booking__widget-wrap">
+      <!-- Calendly inline widget begin — data-resize lets widget.js follow content height -->
+      <div
+        class="calendly-inline-widget"
+        data-url="https://calendly.com/restorativekinetics-fitness?primary_color=0066f0&background_color=ffffff&text_color=1a1a1a&hide_gdpr_banner=1"
+        data-resize="true"
+        style="min-width:320px;"
+      ></div>
+      <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+      <!-- Calendly inline widget end -->
+    </div>
+  </article>
+</section>
+
+<script>
+  (function () {
+    var root = document.getElementById('rk-cal-booking-root');
+    if (!root || !root.classList.contains('rk-cal-booking')) return;
+
+    var card = root.querySelector('.rk-cal-booking__reveal');
+    if (card) {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        card.classList.add('rk-cal-booking--visible');
+      } else {
+        var obs = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (e) {
+              if (e.isIntersecting) {
+                e.target.classList.add('rk-cal-booking--visible');
+                obs.unobserve(e.target);
+              }
+            });
+          },
+          { root: null, rootMargin: '0px 0px -8% 0px', threshold: 0.08 }
+        );
+        obs.observe(card);
+      }
+    }
+
+    /* Fallback if data-resize is ignored — matches react-calendly onPageHeightResize payload */
+    var widget = root.querySelector('.calendly-inline-widget');
+    if (!widget) return;
+
+    function calendlyOrigin(origin) {
+      try {
+        return /calendly\.com$/i.test(new URL(origin).hostname);
+      } catch (err) {
+        return false;
+      }
+    }
+
+    function applyHeight(px) {
+      var n = typeof px === 'number' ? px : parseFloat(px);
+      if (!n || n < 320 || n > 4000) return;
+      var rounded = Math.ceil(n);
+      widget.style.height = rounded + 'px';
+    }
+
+    window.addEventListener('message', function (e) {
+      if (!calendlyOrigin(e.origin)) return;
+      var d = e.data;
+      if (!d || typeof d !== 'object' || d.event !== 'calendly.page_height') return;
+      var h = d.payload && d.payload.height;
+      applyHeight(h);
+    });
+  })();
+</script>
