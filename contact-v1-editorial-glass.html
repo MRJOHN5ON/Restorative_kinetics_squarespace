@@ -1,7 +1,37 @@
-<!-- CONTACT v1 — Editorial glass (tokens from methodology.html) -->
-<!-- Phone matches footerv1 placeholder — swap tel:+15555555555 + visible digits when you have the real number. -->
-<style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Contact — Version 1</title>
+  <!-- CONTACT v1 — Editorial glass -->
+  <style>
   @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  @media (max-width: 900px) {
+    html {
+      -webkit-text-size-adjust: auto;
+      text-size-adjust: auto;
+      font-size: 110%;
+    }
+  }
+
+  @media (max-width: 420px) {
+    html {
+      font-size: 118%;
+    }
+  }
+
+  body {
+    margin: 0;
+    min-height: 100dvh;
+    overflow-x: clip;
+  }
 
   .rk-contact-v1 {
     --blue: #3498db;
@@ -25,6 +55,7 @@
       inset 0 1px 0 rgba(255, 255, 255, 0.7);
     --blur: blur(28px) saturate(1.14);
     --ease: cubic-bezier(0.33, 1, 0.68, 1);
+    box-sizing: border-box;
     font-family: 'Poppins', 'Helvetica Neue', Arial, sans-serif;
     color: var(--text);
     max-width: 1100px;
@@ -32,25 +63,34 @@
     padding: clamp(16px, 4vw, 40px);
     background: #dba523;
     isolation: isolate;
+    overflow-x: clip;
   }
 
   .rk-contact-v1 * { box-sizing: border-box; }
+
+  .rk-contact-v1 img {
+    max-width: 100%;
+    height: auto;
+  }
 
   .rk-contact-v1__grid {
     display: grid;
     gap: clamp(20px, 3vw, 28px);
     grid-template-columns: 1fr;
+    min-width: 0;
   }
 
   @media (min-width: 900px) {
     .rk-contact-v1__grid {
-      grid-template-columns: minmax(280px, 1fr) minmax(0, 1.15fr);
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
       align-items: start;
     }
   }
 
   .rk-contact-v1__visual {
     position: relative;
+    min-width: 0;
+    max-width: 100%;
     padding: clamp(24px, 4vw, 40px);
     border-radius: var(--radius-xl);
     background: var(--glass-fill);
@@ -63,7 +103,8 @@
 
   .rk-contact-v1__photo-wrap {
     position: relative;
-    width: min(280px, 78vw);
+    width: min(280px, 100%);
+    max-width: 100%;
     aspect-ratio: 1;
     margin: 0 auto clamp(20px, 3vw, 28px);
     border-radius: 50%;
@@ -100,7 +141,8 @@
   }
 
   .rk-contact-v1__logo {
-    width: min(200px, 55vw);
+    width: min(200px, 100%);
+    max-width: 100%;
     height: auto;
     display: block;
     margin: 0 auto;
@@ -108,6 +150,8 @@
   }
 
   .rk-contact-v1__panel {
+    min-width: 0;
+    max-width: 100%;
     border-radius: var(--radius-xl);
     padding: clamp(28px, 4vw, 44px);
     background: var(--glass-fill);
@@ -149,6 +193,7 @@
     letter-spacing: -0.03em;
     line-height: 1.1;
     margin: 0 0 1rem;
+    overflow-wrap: anywhere;
   }
 
   .rk-contact-v1 h1 strong {
@@ -162,6 +207,7 @@
     line-height: 1.75;
     max-width: 48ch;
     font-size: 1rem;
+    overflow-wrap: anywhere;
   }
 
   .rk-contact-v1__links {
@@ -175,10 +221,13 @@
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
+    max-width: 100%;
     color: var(--text);
     text-decoration: none;
     font-weight: 500;
     padding: 0.65rem 0.85rem;
+    overflow-wrap: anywhere;
+    word-break: break-word;
     border-radius: 14px;
     background: linear-gradient(var(--header-highlight), var(--header-highlight));
     background-size: 100% 100%;
@@ -193,16 +242,23 @@
     outline: none;
   }
 
+  .rk-contact-v1__links a[href^="mailto:"] {
+    font-size: 0.9rem;
+    line-height: 1.35;
+  }
+
   .rk-contact-v1__address {
     margin: 0 0 1.25rem;
     color: var(--text-muted);
     line-height: 1.65;
     font-style: normal;
     max-width: 40ch;
+    overflow-wrap: anywhere;
   }
 
   .rk-contact-v1__map {
     position: relative;
+    max-width: 100%;
     border-radius: clamp(16px, 2vw, 22px);
     overflow: hidden;
     border: 1px solid rgba(255, 255, 255, 0.65);
@@ -220,32 +276,89 @@
     border: 0;
   }
 
-  .rk-contact-v1__cta {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 1rem 1.75rem;
-    border-radius: 999px;
-    font-weight: 600;
-    font-size: 0.95rem;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    text-decoration: none;
-    color: #fff;
-    background: linear-gradient(120deg, var(--blue-dark), var(--blue));
-    box-shadow:
-      0 4px 20px rgba(41, 128, 185, 0.35),
-      inset 0 1px 0 rgba(255, 255, 255, 0.25);
-    transition: transform 0.35s var(--ease), filter 0.35s var(--ease);
+  @media (max-width: 900px) {
+    .rk-contact-v1 {
+      width: 100%;
+      max-width: 100%;
+      padding: 16px clamp(12px, 4vw, 20px) 24px;
+      box-sizing: border-box;
+    }
+
+    .rk-contact-v1__visual,
+    .rk-contact-v1__panel {
+      padding: clamp(16px, 4vw, 24px);
+      box-sizing: border-box;
+    }
+
+    .rk-contact-v1__photo-wrap {
+      width: min(340px, 100%);
+      max-width: 100%;
+    }
+
+    .rk-contact-v1__logo {
+      width: min(260px, 100%);
+      max-width: 100%;
+    }
+
+    .rk-contact-v1__provider {
+      font-size: 1.15rem;
+    }
+
+    .rk-contact-v1__eyebrow {
+      font-size: 0.8125rem;
+      letter-spacing: 0.16em;
+    }
+
+    .rk-contact-v1 h1 {
+      font-size: clamp(2.125rem, 8.5vw, 2.85rem);
+      line-height: 1.12;
+    }
+
+    .rk-contact-v1__lead {
+      font-size: clamp(1.125rem, 4.5vw, 1.3rem);
+      line-height: 1.65;
+      max-width: none;
+    }
+
+    .rk-contact-v1__address {
+      font-size: 1.05rem;
+      max-width: none;
+    }
+
+    .rk-contact-v1__links a {
+      min-height: 52px;
+      padding: 1rem 1.15rem;
+      font-size: 1.125rem;
+      width: 100%;
+      justify-content: center;
+    }
+
+    .rk-contact-v1__links a[href^="mailto:"] {
+      font-size: clamp(0.8rem, 3.25vw, 0.9rem);
+      line-height: 1.4;
+      padding-top: 0.85rem;
+      padding-bottom: 0.85rem;
+    }
+
+    .rk-contact-v1__map {
+      min-height: 280px;
+      aspect-ratio: 4 / 3;
+    }
   }
 
-  .rk-contact-v1__cta:hover,
-  .rk-contact-v1__cta:focus-visible {
-    transform: translateY(-2px) scale(1.02);
-    filter: brightness(1.05);
-    outline: none;
+  /* Single column only: details + map first, portrait block last */
+  @media (max-width: 899px) {
+    .rk-contact-v1__panel {
+      order: 1;
+    }
+
+    .rk-contact-v1__visual {
+      order: 2;
+    }
   }
 </style>
+</head>
+<body>
 
 <section class="rk-contact-v1" aria-label="Contact">
   <div class="rk-contact-v1__grid">
@@ -280,29 +393,27 @@
       </p>
 
       <div class="rk-contact-v1__links">
-        <a href="tel:+15555555555">(555) 555-5555</a>
-        <a href="mailto:restorativekinetics@gmail.com">restorativekinetics@gmail.com</a>
+        <a href="tel:+15412207347">541-220-7347</a>
+        <a href="mailto:Restorativekinetics.fitness@gmail.com">Restorativekinetics.fitness@gmail.com</a>
       </div>
 
       <address class="rk-contact-v1__address">
-        1847 Axtell Gateway Rd<br>
-        Gallatin Gateway, MT 59730
+        14 Moreland CT.<br>
+        Manhattan, MT 59741
       </address>
 
       <div class="rk-contact-v1__map">
         <iframe
-          title="Map: 1847 Axtell Gateway Rd, Gallatin Gateway, MT"
+          title="Map: 14 Moreland Ct., Manhattan, MT"
           loading="lazy"
           referrerpolicy="no-referrer-when-downgrade"
-          src="https://www.google.com/maps?q=1847+Axtell+Gateway+Rd,+Gallatin+Gateway,+MT+59730&amp;output=embed"
+          src="https://www.google.com/maps?q=14+Moreland+Ct,+Manhattan,+MT+59741&amp;output=embed"
           allowfullscreen
         ></iframe>
       </div>
-
-      <a
-        class="rk-contact-v1__cta"
-        href="mailto:restorativekinetics@gmail.com?subject=Free%2060%20min%20consult"
-      >Free 60 min consult</a>
     </div>
   </div>
 </section>
+
+</body>
+</html>
