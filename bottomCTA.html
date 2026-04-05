@@ -29,12 +29,16 @@
     position: relative;
     z-index: 2;
     text-align: center;
-    max-width: 640px;
+    align-self: stretch;
+    width: 100%;
+    max-width: 1080px;
+    margin-inline: auto;
+    box-sizing: border-box;
   }
 
   .cta-block__label {
     font-family: serif;
-    font-size: 0.75rem;
+    font-size: 0.875rem;
     font-weight: 600;
     letter-spacing: 0.2em;
     text-transform: uppercase;
@@ -45,12 +49,23 @@
 
   .cta-block h2 {
     font-family: serif;
-    font-size: clamp(2.25rem, 5.5vw, 3.75rem);
+    font-size: clamp(3.5rem, 5.25vw + 1.5rem, 6.75rem);
     font-weight: 700;
     letter-spacing: -0.03em;
     line-height: 1.12;
     color: #0f172a;
     margin: 0 0 24px;
+    text-align: center;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Full width of column so both lines share one center axis (inline-flex shrink-wrap mis-centers line 2 on some browsers). */
+  .cta-block h2 .cta-block__headline-stack {
+    display: block;
+    width: 100%;
+    max-width: 100%;
   }
 
   .cta-block h2 .accent {
@@ -58,11 +73,22 @@
     font-weight: 800;
   }
 
-  .cta-block__lead {
-    font-size: 1.125rem;
-    line-height: 1.65;
+  .cta-block h2 .cta-block__headline-line {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    text-align: center;
+    white-space: nowrap;
+    box-sizing: border-box;
+  }
+
+  /* div + scoped selectors: avoids global p { font-size / vw … } from theme or other injections */
+  .cta-block .cta-block__inner .cta-block__body {
+    font-size: 1.875rem;
+    line-height: 1.6;
     color: #475569;
-    max-width: 520px;
+    max-width: 100%;
+    padding-inline: 0;
     margin: 0 auto 40px;
     font-weight: 400;
   }
@@ -81,7 +107,7 @@
     background-color: var(--brand-red);
     color: #fff;
     font-family: serif;
-    font-size: 0.9375rem;
+    font-size: 1.0625rem;
     font-weight: 600;
     letter-spacing: 0.04em;
     text-transform: uppercase;
@@ -154,24 +180,24 @@
     }
 
     .cta-block__label {
-      font-size: 0.6875rem;
+      font-size: 0.8125rem;
       letter-spacing: 0.18em;
       margin-bottom: 16px;
     }
 
     .cta-block h2 {
-      font-size: 1.875rem;
+      font-size: clamp(1.85rem, 7.5vw, 3.25rem);
       margin-bottom: 20px;
     }
 
-    .cta-block__lead {
-      font-size: 1rem;
+    .cta-block .cta-block__inner .cta-block__body {
+      font-size: 1.5rem;
       margin-bottom: 32px;
     }
 
     .cta-btn {
       padding: 16px 28px;
-      font-size: 0.875rem;
+      font-size: 1rem;
     }
 
     .cta-btn:active {
@@ -185,8 +211,8 @@
   <div class="cta-block__inner">
     <p class="cta-block__label">Your next step</p>
     <div class="cta-block__divider" aria-hidden="true"></div>
-    <h2><span class="accent">Move Better. Live Fuller.</span><br>Build Your Foundation.</h2>
-    <p class="cta-block__lead">Stop settling for temporary relief. Start a science-backed approach to strength that respects your history and supports your future.</p>
+    <h2><span class="cta-block__headline-stack"><span class="accent cta-block__headline-line">Move Better. Live Fuller.</span><span class="cta-block__headline-line">Build Your Foundation.</span></span></h2>
+    <div class="cta-block__body" role="paragraph">Stop settling for temporary relief. Start a science-backed approach to strength that respects your history and supports your future.</div>
     <div class="cta-block__btn-wrap">
       <a href="/contact" class="cta-btn">
         <span>Book A Free Consultation</span>
