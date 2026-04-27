@@ -1,15 +1,15 @@
-
 <!-- SERVICES OVERVIEW — Editorial 2026 -->
 
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+</style>
 
+<style>
   :root {
     --blue: #3498db;
     --blue-dark: #2980b9;
     --blue-tint: rgba(52, 152, 219, 0.12);
     --red: #e74c3c;
-    --red-tint: rgba(231, 76, 60, 0.06);
     --text: #1a1f26;
     --text-muted: #4d5560;
     --text-soft: #7a8492;
@@ -43,143 +43,76 @@
     --ease: cubic-bezier(0.33, 1, 0.68, 1);
   }
 
-  /* SS often wraps code in flex/grid with align-items:stretch or flex:1 — that
-     stretches this block to the section min-height (worse on tall 1200px-tall
-     viewports). Keep height to content so yellow doesn’t fill dead space. */
+/* ── Squarespace bottom padding reset ── */
+.page-section:has(#rk-services-overview-root),
+.page-section:has(#rk-services-overview-root) .content-wrapper,
+.page-section:has(#rk-services-overview-root) .sqs-row,
+.page-section:has(#rk-services-overview-root) .sqs-col-12,
+.page-section:has(#rk-services-overview-root) .sqs-block,
+.page-section:has(#rk-services-overview-root) .sqs-block-content,
+.page-section:has(#rk-services-overview-root) [data-fluid-engine="true"],
+.page-section:has(#rk-services-overview-root) [class*="fe-block"] {
+  padding-bottom: 0 !important;
+  margin-bottom: 0 !important;
+  min-height: 0 !important;
+  height: auto !important;
+}
+
+/* ── Kill the Fluid Engine phantom grid rows ── */
+.fe-6993c6270231f63cc9df59d2 {
+  grid-template-rows: auto !important;
+}
+
   .rehab-services-overview {
     font-family: 'Poppins', 'Helvetica Neue', Arial, sans-serif;
     color: var(--text);
     max-width: 1400px;
     margin: 0 auto;
     padding: clamp(14px, 3vw, 32px);
-    background: #dba523;
+    background: transparent;
     isolation: isolate;
     box-sizing: border-box;
     width: 100%;
-    height: auto;
-    min-height: 0;
-    max-height: none;
-    flex-grow: 0;
-    flex-shrink: 0;
-    align-self: flex-start;
   }
 
-  /* Section “minimum height” in the editor can reserve ~100vh; this lets the
-     section shrink to the code block’s natural height (fixes extra yellow on
-     tall Windows viewports). Safe here: this class is only used on this page. */
-  section:has(.rehab-services-overview),
-  .page-section:has(.rehab-services-overview),
-  [data-section-id]:has(.rehab-services-overview),
-  [data-fluid-engine-section]:has(.rehab-services-overview) {
-    min-height: 0 !important;
-    height: auto !important;
+  /* ——— TOP PHOTO STRIP ——— */
+  .top-photos {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: clamp(6px, 1vw, 12px);
+    margin-bottom: clamp(12px, 2vw, 20px);
+    width: 100%;
+    align-items: center;
+    justify-items: center;
   }
 
-  /* Fluid Engine code blocks: SS keeps tall placeholders for block status / script stubs */
-  .sqs-block:has(.rehab-services-overview) .sqs-blockStatus,
-  .sqs-block:has(.rehab-services-overview) .removed-script,
-  html.squarespace-damask .sqs-block:has(.rehab-services-overview) .sqs-blockStatus {
-    display: none !important;
-    height: 0 !important;
-    min-height: 0 !important;
-    max-height: 0 !important;
-    overflow: hidden !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    border: none !important;
+  .top-photos__item {
+    width: 100%;
+    height: 160px;
+    overflow: hidden;
+    background: transparent;
   }
 
-  .sqs-block:has(.rehab-services-overview),
-  .sqs-block:has(.rehab-services-overview) .sqs-block-content,
-  .fe-block:has(.rehab-services-overview),
-  .fe-block:has(.rehab-services-overview) .sqs-block-content {
-    min-height: 0 !important;
-    height: auto !important;
-    flex-grow: 0 !important;
-    flex-basis: auto !important;
+  .top-photos__item img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    display: block;
   }
 
-  /* Same fixes, keyed to your real Code block id (SS does not always keep custom classes on the root). */
-  #block-yui_3_17_2_1_1771292194606_482 .sqs-blockStatus,
-  #block-yui_3_17_2_1_1771292194606_482 .removed-script,
-  html.squarespace-damask #block-yui_3_17_2_1_1771292194606_482 .sqs-blockStatus {
-    display: none !important;
-    height: 0 !important;
-    min-height: 0 !important;
-    max-height: 0 !important;
-    overflow: hidden !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    border: none !important;
-  }
-
-  #block-yui_3_17_2_1_1771292194606_482,
-  #block-yui_3_17_2_1_1771292194606_482 .sqs-block-content,
-  #block-yui_3_17_2_1_1771292194606_482 .fe-block,
-  #block-yui_3_17_2_1_1771292194606_482 .fe-block .sqs-block-content {
-    min-height: 0 !important;
-    height: auto !important;
-    flex-grow: 0 !important;
-    flex-basis: auto !important;
-  }
-
-  section:has(#block-yui_3_17_2_1_1771292194606_482),
-  .page-section:has(#block-yui_3_17_2_1_1771292194606_482),
-  [data-section-id]:has(#block-yui_3_17_2_1_1771292194606_482) {
-    min-height: 0 !important;
-    height: auto !important;
-  }
-
-  /* Section shell only — avoid touching every .fe-block / grid child (breaks Fluid Engine). */
-  [data-section-id="6993c627e3deee2399cd9a31"] {
-    min-height: 0 !important;
-    height: auto !important;
-  }
-
-  [data-section-id="6993c627e3deee2399cd9a31"] .sqs-blockStatus,
-  [data-section-id="6993c627e3deee2399cd9a31"] .removed-script {
-    display: none !important;
-    height: 0 !important;
-    min-height: 0 !important;
-    max-height: 0 !important;
-    overflow: hidden !important;
-    margin: 0 !important;
-    padding: 0 !important;
-  }
-
-  /*
-   * GRID FIX — copy this @media block to Site Custom CSS if Code block <style> loses to SS.
-   * Fluid often sets grid-area row 1 → ~74 (thousands of px tall). Override ROWS only so
-   * columns stay Squarespace’s; do not set grid-area shorthand here.
-   */
-  @media (min-width: 1200px) {
-    #block-yui_3_17_2_1_1771292194606_482 {
-      grid-row: 1 / span 1 !important;
-      align-self: start !important;
-      justify-self: stretch !important;
-      width: 100% !important;
-      box-sizing: border-box !important;
-      height: fit-content !important;
-      min-height: 0 !important;
-    }
-
-    [data-section-id="6993c627e3deee2399cd9a31"] [data-fluid-engine] {
-      align-content: start !important;
-    }
-  }
-
-  /* ——— Hero (open on page canvas — no glass card) ——— */
+  /* ——— Hero ——— */
   .hero-section {
-    padding: clamp(56px, 12vw, 120px) clamp(24px, 6vw, 64px) clamp(48px, 9vw, 88px);
+    padding: clamp(24px, 6vw, 56px) clamp(24px, 6vw, 64px) clamp(48px, 9vw, 88px);
     margin-bottom: clamp(16px, 2.5vw, 28px);
     text-align: center;
     background: none;
   }
 
   .hero-section .eyebrow {
-    font-size: 0.6875rem;
+    font-size: clamp(0.75rem, 1.5vw, 0.85rem);
     font-weight: 600;
-    letter-spacing: 0.22em;
+    letter-spacing: 0.15em;
     text-transform: uppercase;
     color: var(--red);
     margin-bottom: 0.75rem;
@@ -219,7 +152,7 @@
     margin: 0 auto;
   }
 
-  /* ——— Feature blocks: image + frosted copy ——— */
+  /* ——— Feature blocks ——— */
   .feature-block {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -269,7 +202,6 @@
     line-height: 1.25;
     display: inline-block;
     padding: 0 0.1em;
-    /* Marker band behind bottom ~25% of line (per line when wrapped) */
     background-image: linear-gradient(var(--header-highlight), var(--header-highlight));
     background-size: 100% 25%;
     background-position: left bottom;
@@ -300,7 +232,18 @@
     border-right: 1px solid rgba(255, 255, 255, 0.5);
   }
 
-  /* ——— Modalities: list, not cards ——— */
+  /* ——— Modalities ——— */
+  .modalities-section {
+    padding: clamp(56px, 9vw, 100px) clamp(22px, 5vw, 48px) clamp(28px, 4vw, 44px);
+    margin-bottom: clamp(16px, 2.5vw, 28px);
+    border-radius: var(--radius-xl);
+    background: var(--glass-fill);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+  }
+
   .modalities-section .section-head {
     text-align: center;
     margin-bottom: clamp(40px, 6vw, 64px);
@@ -346,7 +289,7 @@
     background: rgba(255, 255, 255, 0.42);
     backdrop-filter: blur(22px) saturate(1.08);
     -webkit-backdrop-filter: blur(22px) saturate(1.08);
-    padding: clamp(24px, 3vw, 32px);
+    padding: clamp(14px, 1.8vw, 20px) clamp(24px, 3vw, 32px) clamp(20px, 2.5vw, 28px);
     position: relative;
     border: 1px solid rgba(255, 255, 255, 0.62);
     box-shadow:
@@ -354,24 +297,26 @@
       0 2px 12px rgba(52, 152, 219, 0.06);
   }
 
-  .modality-item::before {
-    content: '✦';
-    position: absolute;
-    top: clamp(24px, 3vw, 32px);
-    left: clamp(24px, 3vw, 32px);
-    font-size: 1rem;
-    color: var(--red);
-    line-height: 1;
-  }
-
   .modality-item h3 {
     font-size: 1.0625rem;
     font-weight: 600;
     letter-spacing: -0.01em;
     color: var(--red);
-    margin-bottom: 0.375rem;
+    margin-bottom: 0.25rem;
     line-height: 1.35;
-    padding-left: 1.5rem;
+    padding-left: 1.35rem;
+    position: relative;
+  }
+
+  .modality-item h3::before {
+    content: '✦';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-48%);
+    font-size: 0.85rem;
+    color: var(--red);
+    line-height: 1;
   }
 
   .modality-item p {
@@ -381,17 +326,6 @@
     color: var(--text-muted);
     font-weight: 400;
     margin: 0;
-  }
-
-  .modalities-section {
-    padding: clamp(56px, 9vw, 100px) clamp(22px, 5vw, 48px) clamp(28px, 4vw, 44px);
-    margin-bottom: clamp(16px, 2.5vw, 28px);
-    border-radius: var(--radius-xl);
-    background: var(--glass-fill);
-    backdrop-filter: var(--glass-blur);
-    -webkit-backdrop-filter: var(--glass-blur);
-    border: 1px solid var(--glass-border);
-    box-shadow: var(--glass-shadow);
   }
 
   /* ——— Philosophy ——— */
@@ -412,16 +346,13 @@
       backdrop-filter: none;
       -webkit-backdrop-filter: none;
     }
-
     .modalities-section {
       background: linear-gradient(145deg, rgba(252, 254, 255, 0.96), rgba(228, 242, 251, 0.93));
     }
-
     .feature-block .copy,
     .philosophy-section {
       background: linear-gradient(155deg, rgba(228, 242, 251, 0.95), rgba(255, 255, 255, 0.93));
     }
-
     .modality-item {
       backdrop-filter: none;
       -webkit-backdrop-filter: none;
@@ -461,18 +392,11 @@
     margin: 0;
   }
 
-  /* ——— CTA (open on canvas — no glass card; flat button) ——— */
+  /* ——— CTA ——— */
   .cta-section {
-    /* Split vertical padding: vw-based bottom padding scales with *width* and
-       reads huge on wide/tall desktop layouts; keep bottom tighter. */
-    padding-top: clamp(40px, 5vw, 72px);
-    padding-right: clamp(22px, 5vw, 48px);
-    padding-bottom: clamp(20px, 2.5vw, 40px);
-    padding-left: clamp(22px, 5vw, 48px);
+    padding: clamp(40px, 5vw, 72px) clamp(22px, 5vw, 48px) clamp(20px, 2.5vw, 40px);
     text-align: center;
     background: none;
-    flex-grow: 0;
-    min-height: 0;
   }
 
   .cta-button {
@@ -509,31 +433,24 @@
     letter-spacing: 0.02em;
   }
 
-  /* 1fr | auto | 1fr keeps one row and mirrors space left/right of the CTA */
   .cta-flank {
     display: grid;
     grid-template-columns: 1fr auto 1fr;
     align-items: center;
     column-gap: clamp(16px, 3.5vw, 48px);
-    row-gap: 0;
     max-width: 1100px;
     margin: 0 auto;
     width: 100%;
   }
 
   .cta-flank__img {
-    width: min(187px, 22.1vw); /* ~15% smaller than prior min(220px, 26vw) */
+    width: min(187px, 22.1vw);
     min-width: 0;
     max-width: 100%;
   }
 
-  .cta-flank__img--left {
-    justify-self: end;
-  }
-
-  .cta-flank__img--right {
-    justify-self: start;
-  }
+  .cta-flank__img--left { justify-self: end; }
+  .cta-flank__img--right { justify-self: start; }
 
   .cta-flank__img img {
     width: 100%;
@@ -556,68 +473,44 @@
       min-height: 0;
       direction: ltr;
     }
-
     .feature-block .media {
       aspect-ratio: 16 / 10;
       min-height: 280px;
     }
-
-    .feature-block.reverse {
-      direction: ltr;
-    }
-
+    .feature-block.reverse { direction: ltr; }
     .feature-block .copy {
       padding: clamp(32px, 5vw, 48px) clamp(24px, 5vw, 40px);
       border-left: none;
       border-right: none;
       border-top: 1px solid rgba(255, 255, 255, 0.55);
     }
-
     .modalities-grid {
       grid-template-columns: 1fr;
       max-width: 560px;
     }
+    .top-photos { grid-template-columns: repeat(2, 1fr); }
   }
 
   @media (max-width: 600px) {
-    .hero-section {
-      padding-left: 20px;
-      padding-right: 20px;
-    }
-
-    .feature-block .media {
-      min-height: 240px;
-    }
-
+    .hero-section { padding-left: 20px; padding-right: 20px; }
+    .feature-block .media { min-height: 240px; }
     .modalities-section,
     .philosophy-section,
-    .cta-section {
-      padding-left: 20px;
-      padding-right: 20px;
-    }
-
+    .cta-section { padding-left: 20px; padding-right: 20px; }
     .cta-flank {
       grid-template-columns: 1fr;
       row-gap: 1.25rem;
       column-gap: 0;
     }
-
-    .cta-flank__img {
-      width: min(170px, 55vw); /* scaled to match −15% on small screens */
-    }
-
+    .cta-flank__img { width: min(170px, 55vw); }
     .cta-flank__img--left,
-    .cta-flank__img--right {
-      justify-self: center;
-    }
-
-    .cta-flank__center {
-      max-width: 100%;
-    }
+    .cta-flank__img--right { justify-self: center; }
+    .cta-flank__center { max-width: 100%; }
   }
 </style>
 
 <div id="rk-services-overview-root" class="rehab-services-overview">
+
   <section class="hero-section">
     <span class="eyebrow">Methodology</span>
     <div class="eyebrow-divider" aria-hidden="true"></div>
@@ -625,13 +518,29 @@
     <p class="hero-p">High-quality assessments and custom training programs designed to increase your movement vocabulary, build strength, and keep you healthy for the long term.</p>
   </section>
 
+  <!-- FOUR PHOTO STRIP -->
+  <div class="top-photos">
+    <div class="top-photos__item">
+      <img src="https://images.squarespace-cdn.com/content/69866a537fe19438ada9fffd/9206adf8-0d0a-495e-b17d-f6862613bf4d/traced-Untitled+design+%281%29.png?content-type=image%2Fpng" alt="Photo 1" loading="lazy" decoding="async">
+    </div>
+    <div class="top-photos__item">
+      <img src="https://images.squarespace-cdn.com/content/69866a537fe19438ada9fffd/c58ef74f-de9d-4b3b-8e2b-1b2f23158f8e/Gemini_Generated_Image_l1nj4nl1nj4nl1nj.png?content-type=image%2Fpng" alt="Photo 2" loading="lazy" decoding="async">
+    </div>
+    <div class="top-photos__item">
+      <img src="https://images.squarespace-cdn.com/content/69866a537fe19438ada9fffd/0bb9630b-bfdb-4618-9651-bf38c9584bc6/Gemini_Generated_Image_5i9kiq5i9kiq5i9k.png?content-type=image%2Fpng" alt="Photo 3" loading="lazy" decoding="async">
+    </div>
+    <div class="top-photos__item">
+      <img src="https://images.squarespace-cdn.com/content/69866a537fe19438ada9fffd/49b6a290-cb48-49b1-8d45-995d7904d545/Screenshot+2026-03-19+at+12.24.44%E2%80%AFPM.png?content-type=image%2Fpng" alt="Photo 4" loading="lazy" decoding="async">
+    </div>
+  </div>
+
   <article class="feature-block">
     <div class="media">
       <img src="https://images.squarespace-cdn.com/content/69866a537fe19438ada9fffd/c8c49b3f-c2f3-47e9-b6f9-3604f73cc17d/Screenshot+2026-02-17+at+12.00.22%E2%80%AFPM.png?content-type=image%2Fpng" alt="Training session">
     </div>
     <div class="copy">
       <h2>Evidence-Based Approach</h2>
-      <p>With a foundation in Exercise Science from Oregon State University (Summa Cum Laude) and multiple specialized certifications, I bring a comprehensive understanding of biomechanics, corrective exercise, and pain-free performance to every client interaction.</p>
+      <p>With a degree in Exercise Science from Oregon State University and multiple specialized certifications, I bring a comprehensive understanding of biomechanics, corrective exercise, and pain-free performance to every client interaction.</p>
     </div>
   </article>
 
@@ -663,17 +572,17 @@
   <div class="philosophy-section">
     <div class="wrap">
       <h2>My Philosophy</h2>
-      <p>Real strength isn't just about how much weight you can lift—it's about moving well, feeling capable, and staying injury-free. I work with clients to expand their movement vocabulary, address limitations, and build strength that serves them in training and in life. Every program is individualized based on thorough assessment and ongoing feedback.</p>
+      <p>Real strength isn't just about how much weight you can lift—it's about moving well, feeling capable, and staying injury free. I work with clients to expand their movement vocabulary, address limitations, and build strength that serves them in training and in life. Every program is individualized based on thorough assessment and ongoing feedback.</p>
     </div>
   </div>
 
   <article class="feature-block reverse">
     <div class="media">
-      <img src="https://images.squarespace-cdn.com/content/69866a537fe19438ada9fffd/1049d6ff-28aa-45eb-8ece-cead4864f72f/AllieTraining-16.jpg?content-type=image%2Fjpeg" alt="Assessment session">
+      <img src="https://i.postimg.cc/XqHqkFKW/Allie-Training-73.jpg" alt="Assessment session">
     </div>
     <div class="copy">
       <h2>Comprehensive Assessment</h2>
-      <p>Your journey starts with a <strong>complimentary 60-minute consultation</strong>, where we’ll chat about your goals and get to know each other. From there, we move into a deep-dive intake assessment ($90). This initial evaluation is the essential first step in mapping out your movement patterns and identifying exactly how to build your personalized foundation.</p>
+      <p>The onset of every training program begins with a 55-minute assessment. This ensures I'll have the information I need to create top tier individualized training that's effective and targeted. This assessment allows me to create a map of where your body exists in space, which will provide critical information going forward regarding the effectiveness of exercises and soft tissue releases. I track your progress over time free of charge so that we can determine what direction your training is headed, and how far you've come!</p>
     </div>
   </article>
 
@@ -683,12 +592,13 @@
         <img src="https://i.postimg.cc/HLNSpyC7/traced-Untitled-design-(1)-copy-2.png" alt="" loading="lazy" decoding="async">
       </div>
       <div class="cta-flank__center">
-        <a href="#" class="cta-button">Book a free consultation</a>
-        <p class="cta-subtitle">60-minute consultation · No obligation · Let's discuss your goals</p>
+        <a href="https://www.restorativekineticsfitness.com/contact#booknow" class="cta-button">Book a free consultation</a>
+        <p class="cta-subtitle">30-minute consultation · No obligation · Let's discuss your goals</p>
       </div>
       <div class="cta-flank__img cta-flank__img--right">
         <img src="https://i.postimg.cc/02Ccz3s2/traced-Gemini-Generated-Image-5scmww5scmww5scm.webp" alt="" loading="lazy" decoding="async">
       </div>
     </div>
   </div>
+
 </div>

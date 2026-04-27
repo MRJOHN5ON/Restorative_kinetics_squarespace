@@ -5,6 +5,7 @@
   .rk-rates {
     --rk-blue: #3498db;
     --rk-red: #e74c3c;
+    --rk-check: #27ae60;
     --rk-gold: #f1c40f;
     --rk-gold-dark: #f39c12;
     --rk-dark: #2c3e50;
@@ -195,22 +196,28 @@
     font-size: 0.95rem;
     font-weight: 300;
     color: var(--rk-dark);
-    padding: 10px 0 10px 22px;
+    padding: 10px 0 10px 28px;
     position: relative;
     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
     line-height: 1.4;
   }
   .rk-session-card ul li:last-child { border-bottom: none; }
   .rk-session-card ul li::before {
-    content: '';
+    content: '✓';
     position: absolute;
     left: 0;
     top: 50%;
     transform: translateY(-50%);
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--rk-red);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    border-radius: 3px;
+    background: var(--rk-check);
+    color: #fff;
+    font-size: 0.65rem;
+    font-weight: 700;
   }
 
   /* Resource callout */
@@ -604,7 +611,7 @@
   <header class="rk-hero">
     <p class="rk-hero-label">Services &amp; Rates</p>
     <h1>Invest in <strong>how you move</strong></h1>
-    <p>We're here to support you—wherever you're starting from. Clear pricing, no surprises. Choose what fits your goals and feels right for you.</p>
+    <p>We're here to support you—wherever you're starting from. Choose what fits your goals and feels right for you.</p>
   </header>
 
   <section class="rk-section" aria-labelledby="session-heading">
@@ -615,15 +622,15 @@
     <div class="rk-session-grid">
       <div class="rk-session-card">
         <h3>30-Minute Session</h3>
-        <p class="rk-duration">Focused, efficient time together</p>
+        <p class="rk-duration">Focused, efficient time together — a budget friendly option</p>
         <div class="rk-price-wrap">
           <div class="rk-price">$55</div>
           <p class="rk-per">per session</p>
         </div>
         <ul>
           <li>Quality time without the long block</li>
-          <li>Great for keeping your momentum</li>
-          <li>Build on one area or skill you care about</li>
+          <li>Budget friendly while maintaining momentum</li>
+          <li>Programming built for your body and goals</li>
         </ul>
       </div>
       <div class="rk-session-card rk-featured">
@@ -635,10 +642,10 @@
           <p class="rk-per">per session</p>
         </div>
         <ul>
-          <li>Full warm-up and training, no rush</li>
-          <li>Mobility and strength that feel good</li>
+          <li>A full length warm-up and strength training session</li>
+          <li>Mobility work as needed</li>
+          <li>Soft tissue work as needed</li>
           <li>Programming built for your body and goals</li>
-          <li>Where most clients feel the biggest shift</li>
         </ul>
       </div>
       <div class="rk-session-card">
@@ -649,10 +656,12 @@
           <p class="rk-per">per session</p>
         </div>
         <ul>
-          <li>Everything in the 55-min session, plus room to breathe</li>
-          <li>Soft tissue and bodywork woven in</li>
-          <li>More time for mobility and recovery</li>
-          <li>Ideal when you want an unhurried, full session</li>
+          <li>A full length warm-up and strength training session</li>
+          <li>Extended soft tissue work</li>
+          <li>Extended mobility work</li>
+          <li>Programming built for your body and goals</li>
+          <li>An unrushed session that is adaptable to your goals and needs</li>
+          <li>Where clients feel the biggest shift</li>
         </ul>
       </div>
     </div>
@@ -690,26 +699,26 @@
   <section class="rk-section" aria-labelledby="remote-heading">
     <div class="rk-section-head">
       <h2 id="remote-heading">Train on your schedule</h2>
-      <p>Expert guidance you can take anywhere. Every program includes exercise videos, cardio ideas, and email support so you never feel alone in it.</p>
+      <p>Expert guidance you can take anywhere. Every program includes exercise videos and email support so you never feel alone in it.</p>
     </div>
     <div class="rk-remote-wrap">
       <div class="rk-remote-grid">
         <div class="rk-remote-item">
           <div class="rk-remote-item-header">
-            <h4>Movement &amp; Exercise Email</h4>
+            <h4>Postural Exercise Routine Email</h4>
             <span class="rk-prog-price">$30</span>
           </div>
           <div class="rk-remote-item-detail">
-            <p>Personalized exercises to support how you move and feel</p>
+            <p>A corrective postural routine to help align the body and optimize movement</p>
           </div>
         </div>
         <div class="rk-remote-item">
           <div class="rk-remote-item-header">
-            <h4>Movement &amp; Exercise Sheet</h4>
+            <h4>Postural Exercise Routine Spreadsheet</h4>
             <span class="rk-prog-price">$50</span>
           </div>
           <div class="rk-remote-item-detail">
-            <p>A program built for you with videos to guide you every step</p>
+            <p>A corrective postural routine to help align the body and optimize movement</p>
           </div>
         </div>
         <div class="rk-remote-item">
@@ -745,7 +754,7 @@
             <span class="rk-prog-price">$200</span>
           </div>
           <div class="rk-remote-item-detail">
-            <p>Full training week built around you</p>
+            <p>A full week of training, built to optimize strength and stamina</p>
           </div>
         </div>
       </div>
@@ -760,10 +769,10 @@
       <div class="rk-assessment-body">
         <p class="rk-label">Where we begin together</p>
         <h2 id="assessment-heading">Initial Assessment</h2>
-        <p class="rk-desc">The next step after your free consultation. We spend time understanding how you move—in a supportive, judgment-free space—so we can design a program that honors your body, your goals, and what feels good to you.</p>
+        <p class="rk-desc">The next step after your free consultation. We spend time understanding how you move, in a supportive, judgment-free space, so we can design a program that honors your body, your goals, and what feels good to you.</p>
         <div class="rk-price">$90</div>
         <div class="rk-note">
-          <strong>Ready to take the first step?</strong> Start with a free 60-minute consultation. We'll talk about your goals, answer your questions, and see if we're a good fit—no pressure. From there, we'll schedule your assessment when you're ready.
+          <strong>Ready to take the first step?</strong> Start with a free 60-minute consultation. We'll talk about your goals, answer your questions, and see if we're a good fit. From there, we'll schedule your assessment when you're ready.
         </div>
         <a href="/contact" class="rk-assessment-cta">Book free consultation</a>
         <div class="rk-resource-note">
